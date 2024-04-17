@@ -1,0 +1,36 @@
+﻿@model Papeleria.LogicaAplicacion.DTOs.UsuarioDTO
+
+@if (@ViewBag.error != null)
+{
+    <script>alertify.error('@ViewBag.error')</script>
+}
+
+<form method="post" asp-action="Create">
+    REGISTRO
+    <div class="mb-3">
+        <label for="InputEmail" class="form-label">Ingrese email</label>
+        <input required type="email" name="Email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Email...">
+    </div>
+    <div class="mb-3">
+        <label for="InputPass" class="form-label">Ingrese su contraseña</label>
+        <input required type="password" name="Pass" class="form-control" id="InputPass" placeholder="Contraseña...">
+    </div>
+    @*<div class="mb-3">
+            <label for="InputPassDos" class="form-label">Repita su contraseña</label>
+            <input required type="password" name="ContraseniaDos" class="form-control" id="InputPassDos" placeholder="Contraseña..." value="@Model.ContraseniaDos">
+        </div>*@
+
+    <div class="mb-3">
+        <label for="InputNombre" class="form-label">Nombre</label>
+        <input required type="text" name="Nombre" class="form-control" id="InputNombre" placeholder="Ingrese su nombre...">
+    </div>
+    <div class="mb-3">
+        <label for="InputApellido" class="form-label">Apellido</label>
+        <input required type="text" name="Apellido" class="form-control" id="InputApellido" placeholder="Ingrese su apellido...">
+    </div>
+
+    <button type="submit" value="Create" class="btn btn-primary">Submit</button>
+</form>
+
+<a class="link-secondary" href="Login">Ya tenés usuario? Iniciá sesión</a>
+
