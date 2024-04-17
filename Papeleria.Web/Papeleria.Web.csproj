@@ -9,15 +9,11 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <ProjectReference Include="..\Papeleria.LogicaNegocio\Papeleria.LogicaNegocio.csproj">
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+    <ProjectReference Include="..\AppLogic\AppLogic.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\Papeleria.LogicaAplicacion\Papeleria.LogicaAplicacion.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\Papeleria.AccesoDatos\Papeleria.AccesoDatos.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\Pedido\" />
@@ -26,12 +22,5 @@
   <ItemGroup>
     <Folder Include="Views\Pedido\" />
     <Folder Include="Views\Articulo\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
   </ItemGroup>
 </Project>
