@@ -18,6 +18,8 @@ namespace Papeleria.AccesoDatos.EntityFramework.Repositorios
         {
             try
             {
+
+                // aAgregar.AddHashedPassword(PasswordHasher.HashPassword(aAgregar.Pass));
                 aAgregar.EsValido();
                 _context.Usuarios.Add(aAgregar);
                 _context.SaveChanges();
@@ -43,6 +45,11 @@ namespace Papeleria.AccesoDatos.EntityFramework.Repositorios
             throw new NotImplementedException();
         }
 
+        public Usuario FindByEmail(string email)
+        {
+            return _context.Usuarios.Where(usuario => usuario.Email == email).FirstOrDefault();
+        }
+
         public bool Remove(int id)
         {
             throw new NotImplementedException();
@@ -52,6 +59,8 @@ namespace Papeleria.AccesoDatos.EntityFramework.Repositorios
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
 

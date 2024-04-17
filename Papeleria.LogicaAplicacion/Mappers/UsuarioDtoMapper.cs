@@ -1,8 +1,8 @@
 ﻿using System;
+using Papeleria.LogicaAplicacion.HashPass;
 using Papeleria.LogicaAplicacion.DTOs;
 using Papeleria.LogicaNegocio.Entidades;
 using Papeleria.LogicaNegocio.Excepciones;
-using Papeleria.AccesoDatos.HashPass;
 
 namespace Papeleria.LogicaAplicacion.Mappers
 {

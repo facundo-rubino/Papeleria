@@ -19,12 +19,10 @@
   <ItemGroup>
     <None Remove="EntityFramework\" />
     <None Remove="EntityFramework\Repositorios\" />
-    <None Remove="HashPass\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntityFramework\" />
     <Folder Include="EntityFramework\Repositorios\" />
-    <Folder Include="HashPass\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Papeleria.LogicaNegocio\Papeleria.LogicaNegocio.csproj">

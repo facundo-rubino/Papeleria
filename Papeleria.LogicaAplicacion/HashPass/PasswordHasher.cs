@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace Papeleria.AccesoDatos.HashPass
+namespace Papeleria.LogicaAplicacion.HashPass
 {
     // Clase estática para realizar operaciones de hash en contraseñas
     public static class PasswordHasher
