@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Papeleria.LogicaAplicacion.DTOs;
-using Papeleria.LogicaAplicacion.InterfacesCU;
-using Papeleria.LogicaNegocio.Entidades;
+using AppLogic.DTOs;
+using AppLogic.InterfacesCU;
+using BussinessLogic.Entidades;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

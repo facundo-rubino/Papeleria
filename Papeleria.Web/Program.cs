@@ -1,7 +1,7 @@
-﻿using Papeleria.AccesoDatos.EntityFramework.Repositorios;
-using Papeleria.LogicaAplicacion.CasosDeUso;
-using Papeleria.LogicaAplicacion.InterfacesCU;
-using Papeleria.LogicaNegocio.InterfacesRepositorio;
+﻿using DataAccess.EntityFramework.Repositorios;
+using AppLogic.CasosDeUso;
+using AppLogic.InterfacesCU;
+using BussinessLogic.InterfacesRepositorio;
 
 namespace Papeleria.Web;
 
