@@ -1,7 +1,8 @@
 ﻿using DataAccess.EntityFramework.Repositorios;
 using AppLogic.CasosDeUso;
-using AppLogic.InterfacesCU;
 using BussinessLogic.InterfacesRepositorio;
+using AppLogic.InterfacesCU.Usuarios;
+using AppLogic.CasosDeUso.Usuarios;
 
 namespace Papeleria.Web;
 
@@ -16,9 +17,20 @@ public class Program
         //Repositorios
         builder.Services.AddScoped<IRepositorioArticulos, RepositorioArticulosEF>();
         builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
-
         //Casos de uso
         builder.Services.AddScoped<IAgregarUsuario, AgregarUsuarioCU>();
+        builder.Services.AddScoped<IFindByEmail, FindByEmailCU>();
+        builder.Services.AddScoped<ILogin, LoginCU>();
+
+        /******************************* Add session service ********************************/
+
+        builder.Services.AddDistributedMemoryCache();
+        builder.Services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromSeconds(300);
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
 
         var app = builder.Build();
 
@@ -34,6 +46,9 @@ public class Program
         app.UseStaticFiles();
 
         app.UseRouting();
+
+        // Add the use session to the app
+        app.UseSession();
 
         app.UseAuthorization();
 

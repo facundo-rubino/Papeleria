@@ -1,7 +1,7 @@
 ﻿using System;
 using AppLogic.DTOs;
 
-namespace AppLogic.InterfacesCU
+namespace AppLogic.InterfacesCU.Usuarios
 {
     public interface IAgregarUsuario
     {
