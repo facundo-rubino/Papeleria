@@ -18,5 +18,40 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    padding-left: 250px; /* Only apply padding when sidebar is present */
 }
+
+.sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: auto;
+ 
+}
+
+.navbar {
+    display: block;
+}
+
+.navbar-nav {
+    display: block;
+    padding: 0;
+}
+
+.nav-item {
+    display: block;
+}
+
+.nav-link {
+    padding: 10px;
+    text-align: left;
+}
+
+    /* Optional: Styles for active link */
+    .nav-link.active {
+        background-color: #f0f0f0;
+    }
+

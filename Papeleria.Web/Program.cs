@@ -4,12 +4,6 @@ using BussinessLogic.InterfacesRepositorio;
 using AppLogic.InterfacesCU.Usuarios;
 using AppLogic.CasosDeUso.Usuarios;
 
-namespace Papeleria.Web;
-
-public class Program
-{
-    public static void Main(string[] args)
-    {
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
@@ -45,10 +39,12 @@ public class Program
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
-        app.UseRouting();
-
         // Add the use session to the app
         app.UseSession();
+
+        app.UseRouting();
+
+
 
         app.UseAuthorization();
 
@@ -57,6 +53,5 @@ public class Program
             pattern: "{controller=Home}/{action=Index}/{id?}");
 
         app.Run();
-    }
-}
+
 
