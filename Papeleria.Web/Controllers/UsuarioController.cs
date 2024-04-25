@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AppLogic.DTOs;
-using AppLogic.InterfacesCU;
+using AppLogic.InterfacesCU.Usuarios;
 using BussinessLogic.Entidades;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,15 +13,16 @@ namespace Papeleria.Web.Controllers
 {
     public class UsuarioController : Controller
     {
+        private ILogin _loginUC;
         private IAgregarUsuario _agregarUsuarioCU;
 
-        public UsuarioController(IAgregarUsuario agregarUsuarioCU)
+        public UsuarioController(IAgregarUsuario agregarUsuarioCU, ILogin loginUC)
         {
             this._agregarUsuarioCU = agregarUsuarioCU;
+            this._loginUC = loginUC;
         }
 
         // GET: UsuarioController/Login
-        [HttpGet]
         public IActionResult Login(string mensaje)
         {
             ViewBag.Mensaje = mensaje;
@@ -31,21 +32,12 @@ namespace Papeleria.Web.Controllers
         [HttpPost]
         public IActionResult Login(string email, string pass)
         {
-            try
+            if (_loginUC.LoginIsValid(email, pass))
             {
-                //Usuario usuarioLogueado = _sistema.LoginUsuario(email, pass);
                 HttpContext.Session.SetString("email", email);
-
-                return View();
-
-
+                return RedirectToAction("Login", new { mensaje = "Login successful" });
             }
-            catch (Exception e)
-            {
-                ViewBag.error = e.Message;
-            }
-            return View();
-
+            return RedirectToAction("Login", new { mensaje = "Username or password incorrect" });
         }
 
 

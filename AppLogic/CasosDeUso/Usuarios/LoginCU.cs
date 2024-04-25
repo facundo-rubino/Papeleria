@@ -1,5 +1,6 @@
 ﻿using System;
 using AppLogic.DTOs;
+using AppLogic.HashPass;
 using AppLogic.InterfacesCU.Usuarios;
 using AppLogic.Mappers;
 using BussinessLogic.Entidades;
@@ -8,9 +9,9 @@ namespace AppLogic.CasosDeUso.Usuarios
 {
     public class LoginCU : ILogin
     {
-        private FindByEmailCU _userByEmail;
+        private IFindByEmail _userByEmail;
 
-        public LoginCU(FindByEmailCU user)
+        public LoginCU(IFindByEmail user)
         {
             this._userByEmail = user;
         }
@@ -18,9 +19,9 @@ namespace AppLogic.CasosDeUso.Usuarios
         public bool LoginIsValid(string email, string pass)
         {
             UsuarioDTO userDTO = this._userByEmail.GetUserByEmail(email);
-            return userDTO != null && pass == userDTO.Pass;
+            var verifyPass = PasswordHasher.VerifyPassword(userDTO.HashedPass, pass);
+            return userDTO != null && verifyPass;
         }
-
 
     }
 }
