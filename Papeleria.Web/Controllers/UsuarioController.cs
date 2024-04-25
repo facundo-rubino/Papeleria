@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Usuarios;
-using BussinessLogic.Entidades;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,7 +34,9 @@ namespace Papeleria.Web.Controllers
             if (_loginUC.LoginIsValid(email, pass))
             {
                 HttpContext.Session.SetString("email", email);
-                return RedirectToAction("Login", new { mensaje = "Login successful" });
+                var storedEmail = HttpContext.Session.GetString("email");
+                ViewBag.email = email;
+                return View("MostrarUsuario");
             }
             return RedirectToAction("Login", new { mensaje = "Username or password incorrect" });
         }
@@ -54,11 +55,8 @@ namespace Papeleria.Web.Controllers
         {
             try
             {
-                //Usuario usuarioLogueado = _sistema.LoginUsuario(email, pass);
-                //HttpContext.Session.SetString("email", email);
-
                 this._agregarUsuarioCU.AgregarUsuario(usuario);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Login", new { mensaje = "Usuario creado" });
             }
             catch (Exception ex)
             {
@@ -66,6 +64,10 @@ namespace Papeleria.Web.Controllers
                 // ViewBag.error = e.Message;
                 return View();
             }
+        }
+        public IActionResult Privacy()
+        {
+            return View();
         }
     }
 }
