@@ -6,7 +6,7 @@ using BussinessLogic.Excepciones;
 
 namespace AppLogic.Mappers
 {
-    public class UsuarioDtoMapper
+    public class UsuarioDTOMapper
     {
         public static UsuarioDTO ToDto(Usuario usuario)
         {

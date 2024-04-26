@@ -5,6 +5,7 @@ namespace BussinessLogic.InterfacesRepositorio
 {
     public interface IRepositorioArticulos : IRepositorio<Articulo>
     {
+        public bool ExisteArticulo(Articulo articulo);
     }
 }
 

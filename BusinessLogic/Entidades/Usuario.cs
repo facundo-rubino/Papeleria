@@ -3,11 +3,12 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using BussinessLogic.Excepciones;
 using BussinessLogic.ValueObjects;
+using BussinessLogic.InterfacesEntidades;
 
 namespace BussinessLogic.Entidades
 {
     [Index(nameof(Email), IsUnique = true)]
-    public class Usuario
+    public class Usuario :IValidable<Usuario>, IEquatable<Usuario>
     {
         public int Id { get; private set; }
         public NombreCompleto NombreCompleto { get; private set; }

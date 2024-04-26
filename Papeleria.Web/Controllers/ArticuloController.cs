@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
+using AppLogic.DTOs;
+using AppLogic.InterfacesCU.Articulos;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,10 +14,12 @@ namespace Papeleria.Web.Controllers
 {
     public class ArticuloController : Controller
     {
+        private IAgregarArticulo _agregarArticuloCU;
         public IRepositorioArticulos _repositorioArticulos;
-        public ArticuloController(IRepositorioArticulos repositorioArticulos)
+        public ArticuloController(IRepositorioArticulos repositorioArticulos, IAgregarArticulo agregarArticuloCU)
         {
             this._repositorioArticulos = repositorioArticulos;
+            this._agregarArticuloCU = agregarArticuloCU;
         }
         // GET: ArticuloController
         public ActionResult Index()
@@ -46,11 +50,11 @@ namespace Papeleria.Web.Controllers
         // POST: ArticuloController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Articulo Articulo)
+        public ActionResult Create(ArticuloDTO Articulo)
         {
             try
             {
-                _repositorioArticulos.Add(Articulo);
+                this._agregarArticuloCU.AgregarArticulo(Articulo);
                 return RedirectToAction(nameof(Index));
             }
             catch

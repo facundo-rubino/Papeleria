@@ -18,7 +18,7 @@ namespace AppLogic.CasosDeUso.Usuarios
 
         public void AgregarUsuario(UsuarioDTO aAgregar)
         {
-            Usuario usuario = UsuarioDtoMapper.FromDto(aAgregar);
+            Usuario usuario = UsuarioDTOMapper.FromDto(aAgregar);
             this._repositorioUsuarios.Add(usuario);
 
         }

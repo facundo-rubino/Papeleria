@@ -1,10 +1,11 @@
 ﻿using DataAccess.EntityFramework.Repositorios;
-using AppLogic.CasosDeUso;
 using BussinessLogic.InterfacesRepositorio;
 using AppLogic.InterfacesCU.Usuarios;
+using AppLogic.InterfacesCU.Articulos;
 using AppLogic.CasosDeUso.Usuarios;
+using AppLogic.CasosDeUso.Articulos;
 
-        var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
@@ -15,10 +16,11 @@ using AppLogic.CasosDeUso.Usuarios;
         builder.Services.AddScoped<IAgregarUsuario, AgregarUsuarioCU>();
         builder.Services.AddScoped<IFindByEmail, FindByEmailCU>();
         builder.Services.AddScoped<ILogin, LoginCU>();
+        builder.Services.AddScoped<IAgregarArticulo, AgregarArticuloCU>();
 
-        /******************************* Add session service ********************************/
+/******************************* Add session service ********************************/
 
-        builder.Services.AddDistributedMemoryCache();
+builder.Services.AddDistributedMemoryCache();
         builder.Services.AddSession(options =>
         {
             options.IdleTimeout = TimeSpan.FromSeconds(300);

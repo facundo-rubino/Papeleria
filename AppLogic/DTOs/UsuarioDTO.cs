@@ -23,7 +23,6 @@ namespace AppLogic.DTOs
                 this.Pass = usuario.Pass;
                 this.HashedPass = usuario.HashedPass;
             }
-
         }
 
 

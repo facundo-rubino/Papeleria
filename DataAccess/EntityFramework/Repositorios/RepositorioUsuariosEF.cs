@@ -18,8 +18,6 @@ namespace DataAccess.EntityFramework.Repositorios
         {
             try
             {
-
-                // aAgregar.AddHashedPassword(PasswordHasher.HashPassword(aAgregar.Pass));
                 aAgregar.EsValido();
                 _context.Usuarios.Add(aAgregar);
                 _context.SaveChanges();
