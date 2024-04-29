@@ -6,10 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BussinessLogic.Entidades
 {
+    [Index(nameof(Nombre), IsUnique = true)]
     [Index(nameof(Codigo), IsUnique = true)]
     public class Articulo : IEquatable<Articulo>, IValidable<Articulo>
     {
         public int Id { get; private set; }
+        [StringLength(200, MinimumLength = 10, ErrorMessage = "El nombre debe tener entre 10-200 caracteres")]
         public string Nombre { get; private set; }
         public string Descripcion { get; private set; }
         

@@ -3,6 +3,17 @@
 @{
     ViewData["Title"] = "Create";
 }
+
+@if (@ViewBag.error != null)
+{
+    <script>alertify.error('@ViewBag.error')</script>
+}
+
+@if (@ViewBag.Mensaje != null)
+{
+    <script>alertify.success('@ViewBag.Mensaje')</script>
+}
+
 <h1>Create</h1>
 
 <h4>Artículo</h4>

@@ -34,12 +34,6 @@ namespace DataAccess.EntityFramework.Repositorios
             }
         }
 
-        public bool ExisteArticulo(Articulo aBuscar)
-        {
-           var existeArticulo = this._context.Articulos.Where(a => a.Nombre == aBuscar.Nombre || a.Codigo == aBuscar.Codigo).FirstOrDefault();
-           if (existeArticulo != null) return true;
-           else return false;
-        }
 
         public IEnumerable<Articulo> FindAll()
         {

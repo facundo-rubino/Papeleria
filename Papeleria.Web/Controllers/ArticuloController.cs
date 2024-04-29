@@ -57,8 +57,9 @@ namespace Papeleria.Web.Controllers
                 this._agregarArticuloCU.AgregarArticulo(Articulo);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
+                ViewBag.error = e.Message;
                 return View();
             }
         }
