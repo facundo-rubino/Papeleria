@@ -19,17 +19,16 @@ html {
 
 body {
     margin-bottom: 60px;
-    padding-left: 250px; /* Only apply padding when sidebar is present */
 }
 
 .sidebar {
     width: 250px;
+    padding-right: 250px;
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     overflow: auto;
- 
 }
 
 .navbar {
