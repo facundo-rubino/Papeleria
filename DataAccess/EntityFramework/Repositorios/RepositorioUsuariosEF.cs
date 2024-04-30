@@ -35,7 +35,15 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public IEnumerable<Usuario> FindAll()
         {
-            throw new NotImplementedException();
+            return _context.Usuarios;
+        }
+
+
+        public IEnumerable<Usuario> GetArticuloByName(string aBuscar)
+        {
+            return _context.Usuarios;
+                //.Where(u => u.NombreCompleto.Contains(aBuscar));
+                //.Include(team => team.Players);
         }
 
         public Usuario FindByID(int id)

@@ -13,6 +13,14 @@ namespace BussinessLogic.Entidades
         public Linea()
         {
         }
+
+        public Linea(int id, Articulo articulo, int precio, int cantidad)
+        {
+            this.Id = id;
+            this.Articulo = articulo;
+            this.Precio = precio;
+            this.Cantidad = cantidad;
+        }
     }
 }
 

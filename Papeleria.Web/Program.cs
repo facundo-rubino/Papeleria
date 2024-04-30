@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
         //Repositorios
         builder.Services.AddScoped<IRepositorioArticulos, RepositorioArticulosEF>();
         builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
+        builder.Services.AddScoped<IRepositorioPedidos, RepositorioPedidosEF>();
         //Casos de uso
         builder.Services.AddScoped<IAgregarUsuario, AgregarUsuarioCU>();
         builder.Services.AddScoped<IFindByEmail, FindByEmailCU>();
