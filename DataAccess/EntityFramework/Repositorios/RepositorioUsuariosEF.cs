@@ -48,7 +48,7 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public Usuario FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.Usuarios.Where(user => user.Id == id).FirstOrDefault();
         }
 
         public Usuario FindByEmail(string email)

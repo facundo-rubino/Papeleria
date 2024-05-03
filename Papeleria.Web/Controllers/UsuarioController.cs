@@ -45,9 +45,9 @@ namespace Papeleria.Web.Controllers
                 HttpContext.Session.SetString("email", email);
                 var storedEmail = HttpContext.Session.GetString("email");
                 ViewBag.email = email;
-                return View("MostrarUsuario");
+                return View("Index", this._repositorioUsuarios.FindAll());
             }
-            return RedirectToAction("Login", new { mensaje = "Username or password incorrect" });
+            return RedirectToAction("Login", new { mensaje = "email o contraseña incorrectos" });
         }
 
 

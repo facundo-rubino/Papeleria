@@ -12,7 +12,7 @@ namespace DataAccess.EntityFramework.Repositorios
         private PapeleriaContext _context;
         public RepositorioArticulosEF()
         {
-            _context = new PapeleriaContext();
+            this._context = new PapeleriaContext();
         }
 
         public bool Add(Articulo aAgregar)
@@ -42,12 +42,17 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public Articulo FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.Articulos.Where(user => user.Id == id).FirstOrDefault();
         }
 
         public bool Remove(int id)
         {
-            throw new NotImplementedException();
+            Articulo aBorrar = this.FindByID(id);
+            if (aBorrar != null)
+            {
+                this._context.Articulos.Remove(aBorrar);
+                return true;
+            } else return false;
         }
 
         public bool Update(Articulo aModificar)

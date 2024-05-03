@@ -6,10 +6,10 @@ namespace DataAccess.EntityFramework.Repositorios
 {
     public class RepositorioPedidosEF : IRepositorioPedidos
     {
-        private PapeleriaContext context;
+        private PapeleriaContext _context;
         public RepositorioPedidosEF()
         {
-            context = new PapeleriaContext();
+            this._context = new PapeleriaContext();
         }
 
         public bool Add(Pedido aAgregar)
@@ -24,7 +24,7 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public Pedido FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.Pedidos.Where(user => user.Id == id).FirstOrDefault();
         }
 
         public bool Remove(int id)
