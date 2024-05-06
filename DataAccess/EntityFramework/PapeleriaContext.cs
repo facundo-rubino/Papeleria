@@ -11,7 +11,6 @@ namespace DataAccess.EntityFramework
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Articulo> Articulos { get; set; }
-        public DbSet<Linea> Linea { get; set; }
         public DbSet<Settings> Settings { get; set; }
 
 
