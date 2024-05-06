@@ -7,11 +7,13 @@ namespace DataAccess.EntityFramework
     {
 
         // public DbSet<Cliente> Clientes { get; set; }
-  
+
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Articulo> Articulos { get; set; }
         public DbSet<Linea> Linea { get; set; }
+        public DbSet<Settings> Settings { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,9 +33,9 @@ namespace DataAccess.EntityFramework
                DATABASE=Papeleria_db;
                Integrated Security=true;"
             );
-        
 
-    }
+
+        }
 
 
 

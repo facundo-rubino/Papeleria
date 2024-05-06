@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Drawing;
+using Microsoft.EntityFrameworkCore;
 
 namespace BussinessLogic.Entidades
 {
+    [Index(nameof(Nombre), IsUnique = true)]
     public class Settings
     {
-        public double ValorIVA { get; private set; }
-        public int PlazoComun { get; private set; }
-        public int PlazoExpress { get; private set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public double Valor { get; set; }
+        public int PlazoComun { get; set; }
+        public int PlazoExpress { get; set; }
 
         public Settings()
         {
@@ -15,22 +19,12 @@ namespace BussinessLogic.Entidades
 
         public void EsValido()
         {
-
+            this._validarIVA();
         }
 
-        public void SetIVA(double valor)
+        private bool _validarIVA()
         {
-            this.ValorIVA = valor;
-        }
-
-        public void SetPLazoComun(int valor)
-        {
-            this.PlazoComun = valor;
-        }
-
-        public void SetPLazoExpress(int valor)
-        {
-            this.PlazoExpress = valor;
+            return this.ValorIVA > 0;
         }
     }
 }
