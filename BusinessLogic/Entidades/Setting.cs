@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BussinessLogic.Entidades
 {
     [Index(nameof(Nombre), IsUnique = true)]
-    public class Settings
+    public class Setting
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -13,19 +13,19 @@ namespace BussinessLogic.Entidades
         public int PlazoComun { get; set; }
         public int PlazoExpress { get; set; }
 
-        public Settings()
+        public Setting()
         {
         }
 
         public void EsValido()
         {
-            this._validarIVA();
+           // this._validarIVA();
         }
 
-        private bool _validarIVA()
-        {
-            return this.ValorIVA > 0;
-        }
+        //private bool _validarIVA()
+        //{
+        //    return this.ValorIVA > 0;
+        //}
     }
 }
 

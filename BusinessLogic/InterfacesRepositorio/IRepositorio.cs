@@ -7,9 +7,9 @@ namespace BussinessLogic.InterfacesRepositorio
     {
         IEnumerable<T> FindAll();
         T FindByID(int id);
-        bool Add(T aAgregar);
-        bool Remove(int id);
-        bool Update(T aModificar);
+        void Add(T aAgregar);
+        void Remove(int id);
+        void Update(T aModificar);
     }
 }
 

@@ -14,14 +14,13 @@ namespace DataAccess.EntityFramework.Repositorios
             this._context = new PapeleriaContext();
         }
 
-        public bool Add(Usuario aAgregar)
+        public void Add(Usuario aAgregar)
         {
             try
             {
                 aAgregar.EsValido();
                 _context.Usuarios.Add(aAgregar);
                 _context.SaveChanges();
-                return true;
             }
             catch (UsuarioNoValidoException exception)
             {
@@ -38,14 +37,6 @@ namespace DataAccess.EntityFramework.Repositorios
             return _context.Usuarios;
         }
 
-
-        public IEnumerable<Usuario> GetArticuloByName(string aBuscar)
-        {
-            return _context.Usuarios;
-                //.Where(u => u.NombreCompleto.Contains(aBuscar));
-                //.Include(team => team.Players);
-        }
-
         public Usuario FindByID(int id)
         {
             return this._context.Usuarios.Where(user => user.Id == id).FirstOrDefault();
@@ -56,14 +47,36 @@ namespace DataAccess.EntityFramework.Repositorios
             return _context.Usuarios.Where(usuario => usuario.Email == email).FirstOrDefault();
         }
 
-        public bool Remove(int id)
+        public void Remove(int id)
         {
-            throw new NotImplementedException();
+            Usuario aBorrar = this.FindByID(id);
+            if (aBorrar != null)
+            {
+                this._context.Usuarios.Remove(aBorrar);
+                this._context.SaveChanges();
+            }
         }
 
-        public bool Update(Usuario aModificar)
+        public void Update(Usuario aActualizar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (aActualizar == null || aActualizar.Id == 0)
+                {
+                    throw new UsuarioNoValidoException("Falta Id.");
+                }
+                aActualizar.EsValido();
+                this._context.Usuarios.Update(aActualizar);
+            
+            }
+            catch (UsuarioNoValidoException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 
