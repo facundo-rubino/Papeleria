@@ -15,8 +15,6 @@ namespace BussinessLogic.Entidades
         public string Rut { get; private set; }
         public Direccion Direccion { get; private set; }
 
-
-
         public Cliente()
         {
         }

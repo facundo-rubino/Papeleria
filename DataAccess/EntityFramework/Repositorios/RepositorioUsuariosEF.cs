@@ -2,6 +2,7 @@
 using BussinessLogic.Entidades;
 using BussinessLogic.Excepciones;
 using BussinessLogic.InterfacesRepositorio;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.EntityFramework.Repositorios
 {
@@ -67,7 +68,7 @@ namespace DataAccess.EntityFramework.Repositorios
                 }
                 aActualizar.EsValido();
                 this._context.Usuarios.Update(aActualizar);
-            
+
             }
             catch (UsuarioNoValidoException ex)
             {

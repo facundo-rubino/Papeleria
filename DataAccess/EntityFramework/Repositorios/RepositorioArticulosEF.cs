@@ -15,14 +15,13 @@ namespace DataAccess.EntityFramework.Repositorios
             this._context = new PapeleriaContext();
         }
 
-        public bool Add(Articulo aAgregar)
+        public void Add(Articulo aAgregar)
         {
             try
             {
                 aAgregar.EsValido();
                 _context.Articulos.Add(aAgregar);
                 _context.SaveChanges();
-                return true;
             }
             catch (ArticuloNoValidoException exception)
             {
@@ -45,17 +44,17 @@ namespace DataAccess.EntityFramework.Repositorios
             return this._context.Articulos.Where(user => user.Id == id).FirstOrDefault();
         }
 
-        public bool Remove(int id)
+        public void Remove(int id)
         {
             Articulo aBorrar = this.FindByID(id);
             if (aBorrar != null)
             {
                 this._context.Articulos.Remove(aBorrar);
-                return true;
-            } else return false;
+
+            }
         }
 
-        public bool Update(Articulo aModificar)
+        public void Update(Articulo aModificar)
         {
             throw new NotImplementedException();
         }

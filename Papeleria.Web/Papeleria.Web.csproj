@@ -18,9 +18,11 @@
   <ItemGroup>
     <None Remove="Views\Pedido\" />
     <None Remove="Views\Articulo\" />
+    <None Remove="Views\Cliente\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Articulo\" />
+    <Folder Include="Views\Cliente\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">

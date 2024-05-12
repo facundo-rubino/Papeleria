@@ -31,10 +31,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Articulo" asp-action="Index">Articulos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pedidos" asp-action="Index">Articulos</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Pedido" asp-action="Index">Pedidos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="LogOut">Cerrar sesión<i class="bi bi-box-arrow-left"></i></a>
                         </li>
                     </ul>
                 </nav>
@@ -42,10 +45,20 @@
         </div>
     }
 
-     <div class="container">
-        <main role="main" class="pb-3 with-sidebar">
-            @RenderBody()
-        </main>
+    <div class="container pb-3 ">
+        @if (!string.IsNullOrEmpty(Context.Session.GetString("email")))
+        {
+            <main role="main" class="layout">
+                @RenderBody()
+            </main>
+        }
+        else
+        {
+            <main role="main">
+                @RenderBody()
+            </main>
+        }
+
     </div>
 
     <footer class="border-top footer text-muted">

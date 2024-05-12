@@ -21,7 +21,7 @@ namespace DataAccess.EntityFramework.Repositorios
         {
             return _context.Settings.Where(setting => setting.Nombre == name).FirstOrDefault().Valor;
         }
-        public bool Add(Setting aAgregar)
+        public void Add(Setting aAgregar)
         {
             throw new NotImplementedException();
         }
@@ -37,12 +37,12 @@ namespace DataAccess.EntityFramework.Repositorios
         }
 
 
-        public bool Remove(int id)
+        public void Remove(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(Setting aModificar)
+        public void Update(Setting aModificar)
         {
             throw new NotImplementedException();
         }

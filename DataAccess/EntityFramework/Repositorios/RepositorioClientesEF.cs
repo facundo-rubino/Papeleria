@@ -1,30 +1,31 @@
 ﻿using System;
+using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Entidades;
-using BussinessLogic.InterfacesRepositorio;
 
 namespace DataAccess.EntityFramework.Repositorios
 {
-    public class RepositorioPedidosEF : IRepositorioPedidos
+    public class RepositorioClientesEF : IRepositorioClientes
     {
         private PapeleriaContext _context;
-        public RepositorioPedidosEF()
+
+        public RepositorioClientesEF()
         {
             this._context = new PapeleriaContext();
         }
 
-        public void Add(Pedido aAgregar)
+        public void Add(Cliente aAgregar)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Pedido> FindAll()
+        public IEnumerable<Cliente> FindAll()
         {
-            return _context.Pedidos;
+            return _context.Clientes;
         }
 
-        public Pedido FindByID(int id)
+        public Cliente FindByID(int id)
         {
-            return this._context.Pedidos.Where(user => user.Id == id).FirstOrDefault();
+            throw new NotImplementedException();
         }
 
         public void Remove(int id)
@@ -32,7 +33,7 @@ namespace DataAccess.EntityFramework.Repositorios
             throw new NotImplementedException();
         }
 
-        public void Update(Pedido aModificar)
+        public void Update(Cliente aModificar)
         {
             throw new NotImplementedException();
         }

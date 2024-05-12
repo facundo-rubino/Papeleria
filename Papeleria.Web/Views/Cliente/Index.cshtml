@@ -1,0 +1,52 @@
+﻿@using BussinessLogic.Entidades
+@model IEnumerable<Cliente>
+
+    <h4>Cliente</h4>
+    <hr />
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contacto.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contacto.Apellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RazonSocial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rut)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Direccion)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contacto.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contacto.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RazonSocial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rut)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

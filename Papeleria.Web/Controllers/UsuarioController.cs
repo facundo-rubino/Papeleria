@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Usuarios;
 using BussinessLogic.InterfacesRepositorio;
+using BussinessLogic.Excepciones;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,16 +17,26 @@ namespace Papeleria.Web.Controllers
         private ILogin _loginUC;
         private IAgregarUsuario _agregarUsuarioCU;
         private IRepositorioUsuarios _repositorioUsuarios;
+        private IUpdateUser _updateUser;
 
-        public UsuarioController(IAgregarUsuario agregarUsuarioCU, ILogin loginUC, IRepositorioUsuarios repositorioUsuarios)
+        public UsuarioController(
+            IAgregarUsuario agregarUsuarioCU,
+            ILogin loginUC,
+            IUpdateUser updateUser,
+            IRepositorioUsuarios repositorioUsuarios)
         {
             this._agregarUsuarioCU = agregarUsuarioCU;
             this._loginUC = loginUC;
+            this._updateUser = updateUser;
             this._repositorioUsuarios = repositorioUsuarios;
         }
 
         public ActionResult Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
+            {
+                return RedirectToAction("Login", new { mensaje = "Por favor logueate" });
+            }
             return View(this._repositorioUsuarios.FindAll());
             //return View("Index");
         }
@@ -43,11 +54,10 @@ namespace Papeleria.Web.Controllers
             if (_loginUC.LoginIsValid(email, pass))
             {
                 HttpContext.Session.SetString("email", email);
-                var storedEmail = HttpContext.Session.GetString("email");
                 ViewBag.email = email;
                 return View("Index", this._repositorioUsuarios.FindAll());
             }
-            return RedirectToAction("Login", new { mensaje = "email o contraseña incorrectos" });
+            return RedirectToAction("Login", new { error = "email o contraseña incorrectos" });
         }
 
 
@@ -67,26 +77,38 @@ namespace Papeleria.Web.Controllers
                 this._agregarUsuarioCU.AgregarUsuario(usuario);
                 return RedirectToAction("Login", new { mensaje = "Usuario creado" });
             }
+            catch (UsuarioNoValidoException ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
             catch (Exception ex)
             {
-
-                // ViewBag.error = e.Message;
+                ViewBag.error = ex.Message;
                 return View();
             }
         }
         // GET: usuarioController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                return View(this._repositorioUsuarios.FindByID(id));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // POST: usuarioController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, UsuarioDTO usuario)
         {
             try
             {
+                this._updateUser.UpdateUser(usuario);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -114,9 +136,15 @@ namespace Papeleria.Web.Controllers
         public ActionResult Delete(int id, IFormCollection collection)
         {
             _repositorioUsuarios.Remove(id);
-            return RedirectToAction(nameof(Index));
+            return View(Index);
         }
 
+
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("login");
+        }
 
         public IActionResult Privacy()
         {

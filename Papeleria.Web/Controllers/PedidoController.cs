@@ -20,8 +20,8 @@ namespace Papeleria.Web.Controllers
         // GET: PedidoController
         public ActionResult Index()
         {
-            // return View(this._repositorioPedidos.FindAll());
-            return View();
+            return View(this._repositorioPedidos.FindAll());
+            //return View();
         }
 
         // GET: PedidoController/Details/5
