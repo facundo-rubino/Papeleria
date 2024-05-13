@@ -50,7 +50,7 @@
     {
         <form asp-action="AgregarLinea">
             <div class="form-group">
-                <select name="id">
+                <select name="idArticulo">
                     @foreach (Articulo articulo in ViewBag.Articulos)
                     {
                         <option value="@articulo.Id">@articulo.Nombre</option>

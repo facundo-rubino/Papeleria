@@ -131,11 +131,11 @@ namespace Papeleria.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AgregarLinea(int id, int cantidad)
+        public ActionResult AgregarLinea(int idArticulo, int cantidad)
         {
             try
             {
-                Articulo articuloPorId = this._articuloPorId.FindById(id);
+                Articulo articuloPorId = this._articuloPorId.FindById(idArticulo);
                 LineaDTO linea = new LineaDTO { Articulo = articuloPorId, Cantidad = cantidad };
                 if (_pedidoTemporal == null)
                 {
