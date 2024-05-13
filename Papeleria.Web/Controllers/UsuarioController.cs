@@ -7,6 +7,8 @@ using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Usuarios;
 using BussinessLogic.InterfacesRepositorio;
 using BussinessLogic.Excepciones;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using BussinessLogic.Entidades;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,20 +17,31 @@ namespace Papeleria.Web.Controllers
     public class UsuarioController : Controller
     {
         private ILogin _loginUC;
+        private IGetAllUsers _getAllUsersCU;
         private IAgregarUsuario _agregarUsuarioCU;
         private IRepositorioUsuarios _repositorioUsuarios;
         private IUpdateUser _updateUser;
+        private IFindByEmail _findByEmailCU;
+        private IBorrarUsuario _borrarUsuarioCU;
+
 
         public UsuarioController(
             IAgregarUsuario agregarUsuarioCU,
             ILogin loginUC,
             IUpdateUser updateUser,
-            IRepositorioUsuarios repositorioUsuarios)
+            IRepositorioUsuarios repositorioUsuarios,
+            IGetAllUsers getAllUsers,
+            IFindByEmail findByEmail,
+            IBorrarUsuario borrarUsuario
+            )
         {
             this._agregarUsuarioCU = agregarUsuarioCU;
             this._loginUC = loginUC;
             this._updateUser = updateUser;
             this._repositorioUsuarios = repositorioUsuarios;
+            this._getAllUsersCU = getAllUsers;
+            this._findByEmailCU = findByEmail;
+            this._borrarUsuarioCU = borrarUsuario;
         }
 
         public ActionResult Index()
@@ -37,7 +50,7 @@ namespace Papeleria.Web.Controllers
             {
                 return RedirectToAction("Login", new { mensaje = "Por favor logueate" });
             }
-            return View(this._repositorioUsuarios.FindAll());
+            return View(this._getAllUsersCU.GetAllUsers());
             //return View("Index");
         }
 
@@ -55,7 +68,7 @@ namespace Papeleria.Web.Controllers
             {
                 HttpContext.Session.SetString("email", email);
                 ViewBag.email = email;
-                return View("Index", this._repositorioUsuarios.FindAll());
+                return View("Index", this._getAllUsersCU.GetAllUsers());
             }
             return RedirectToAction("Login", new { error = "email o contraseña incorrectos" });
         }
@@ -89,11 +102,11 @@ namespace Papeleria.Web.Controllers
             }
         }
         // GET: usuarioController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string email)
         {
             try
             {
-                return View(this._repositorioUsuarios.FindByID(id));
+                return View(this._findByEmailCU.GetUserByEmail(email));
             }
             catch (Exception ex)
             {
@@ -104,7 +117,7 @@ namespace Papeleria.Web.Controllers
         // POST: usuarioController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, UsuarioDTO usuario)
+        public ActionResult Edit(int Id, UsuarioDTO usuario)
         {
             try
             {
@@ -118,11 +131,11 @@ namespace Papeleria.Web.Controllers
         }
 
         // GET: usuarioController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string email)
         {
             try
             {
-                return View(this._repositorioUsuarios.FindByID(id));
+                return View(this._findByEmailCU.GetUserByEmail(email));
             }
             catch (Exception ex)
             {
@@ -133,10 +146,10 @@ namespace Papeleria.Web.Controllers
         // POST: usuarioController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int Id)
         {
-            _repositorioUsuarios.Remove(id);
-            return View(Index);
+            this._borrarUsuarioCU.BorrarUsuario(Id);
+            return RedirectToAction(nameof(Index));
         }
 
 

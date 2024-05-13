@@ -68,6 +68,7 @@ namespace DataAccess.EntityFramework.Repositorios
                 }
                 aActualizar.EsValido();
                 this._context.Usuarios.Update(aActualizar);
+                _context.SaveChanges();
 
             }
             catch (UsuarioNoValidoException ex)

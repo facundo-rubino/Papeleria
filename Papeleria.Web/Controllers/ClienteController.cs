@@ -21,6 +21,10 @@ namespace Papeleria.Web.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
+            {
+                return RedirectToAction("Login", new { mensaje = "Por favor logueate" });
+            }
             return View(this._repositorioClientes.FindAll());
         }
     }

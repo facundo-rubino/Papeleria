@@ -8,25 +8,24 @@ using BussinessLogic.InterfacesEntidades;
 namespace BussinessLogic.Entidades
 {
     [Index(nameof(Email), IsUnique = true)]
-    public class Usuario :IValidable<Usuario>, IEquatable<Usuario>
+    public class Usuario : IValidable<Usuario>, IEquatable<Usuario>
     {
-        public int Id { get; private set; }
-        public NombreCompleto NombreCompleto { get; private set; }
-        public string Email { get; private set; }
-        public string Pass { get; private set; }
-        public string? HashedPass { get; private set; }
+        public int Id { get; set; }
+        public NombreCompleto NombreCompleto { get; set; }
+        public string Email { get; set; }
+        public string Pass { get; set; }
+        public string? HashedPass { get; set; }
 
 
         public Usuario()
         {
         }
 
-        public Usuario(string nombre, string apellido, string email, string pass, string unencryptedPass)
+        public Usuario(string nombre, string apellido, string email, string pass)
         {
             this.NombreCompleto = new NombreCompleto(nombre, apellido);
             this.Email = email;
             this.Pass = pass;
-            this.HashedPass = unencryptedPass;
         }
 
         override public string ToString()

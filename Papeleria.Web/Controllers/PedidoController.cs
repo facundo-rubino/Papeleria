@@ -20,7 +20,7 @@ namespace Papeleria.Web.Controllers
     {
         private IRepositorioPedidos _repositorioPedidos;
         private IRepositorioArticulos _repositorioArticulos;
-        private static PedidoDTO _pedidoTemporal;
+        private static PedidoDTO _pedidoTemporal = new PedidoDTO();
         private IAgregarPedido _agregarPedidoCU;
         private IFindById _articuloPorId;
 
@@ -34,6 +34,10 @@ namespace Papeleria.Web.Controllers
         // GET: PedidoController
         public ActionResult Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
+            {
+                return RedirectToAction("Login", new { mensaje = "Por favor logueate" });
+            }
             return View(this._repositorioPedidos.FindAll());
             //return View();
         }

@@ -2,7 +2,7 @@
 
 namespace BussinessLogic.Entidades
 {
-    public class Pedido
+    public abstract class Pedido
     {
 
         public int Id { get; private set; }

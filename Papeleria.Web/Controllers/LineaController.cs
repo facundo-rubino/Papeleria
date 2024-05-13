@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Papeleria.Web.Controllers
 {
-    public class LineaController1 : Controller
+    public class LineaController : Controller
     {
         // GET: LineaController1
         public ActionResult Index()

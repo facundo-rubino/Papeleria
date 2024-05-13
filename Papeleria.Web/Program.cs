@@ -26,6 +26,9 @@ builder.Services.AddScoped<ILogin, LoginCU>();
 builder.Services.AddScoped<IAgregarArticulo, AgregarArticuloCU>();
 builder.Services.AddScoped<IAgregarPedido, AgregarPedidoCU>();
 builder.Services.AddScoped<IFindById, FindByIdCU>();
+builder.Services.AddScoped<IGetAllUsers, GetAllUsersCU>();
+builder.Services.AddScoped<IBorrarUsuario, BorrarUsuarioCU>();
+
 
 
 /******************************* Add session service ********************************/
