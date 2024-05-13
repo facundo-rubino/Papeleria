@@ -12,15 +12,25 @@ namespace AppLogic.Mappers
 {
     public class LineaDTOMapper
     {
-        public static LineaDTO ToDto(Linea Linea)
+        public static LineaDTO ToDto(Linea linea)
         {
-            return new LineaDTO(Linea);
+            return new LineaDTO
+            {
+                Articulo = linea.Articulo,
+                Cantidad = linea.Cantidad,
+                Precio = linea.Precio
+            };
         }
         public static Linea FromDto(LineaDTO dto)
         {
-            if (dto == null) throw new LineaNoValidaException("El Linea no puede ser nulo");
+            if (dto == null) throw new LineaNoValidaException("El Linea no puede ser nula");
 
-            return new Linea(dto.Id, dto.Articulo, dto.Precio, dto.Cantidad);
+            return new Linea
+            {
+                Articulo = dto.Articulo,
+                Cantidad = dto.Cantidad,
+                Precio = dto.Precio,
+            };
         }
     }
 }

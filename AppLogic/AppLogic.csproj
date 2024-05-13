@@ -10,4 +10,12 @@
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="InterfacesCU\Pedidos\" />
+    <None Remove="CasosDeUso\Pedidos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="InterfacesCU\Pedidos\" />
+    <Folder Include="CasosDeUso\Pedidos\" />
+  </ItemGroup>
 </Project>

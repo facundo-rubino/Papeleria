@@ -10,9 +10,9 @@ namespace AppLogic.DTOs
     public class LineaDTO
     {
         public int Id { get; private set; }
-        public Articulo Articulo { get; private set; }
-        public int Precio { get; private set; }
-        public int Cantidad { get; private set; }
+        public Articulo Articulo { get; set; }
+        public int Cantidad { get; set; }
+        public int Precio { get; set; }
 
         public LineaDTO()
         {
@@ -24,9 +24,9 @@ namespace AppLogic.DTOs
             {
                 this.Id = linea.Id;
                 this.Articulo = linea.Articulo;
-                this.Precio = linea.Precio;
                 this.Cantidad = linea.Cantidad;
+                this.Precio = linea.Precio;
             }
         }
-}
+    }
 }

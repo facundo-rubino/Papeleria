@@ -1,3 +1,13 @@
+using AppLogic.CasosDeUso.Articulos;
+using AppLogic.CasosDeUso.Pedidos;
+using AppLogic.CasosDeUso.Usuarios;
+using AppLogic.InterfacesCU.Articulos;
+using AppLogic.InterfacesCU.Pedidos;
+using AppLogic.InterfacesCU.Usuarios;
+using BusinessLogic.InterfacesRepositorio;
+using BussinessLogic.InterfacesRepositorio;
+using DataAccess.EntityFramework.Repositorios;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +16,23 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+//Repositorios
+builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
+builder.Services.AddScoped<IRepositorioPedidos, RepositorioPedidosEF>();
+builder.Services.AddScoped<IRepositorioClientes, RepositorioClientesEF>();
+builder.Services.AddScoped<IRepositorioArticulos, RepositorioArticulosEF>();
+
+
+//Casos de uso
+builder.Services.AddScoped<IAgregarUsuario, AgregarUsuarioCU>();
+builder.Services.AddScoped<IFindByEmail, FindByEmailCU>();
+builder.Services.AddScoped<IUpdateUser, UpdateUserCU>();
+builder.Services.AddScoped<ILogin, LoginCU>();
+builder.Services.AddScoped<IAgregarArticulo, AgregarArticuloCU>();
+builder.Services.AddScoped<IAgregarPedido, AgregarPedidoCU>();
+builder.Services.AddScoped<IFindById, FindByIdCU>();
 
 var app = builder.Build();
 

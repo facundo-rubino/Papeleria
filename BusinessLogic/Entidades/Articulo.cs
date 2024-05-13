@@ -14,7 +14,7 @@ namespace BussinessLogic.Entidades
         [StringLength(200, MinimumLength = 10, ErrorMessage = "El nombre debe tener entre 10-200 caracteres")]
         public string Nombre { get; private set; }
         public string Descripcion { get; private set; }
-        
+
         [StringLength(13, MinimumLength = 13, ErrorMessage = "El código debe ser de 13 dígitos")]
 
         public string Codigo { get; private set; }
@@ -34,7 +34,7 @@ namespace BussinessLogic.Entidades
             this.Stock = stock;
         }
 
-        public bool  Equals(Articulo? other)
+        public bool Equals(Articulo? other)
         {
             return other == null ? throw new ArgumentNullException("Debe incluir el articulo a comparar") : this.Id == other.Id;
         }
@@ -54,9 +54,9 @@ namespace BussinessLogic.Entidades
 
         private void _validarNombre()
         {
-            if(this.Nombre == null) throw new ArticuloNoValidoException("El nombre no puede ser vacío");
-            if(this.Nombre.Length >= 10) throw new ArticuloNoValidoException("El nombre no puede tener menos de 10 caracteres");
-            if(this.Nombre.Length >= 10) throw new ArticuloNoValidoException("El nombre no puede tener más de 200 caracteres");
+            if (this.Nombre == null) throw new ArticuloNoValidoException("El nombre no puede ser vacío");
+            if (this.Nombre.Length >= 10) throw new ArticuloNoValidoException("El nombre no puede tener menos de 10 caracteres");
+            if (this.Nombre.Length >= 10) throw new ArticuloNoValidoException("El nombre no puede tener más de 200 caracteres");
 
         }
 
@@ -66,6 +66,8 @@ namespace BussinessLogic.Entidades
             if (this.Codigo.Length != 13) throw new ArticuloNoValidoException("El código debe tener 13 dígitos");
 
         }
+
+
     }
 }
 

@@ -5,6 +5,8 @@ using AppLogic.InterfacesCU.Articulos;
 using AppLogic.CasosDeUso.Usuarios;
 using AppLogic.CasosDeUso.Articulos;
 using BusinessLogic.InterfacesRepositorio;
+using AppLogic.CasosDeUso.Pedidos;
+using AppLogic.InterfacesCU.Pedidos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,9 @@ builder.Services.AddScoped<IFindByEmail, FindByEmailCU>();
 builder.Services.AddScoped<IUpdateUser, UpdateUserCU>();
 builder.Services.AddScoped<ILogin, LoginCU>();
 builder.Services.AddScoped<IAgregarArticulo, AgregarArticuloCU>();
+builder.Services.AddScoped<IAgregarPedido, AgregarPedidoCU>();
+builder.Services.AddScoped<IFindById, FindByIdCU>();
+
 
 /******************************* Add session service ********************************/
 

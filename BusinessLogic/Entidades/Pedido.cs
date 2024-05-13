@@ -6,15 +6,22 @@ namespace BussinessLogic.Entidades
     {
 
         public int Id { get; private set; }
-        public int Recargo { get; private set; }
-        public DateTime FechaPrometida { get; private set; }
-        public int Fecha { get; private set; }
-        public Cliente Cliente { get; private set; }
-        public List<Linea> Lineas { get; private set; }
-
+        public int Recargo { get; set; }
+        public DateTime FechaPrometida { get; set; }
+        public int Fecha { get; set; }
+        public Cliente Cliente { get; set; }
+        public List<Linea> Lineas { get; set; }
 
         public Pedido()
         {
+        }
+
+        public Pedido(int recargo, DateTime fechaPrometida, int fecha, Cliente cliente)
+        {
+            Recargo = recargo;
+            FechaPrometida = fechaPrometida;
+            Fecha = fecha;
+            Cliente = cliente;
         }
     }
 }
