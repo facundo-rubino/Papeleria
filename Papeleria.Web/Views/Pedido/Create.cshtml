@@ -12,7 +12,44 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <div>
+            @if (ViewBag.Articulos != null)
+            {
+                <form asp-action="AgregarLinea">
+                    <div class="form-group">
+                        <select name="idArticulo">
+                            @foreach (Articulo articulo in ViewBag.Articulos)
+                            {
+                                <option value="@articulo.Id">@articulo.Nombre</option>
+                            }
+                        </select>
+                        <label for="Cantidad" class="control-label">Cantidad</label>
+                        <input id="Cantidad" type="number" name="cantidad" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Añadir línea" class="btn btn-primary" />
+                    </div>
+                </form>
+            }
+        </div>
         <form asp-action="Create">
+            <select name="tipoPedido">
+                <option value="express">Pedido Express</option>
+                <option value="comun">Pedido Común</option>
+            </select>
+            <div>
+                @if (ViewBag.Clientes != null)
+                {
+                    <div class="form-group">
+                        <select name="idCliente">
+                            @foreach (Cliente cliente in ViewBag.Clientes)
+                            {
+                                <option value="@cliente.Id">@cliente.RazonSocial</option>
+                            }
+                        </select>
+                    </div>
+                }
+            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Recargo" class="control-label"></label>
@@ -45,27 +82,7 @@
         }
     </div>
 </div>
-<div>
-    @if (ViewBag.Articulos != null)
-    {
-        <form asp-action="AgregarLinea">
-            <div class="form-group">
-                <select name="idArticulo">
-                    @foreach (Articulo articulo in ViewBag.Articulos)
-                    {
-                        <option value="@articulo.Id">@articulo.Nombre</option>
-                    }
-                </select>
 
-                <label for="Cantidad" class="control-label">Cantidad</label>
-                <input id="Cantidad" type="number" name="cantidad" class="form-control" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Añadir línea" class="btn btn-primary" />
-            </div>
-        </form>
-    }
-</div>
 
 <div>
     <a asp-action="Index">Back to List</a>

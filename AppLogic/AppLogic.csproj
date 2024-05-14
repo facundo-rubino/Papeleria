@@ -13,9 +13,13 @@
   <ItemGroup>
     <None Remove="InterfacesCU\Pedidos\" />
     <None Remove="CasosDeUso\Pedidos\" />
+    <None Remove="CasosDeUso\Clientes\" />
+    <None Remove="InterfacesCU\Clientes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="InterfacesCU\Pedidos\" />
     <Folder Include="CasosDeUso\Pedidos\" />
+    <Folder Include="CasosDeUso\Clientes\" />
+    <Folder Include="InterfacesCU\Clientes\" />
   </ItemGroup>
 </Project>

@@ -18,6 +18,13 @@ namespace DataAccess.EntityFramework.Repositorios
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Cliente> FiltroNombreCompleto(string word)
+        {
+            return _context.Clientes
+               .Where(cliente => cliente.Contacto.Nombre.ToLower().Contains(word.ToLower()) || cliente.Contacto.Apellido.ToLower().Contains(word.ToLower()));
+        }
+
+
         public IEnumerable<Cliente> FindAll()
         {
             return _context.Clientes;

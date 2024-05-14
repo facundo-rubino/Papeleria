@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BussinessLogic.Entidades
 {
@@ -9,6 +10,7 @@ namespace BussinessLogic.Entidades
         public int Recargo { get; set; }
         public DateTime FechaPrometida { get; set; }
         public int Fecha { get; set; }
+        [ForeignKey(nameof(Cliente))] public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
         public List<Linea> Lineas { get; set; }
 

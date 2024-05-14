@@ -6,6 +6,7 @@ namespace BusinessLogic.InterfacesRepositorio
 {
     public interface IRepositorioClientes : IRepositorio<Cliente>
     {
+        public IEnumerable<Cliente> FiltroNombreCompleto(string txt);
     }
 }
 

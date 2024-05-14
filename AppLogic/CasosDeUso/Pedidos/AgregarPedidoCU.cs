@@ -15,9 +15,15 @@ namespace AppLogic.CasosDeUso.Pedidos
             this._repositorioPedidos = repositorioPedidos;
         }
 
-        public void AgregarPedido(PedidoDTO aAgregar)
+        public void AgregarPedidoExpress(PedidoExpressDTO aAgregar)
         {
-            Pedido pedido = PedidoDTOMapper.FromDto(aAgregar);
+            PedidoExpress pedido = PedidoDTOMapper.ToPedidoExpress(aAgregar);
+            this._repositorioPedidos.Add(pedido);
+        }
+
+        public void AgregarPedidoComun(PedidoComunDTO aAgregar)
+        {
+            PedidoComun pedido = PedidoDTOMapper.ToPedidoComun(aAgregar);
             this._repositorioPedidos.Add(pedido);
         }
     }

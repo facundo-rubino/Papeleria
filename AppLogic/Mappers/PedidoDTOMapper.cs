@@ -1,55 +1,46 @@
 ﻿using System;
 using AppLogic.DTOs;
-using AppLogic.HashPass;
-using BusinessLogic.Excepciones;
 using BussinessLogic.Entidades;
-using BussinessLogic.Excepciones;
 
 namespace AppLogic.Mappers
 {
     public class PedidoDTOMapper
     {
-        public static PedidoDTO ToDto(Pedido pedido)
+        public static PedidoExpress ToPedidoExpress(PedidoExpressDTO pedidoExpressDTO)
         {
-            if (pedido == null) return null;
-            PedidoDTO dto = new PedidoDTO
+            PedidoExpress retorno = new PedidoExpress
             {
-                Recargo = pedido.Recargo,
-                FechaPrometida = pedido.FechaPrometida,
-                Fecha = pedido.Fecha,
-                Cliente = pedido.Cliente
-            };
-            if (pedido.Lineas != null)
-            {
-                dto.Lineas = pedido.Lineas.Select(linea => LineaDTOMapper.ToDto(linea)).ToList();
-            }
-            return dto;
-
-        }
-
-
-
-        public static Pedido FromDto(PedidoDTO PedidoDTO)
-        {
-            Pedido retorno = new Pedido
-            {
-                Recargo = PedidoDTO.Recargo,
-                FechaPrometida = PedidoDTO.FechaPrometida,
-                Fecha = PedidoDTO.Fecha,
-                Cliente = PedidoDTO.Cliente
+                Recargo = pedidoExpressDTO.Recargo,
+                FechaPrometida = pedidoExpressDTO.FechaPrometida,
+                Fecha = pedidoExpressDTO.Fecha,
+                Cliente = pedidoExpressDTO.Cliente
 
             };
-            if (PedidoDTO.Lineas != null)
+            if (pedidoExpressDTO.Lineas != null)
             {
-                retorno.Lineas = PedidoDTO.Lineas.Select(linea => LineaDTOMapper.FromDto(linea)).ToList();
+                retorno.Lineas = pedidoExpressDTO.Lineas.Select(linea => LineaDTOMapper.FromDto(linea)).ToList();
 
             }
             return retorno;
-
         }
 
+        public static PedidoComun ToPedidoComun(PedidoComunDTO pedidoComunDTO)
+        {
+            PedidoComun retorno = new PedidoComun
+            {
+                Recargo = pedidoComunDTO.Recargo,
+                FechaPrometida = pedidoComunDTO.FechaPrometida,
+                Fecha = pedidoComunDTO.Fecha,
+                Cliente = pedidoComunDTO.Cliente
 
+            };
+            if (pedidoComunDTO.Lineas != null)
+            {
+                retorno.Lineas = pedidoComunDTO.Lineas.Select(linea => LineaDTOMapper.FromDto(linea)).ToList();
 
+            }
+            return retorno;
+        }
     }
 }
 
