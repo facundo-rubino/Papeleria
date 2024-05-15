@@ -13,8 +13,7 @@ namespace AppLogic.Mappers
                 Recargo = pedidoExpressDTO.Recargo,
                 FechaPrometida = pedidoExpressDTO.FechaPrometida,
                 Fecha = pedidoExpressDTO.Fecha,
-                Cliente = pedidoExpressDTO.Cliente
-
+                ClienteId = pedidoExpressDTO.ClienteId,
             };
             if (pedidoExpressDTO.Lineas != null)
             {
@@ -31,7 +30,7 @@ namespace AppLogic.Mappers
                 Recargo = pedidoComunDTO.Recargo,
                 FechaPrometida = pedidoComunDTO.FechaPrometida,
                 Fecha = pedidoComunDTO.Fecha,
-                Cliente = pedidoComunDTO.Cliente
+                ClienteId = pedidoComunDTO.ClienteId,
 
             };
             if (pedidoComunDTO.Lineas != null)

@@ -12,7 +12,7 @@ namespace BussinessLogic.Entidades
         public int Id { get; private set; }
         public int Recargo { get; set; }
         public DateTime Fecha { get; set; }
-        public int FechaPrometida { get; set; }
+        public DateTime FechaPrometida { get; set; }
         public double MontoTotal { get; set; }
         [ForeignKey(nameof(Cliente))] public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }

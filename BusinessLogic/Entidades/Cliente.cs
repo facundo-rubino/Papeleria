@@ -7,7 +7,7 @@ using BussinessLogic.ValueObjects;
 namespace BussinessLogic.Entidades
 {
     [Index(nameof(RazonSocial), IsUnique = true)]
-    public class Cliente : IValidable<Cliente>
+    public class Cliente : IValidable
     {
         public int Id { get; private set; }
         public NombreCompleto Contacto { get; private set; }

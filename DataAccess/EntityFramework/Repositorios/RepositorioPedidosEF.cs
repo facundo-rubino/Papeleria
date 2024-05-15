@@ -19,9 +19,8 @@ namespace DataAccess.EntityFramework.Repositorios
         {
             try
             {
+                //CON EL IDCLIENTE ME TRAIGO AL CLIENTE Y VALIDO LO DE LA DIRECCION
                 aAgregar.EsValido(new RepositorioSettingsEF());
-                this._context.Set<Pedido>().Add(aAgregar);
-                this._context.Entry(aAgregar.Cliente).State = EntityState.Unchanged;
                 _context.Pedidos.Add(aAgregar);
                 _context.SaveChanges();
             }

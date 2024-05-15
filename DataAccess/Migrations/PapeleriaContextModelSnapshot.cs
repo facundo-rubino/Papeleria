@@ -130,11 +130,14 @@ namespace DataAccess.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
-                    b.Property<int>("Fecha")
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FechaPrometida")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaPrometida")
-                        .HasColumnType("datetime2");
+                    b.Property<double>("MontoTotal")
+                        .HasColumnType("float");
 
                     b.Property<int>("Recargo")
                         .HasColumnType("int");
@@ -161,12 +164,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PlazoComun")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlazoExpress")
-                        .HasColumnType("int");
 
                     b.Property<double>("Valor")
                         .HasColumnType("float");

@@ -21,5 +21,6 @@
     <Folder Include="CasosDeUso\Pedidos\" />
     <Folder Include="CasosDeUso\Clientes\" />
     <Folder Include="InterfacesCU\Clientes\" />
+    <Folder Include="InterfacesCU\Pedidos\" />
   </ItemGroup>
 </Project>

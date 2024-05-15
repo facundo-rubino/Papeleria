@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(PapeleriaContext))]
-    [Migration("20240514221125_init")]
-    partial class init
+    [Migration("20240515112949_databaseNewInit")]
+    partial class databaseNewInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,11 +133,14 @@ namespace DataAccess.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
-                    b.Property<int>("Fecha")
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FechaPrometida")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaPrometida")
-                        .HasColumnType("datetime2");
+                    b.Property<double>("MontoTotal")
+                        .HasColumnType("float");
 
                     b.Property<int>("Recargo")
                         .HasColumnType("int");

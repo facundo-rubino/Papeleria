@@ -8,7 +8,7 @@ namespace BussinessLogic.Entidades
 {
     [Index(nameof(Nombre), IsUnique = true)]
     [Index(nameof(Codigo), IsUnique = true)]
-    public class Articulo : IEquatable<Articulo>, IValidable<Articulo>
+    public class Articulo : IEquatable<Articulo>, IValidable
     {
         public int Id { get; private set; }
         [StringLength(200, MinimumLength = 10, ErrorMessage = "El nombre debe tener entre 10-200 caracteres")]

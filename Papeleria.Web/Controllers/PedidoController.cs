@@ -11,6 +11,8 @@ using AppLogic.InterfacesCU.Pedidos;
 using BusinessLogic.Excepciones;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppLogic.InterfacesCU.Articulos;
+using BusinessLogic.InterfacesRepositorio;
+using Microsoft.CodeAnalysis.Scripting;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,16 +22,18 @@ namespace Papeleria.Web.Controllers
     {
         private IRepositorioPedidos _repositorioPedidos;
         private IRepositorioArticulos _repositorioArticulos;
+        private IRepositorioClientes _repositorioClientes;
         private static PedidoDTO _pedidoTemporal;
         private IAgregarPedido _agregarPedidoCU;
         private IFindById _articuloPorId;
 
-        public PedidoController(IRepositorioPedidos repositorioPedidos, IRepositorioArticulos repositorioArticulos, IAgregarPedido agregarPedido, IFindById findById)
+        public PedidoController(IRepositorioPedidos repositorioPedidos, IRepositorioArticulos repositorioArticulos, IAgregarPedido agregarPedido, IFindById findById, IRepositorioClientes repositorioClientes)
         {
             this._repositorioPedidos = repositorioPedidos;
             this._repositorioArticulos = repositorioArticulos;
             this._agregarPedidoCU = agregarPedido;
             this._articuloPorId = findById;
+            this._repositorioClientes = repositorioClientes;
         }
         // GET: PedidoController
         public ActionResult Index()
@@ -59,6 +63,7 @@ namespace Papeleria.Web.Controllers
         public ActionResult Create(string error)
         {
             ViewBag.Articulos = this._repositorioArticulos.FindAll();
+            ViewBag.Clientes = this._repositorioClientes.FindAll();
             ViewBag.Error = error;
             if (_pedidoTemporal != null)
             {
@@ -70,13 +75,14 @@ namespace Papeleria.Web.Controllers
         // POST: PedidoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PedidoDTO pedido, string tipoPedido)
+        public ActionResult Create(PedidoDTO pedido, int idCliente, string tipoPedido)
         {
             try
             {
                 if (_pedidoTemporal != null && _pedidoTemporal.Lineas.Count > 0)
                 {
                     pedido.Lineas = _pedidoTemporal.Lineas;
+                    pedido.ClienteId = idCliente;
 
                     if (tipoPedido == "comun")
                     {
@@ -95,10 +101,12 @@ namespace Papeleria.Web.Controllers
             }
             catch (PedidoNoValidoException e)
             {
+                ViewBag.error = e.Message;
                 return RedirectToAction(nameof(Create), new { error = e.Message });
             }
             catch (Exception e)
             {
+                ViewBag.error = e.Message;
                 return RedirectToAction(nameof(Create), new { error = e.Message });
             }
 

@@ -8,9 +8,9 @@ namespace AppLogic.DTOs
         public int Id { get; private set; }
         public int Recargo { get; set; }
         public DateTime Fecha { get; set; }
-        public int FechaPrometida { get; set; }
+        public DateTime FechaPrometida { get; set; }
         public double MontoTotal { get; set; }
-        public Cliente Cliente { get; set; }
+        public int ClienteId { get; set; }
         public List<LineaDTO> Lineas { get; set; }
 
         public PedidoDTO()
@@ -24,7 +24,7 @@ namespace AppLogic.DTOs
                 this.Recargo = pedido.Recargo;
                 this.FechaPrometida = pedido.FechaPrometida;
                 this.Fecha = pedido.Fecha;
-                this.Cliente = pedido.Cliente;
+                this.ClienteId = pedido.ClienteId;
             }
         }
     }

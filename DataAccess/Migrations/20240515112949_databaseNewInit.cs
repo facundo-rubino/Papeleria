@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addeduniqueKeyCodigo : Migration
+    public partial class databaseNewInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Codigo = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     PrecioUnitario = table.Column<int>(type: "int", nullable: false),
@@ -29,7 +29,7 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cliente",
+                name: "Clientes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -45,7 +45,23 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cliente", x => x.Id);
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Valor = table.Column<double>(type: "float", nullable: false),
+                    PlazoComun = table.Column<int>(type: "int", nullable: false),
+                    PlazoExpress = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,17 +88,19 @@ namespace DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Recargo = table.Column<int>(type: "int", nullable: false),
-                    FechaPrometida = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Fecha = table.Column<int>(type: "int", nullable: false),
-                    ClienteId = table.Column<int>(type: "int", nullable: false)
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaPrometida = table.Column<int>(type: "int", nullable: false),
+                    MontoTotal = table.Column<double>(type: "float", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedidos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pedidos_Cliente_ClienteId",
+                        name: "FK_Pedidos_Clientes_ClienteId",
                         column: x => x.ClienteId,
-                        principalTable: "Cliente",
+                        principalTable: "Clientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -121,8 +139,14 @@ namespace DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cliente_RazonSocial",
-                table: "Cliente",
+                name: "IX_Articulos_Nombre",
+                table: "Articulos",
+                column: "Nombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clientes_RazonSocial",
+                table: "Clientes",
                 column: "RazonSocial",
                 unique: true);
 
@@ -142,6 +166,12 @@ namespace DataAccess.Migrations
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Settings_Nombre",
+                table: "Settings",
+                column: "Nombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_Email",
                 table: "Usuarios",
                 column: "Email",
@@ -155,6 +185,9 @@ namespace DataAccess.Migrations
                 name: "Linea");
 
             migrationBuilder.DropTable(
+                name: "Settings");
+
+            migrationBuilder.DropTable(
                 name: "Usuarios");
 
             migrationBuilder.DropTable(
@@ -164,7 +197,7 @@ namespace DataAccess.Migrations
                 name: "Pedidos");
 
             migrationBuilder.DropTable(
-                name: "Cliente");
+                name: "Clientes");
         }
     }
 }

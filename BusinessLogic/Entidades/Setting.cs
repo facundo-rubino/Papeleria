@@ -10,8 +10,6 @@ namespace BussinessLogic.Entidades
         public int Id { get; set; }
         public string Nombre { get; set; }
         public double Valor { get; set; }
-        public int PlazoComun { get; set; }
-        public int PlazoExpress { get; set; }
 
         public Setting()
         {
@@ -19,7 +17,7 @@ namespace BussinessLogic.Entidades
 
         public void EsValido()
         {
-           // this._validarIVA();
+            // this._validarIVA();
         }
 
         //private bool _validarIVA()
