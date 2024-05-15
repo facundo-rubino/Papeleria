@@ -12,6 +12,7 @@ namespace AppLogic.DTOs
         public double MontoTotal { get; set; }
         public int ClienteId { get; set; }
         public List<LineaDTO> Lineas { get; set; }
+        public bool EsPedidoExpress { get; set; } = false;
 
         public PedidoDTO()
         {

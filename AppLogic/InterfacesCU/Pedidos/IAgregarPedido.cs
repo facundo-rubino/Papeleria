@@ -6,8 +6,8 @@ namespace AppLogic.InterfacesCU.Pedidos
 {
     public interface IAgregarPedido
     {
-        public void AgregarPedidoComun(PedidoComunDTO aAgregar);
-        public void AgregarPedidoExpress(PedidoExpressDTO aAgregar);
+        public void AgregarPedidoComun(PedidoDTO aAgregar);
+        public void AgregarPedidoExpress(PedidoDTO aAgregar);
 
     }
 }

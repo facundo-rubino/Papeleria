@@ -17,6 +17,7 @@ namespace BussinessLogic.Entidades
         [ForeignKey(nameof(Cliente))] public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
         public List<Linea> Lineas { get; set; }
+        public bool EsPedidoExpress { get; set; } = false;
 
         public Pedido()
         {

@@ -88,15 +88,13 @@ namespace Papeleria.Web.Controllers
 
                     if (tipoPedido == "comun")
                     {
-                        PedidoComunDTO pedidoComunDTO = new PedidoComunDTO(pedido);
-                        this._agregarPedidoCU.AgregarPedidoComun(pedidoComunDTO);
+                        this._agregarPedidoCU.AgregarPedidoComun(pedido);
                     }
                     if (tipoPedido == "express")
                     {
-                        PedidoExpressDTO pedidoExpressDTO = new PedidoExpressDTO(pedido);
-                        this._agregarPedidoCU.AgregarPedidoExpress(pedidoExpressDTO);
+                        pedido.EsPedidoExpress = true;
+                        this._agregarPedidoCU.AgregarPedidoExpress(pedido);
                     }
-
                 }
                 _pedidoTemporal = null;
                 return RedirectToAction(nameof(Index));

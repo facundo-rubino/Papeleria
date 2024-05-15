@@ -6,7 +6,7 @@ namespace AppLogic.Mappers
 {
     public class PedidoDTOMapper
     {
-        public static PedidoExpress ToPedidoExpress(PedidoExpressDTO pedidoExpressDTO)
+        public static PedidoExpress ToPedidoExpress(PedidoDTO pedidoExpressDTO)
         {
             PedidoExpress retorno = new PedidoExpress
             {
@@ -23,7 +23,7 @@ namespace AppLogic.Mappers
             return retorno;
         }
 
-        public static PedidoComun ToPedidoComun(PedidoComunDTO pedidoComunDTO)
+        public static PedidoComun ToPedidoComun(PedidoDTO pedidoComunDTO)
         {
             PedidoComun retorno = new PedidoComun
             {

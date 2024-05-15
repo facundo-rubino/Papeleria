@@ -38,11 +38,13 @@
             }
         </div>
         <form asp-action="Create">
-            <div class="form-group">
-                <select name="tipoPedido">
-                    <option value="express">Pedido Express</option>
-                    <option value="comun">Pedido Común</option>
-                </select>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="comun">
+                <label class="form-check-label" for="inlineRadio1">Pedido común</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="express">
+                <label class="form-check-label" for="inlineRadio2">Pedido express</label>
             </div>
             <div>
                 @if (ViewBag.Clientes != null)
