@@ -16,9 +16,10 @@ namespace BussinessLogic.Entidades
         public string Descripcion { get; private set; }
 
         [StringLength(13, MinimumLength = 13, ErrorMessage = "El código debe ser de 13 dígitos")]
-
         public string Codigo { get; private set; }
+        [Range(0, int.MaxValue, ErrorMessage = "El precio no puede ser negativo")]
         public int PrecioUnitario { get; private set; }
+        [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo")]
         public int Stock { get; private set; }
 
         public Articulo()
@@ -45,6 +46,8 @@ namespace BussinessLogic.Entidades
             {
                 this._validarNombre();
                 this._validarCodigo();
+                this._validarPrecio();
+                this._validarStock();
             }
             catch (Exception ex)
             {
@@ -59,11 +62,20 @@ namespace BussinessLogic.Entidades
             if (this.Nombre.Length >= 200) throw new ArticuloNoValidoException("El nombre no puede tener más de 200 caracteres");
 
         }
-
         private void _validarCodigo()
         {
             if (this.Codigo == null) throw new ArticuloNoValidoException("El código no puede ser vacío");
             if (this.Codigo.Length != 13) throw new ArticuloNoValidoException("El código debe tener 13 dígitos");
+        }
+
+        private void _validarPrecio()
+        {
+            if (this.PrecioUnitario < 0) throw new ArticuloNoValidoException("El precio no puede ser negativo");
+        }
+
+        private void _validarStock()
+        {
+            if (this.Stock < 0) throw new ArticuloNoValidoException("El stock no puede ser negativo");
 
         }
 

@@ -13,7 +13,7 @@ namespace BussinessLogic.Entidades
 
         public override void EsValido(IRepositorioSettings settingsRepository)
         {
-            this._validarFechaPrometida();
+            this.ValidarFechaPrometida(settingsRepository);
         }
 
         public override void CalcularMontoTotal()
@@ -43,9 +43,10 @@ namespace BussinessLogic.Entidades
             base.MontoTotal += (base.MontoTotal * valorIVA) / 100;
         }
 
-        private void _validarFechaPrometida()
+        public override void ValidarFechaPrometida(IRepositorioSettings settingsRepository)
         {
-            if (base.FechaPrometida < 8)
+            TimeSpan dias = base.FechaPrometida - base.Fecha;
+            if (dias.TotalDays < 7)
                 throw new PedidoNoValidoException("La fecha prometida no puede ser menor a una semana");
         }
 

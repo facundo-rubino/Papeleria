@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using BussinessLogic.Excepciones;
 using BussinessLogic.ValueObjects;
 using BussinessLogic.InterfacesEntidades;
+using System.Xml.Linq;
 
 namespace BussinessLogic.Entidades
 {
@@ -55,13 +56,13 @@ namespace BussinessLogic.Entidades
         private void _validarNombre()
         {
             if (this.NombreCompleto.Nombre == null) throw new UsuarioNoValidoException("El nombre no puede ser vacío");
-            if (!_caracteresAlfabeticos(this.NombreCompleto.Nombre)) throw new UsuarioNoValidoException("El nombre no puede contener caracteres no alfabéticos");
+            if (!this._validarNombreApellido(this.NombreCompleto.Nombre)) throw new UsuarioNoValidoException("El nombre no puede contener caracteres especiales ni inicio ni al final");
         }
 
         private void _validarApellido()
         {
             if (this.NombreCompleto.Apellido == null) throw new UsuarioNoValidoException("El apellido no puede ser vacío");
-            if (!_caracteresAlfabeticos(this.NombreCompleto.Apellido)) throw new UsuarioNoValidoException("El apellido no puede contener caracteres no alfabéticos");
+            if (!this._validarNombreApellido(this.NombreCompleto.Apellido)) throw new UsuarioNoValidoException("El apellido no puede contener caracteres especiales ni inicio ni al final");
         }
 
         private void _validarEmail()
@@ -81,13 +82,22 @@ namespace BussinessLogic.Entidades
 
             if (!this.Pass.Any(char.IsDigit)) throw new UsuarioNoValidoException("La contraseña debe contener al menos 1 número");
 
-            if (!_caracteresAlfabeticos(this.Pass)) throw new UsuarioNoValidoException("La contraseña debe contener al menos 1 caracter especial");
+            if (!_contieneCaracteresAlfabeticos(this.Pass)) throw new UsuarioNoValidoException("La contraseña debe contener al menos 1 caracter especial");
         }
 
-        private bool _caracteresAlfabeticos(string input)
+        private bool _validarNombreApellido(string input)
+        {
+            // ^[a-zA-Z] : Regex para que empiece con un caracter alfabético
+            // [a-zA-Z'-]* : Regex para que contenga solo caracteres alfabéticos, apóstrofes y guiones
+            // [a-zA-Z]$ : Regex para que termine con un caracter alfabético
+            Regex validNameRegex = new Regex("^[a-zA-Z][a-zA-Z'-]*[a-zA-Z]$");
+            // comparamos y devolvemos el booleano
+            return validNameRegex.IsMatch(input);
+        }
+        private bool _contieneCaracteresAlfabeticos(string input)
         {
             //Si devuelve true significa que no tiene caracteres no alfabeticos
-            string regex = "^[a-zA-Z]+$";  // Expresión regular para buscar solo caracteres alfabéticos
+            string regex = @"[^a-zA-Z0-9]"; // Expresión regular para buscar solo caracteres alfabéticos
             return Regex.IsMatch(input, regex); // comparo el regex con el input 
         }
     }

@@ -7,11 +7,13 @@ using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Articulos;
+using Papeleria.Web.Filters;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Papeleria.Web.Controllers
 {
+    [Logueado]
     public class ArticuloController : Controller
     {
         private IAgregarArticulo _agregarArticuloCU;
@@ -47,7 +49,7 @@ namespace Papeleria.Web.Controllers
         // GET: ArticuloController/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new ArticuloDTO());
         }
 
         // POST: ArticuloController/Create
@@ -63,7 +65,7 @@ namespace Papeleria.Web.Controllers
             catch (Exception e)
             {
                 ViewBag.error = e.Message;
-                return View();
+                return View(Articulo);
             }
         }
 

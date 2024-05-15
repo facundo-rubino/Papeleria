@@ -30,6 +30,8 @@ namespace BussinessLogic.Entidades
 
         public abstract void CalcularIVA(IRepositorioSettings settingsRepository);
 
+        public abstract void ValidarFechaPrometida(IRepositorioSettings settingsRepository);
+
 
     }
 }

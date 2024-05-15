@@ -13,11 +13,13 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppLogic.InterfacesCU.Articulos;
 using BusinessLogic.InterfacesRepositorio;
 using Microsoft.CodeAnalysis.Scripting;
+using Papeleria.Web.Filters;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Papeleria.Web.Controllers
 {
+    [Logueado]
     public class PedidoController : Controller
     {
         private IRepositorioPedidos _repositorioPedidos;

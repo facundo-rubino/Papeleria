@@ -1,7 +1,9 @@
 ﻿using System;
 using BussinessLogic.Entidades;
+using Microsoft.EntityFrameworkCore;
 namespace AppLogic.DTOs
 {
+
     public class UsuarioDTO
     {
         public int Id { get; set; }

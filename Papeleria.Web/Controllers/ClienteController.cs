@@ -6,11 +6,13 @@ using AppLogic.DTOs;
 using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Entidades;
 using Microsoft.AspNetCore.Mvc;
+using Papeleria.Web.Filters;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Papeleria.Web.Controllers
 {
+    [Logueado]
     public class ClienteController : Controller
     {
         private IRepositorioClientes _repositorioClientes;

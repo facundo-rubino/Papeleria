@@ -57,7 +57,7 @@ namespace Papeleria.Web.Controllers
         // GET: UsuarioController/Login
         public IActionResult Login(string mensaje)
         {
-            ViewBag.Mensaje = mensaje;
+            ViewBag.error = mensaje;
             return View();
         }
 
@@ -76,7 +76,7 @@ namespace Papeleria.Web.Controllers
             catch (UsuarioNoValidoException ex)
             {
                 ViewBag.error = ex.Message;
-                return View();
+                return View("Login");
             }
         }
 
@@ -129,10 +129,11 @@ namespace Papeleria.Web.Controllers
             try
             {
                 this._updateUser.UpdateUser(usuario);
-                return RedirectToAction(nameof(Index));
+                return View("Index", this._getAllUsersCU.GetAllUsers());
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.error = ex.Message;
                 return View();
             }
         }
