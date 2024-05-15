@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace DataAccess.EntityFramework.Repositorios
 {
-    public class RepositorioSetttingsEF : IRepositorioSettings
+    public class RepositorioSettingsEF : IRepositorioSettings
     {
         private PapeleriaContext _context;
-        public RepositorioSetttingsEF()
+        public RepositorioSettingsEF()
         {
             this._context = new PapeleriaContext();
         }

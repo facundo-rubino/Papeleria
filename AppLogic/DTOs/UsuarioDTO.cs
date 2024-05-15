@@ -9,7 +9,7 @@ namespace AppLogic.DTOs
         public string Apellido { get; set; }
         public string Email { get; set; }
         public string Pass { get; set; }
-        public string HashedPass { get; private set; }
+        public string HashedPass { get; set; }
 
         public UsuarioDTO() { }
 

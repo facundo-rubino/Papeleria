@@ -48,15 +48,15 @@ namespace BussinessLogic.Entidades
             }
             catch (Exception ex)
             {
-                throw new ArticuloNoValidoException("Estoy capturando en EsValido", ex);
+                throw new ArticuloNoValidoException(ex.Message);
             }
         }
 
         private void _validarNombre()
         {
             if (this.Nombre == null) throw new ArticuloNoValidoException("El nombre no puede ser vacío");
-            if (this.Nombre.Length >= 10) throw new ArticuloNoValidoException("El nombre no puede tener menos de 10 caracteres");
-            if (this.Nombre.Length >= 10) throw new ArticuloNoValidoException("El nombre no puede tener más de 200 caracteres");
+            if (this.Nombre.Length <= 10) throw new ArticuloNoValidoException("El nombre no puede tener menos de 10 caracteres");
+            if (this.Nombre.Length >= 200) throw new ArticuloNoValidoException("El nombre no puede tener más de 200 caracteres");
 
         }
 

@@ -64,13 +64,20 @@ namespace Papeleria.Web.Controllers
         [HttpPost]
         public IActionResult Login(string email, string pass)
         {
-            if (_loginUC.LoginIsValid(email, pass))
+            try
             {
-                HttpContext.Session.SetString("email", email);
-                ViewBag.email = email;
+                if (_loginUC.LoginIsValid(email, pass))
+                {
+                    HttpContext.Session.SetString("email", email);
+                    ViewBag.email = email;
+                }
                 return View("Index", this._getAllUsersCU.GetAllUsers());
             }
-            return RedirectToAction("Login", new { error = "email o contraseña incorrectos" });
+            catch (UsuarioNoValidoException ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
         }
 
 

@@ -4,6 +4,7 @@ using AppLogic.HashPass;
 using AppLogic.InterfacesCU.Usuarios;
 using AppLogic.Mappers;
 using BussinessLogic.Entidades;
+using BussinessLogic.Excepciones;
 
 namespace AppLogic.CasosDeUso.Usuarios
 {
@@ -18,9 +19,11 @@ namespace AppLogic.CasosDeUso.Usuarios
 
         public bool LoginIsValid(string email, string pass)
         {
+
             UsuarioDTO userDTO = this._userByEmail.GetUserByEmail(email);
-            var verifyPass = PasswordHasher.VerifyPassword(userDTO.HashedPass, pass);
-            return userDTO != null && verifyPass;
+            if (userDTO.Id != 0)
+                return userDTO != null && PasswordHasher.VerifyPassword(userDTO.HashedPass, pass);
+            else throw new UsuarioNoValidoException("Usuario y/o contraseña incorrectos");
         }
 
     }

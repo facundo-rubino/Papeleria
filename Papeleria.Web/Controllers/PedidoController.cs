@@ -20,7 +20,7 @@ namespace Papeleria.Web.Controllers
     {
         private IRepositorioPedidos _repositorioPedidos;
         private IRepositorioArticulos _repositorioArticulos;
-        private static PedidoDTO _pedidoTemporal = new PedidoDTO();
+        private static PedidoDTO _pedidoTemporal;
         private IAgregarPedido _agregarPedidoCU;
         private IFindById _articuloPorId;
 
@@ -70,7 +70,7 @@ namespace Papeleria.Web.Controllers
         // POST: PedidoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PedidoDTO pedido, string tipo)
+        public ActionResult Create(PedidoDTO pedido, string tipoPedido)
         {
             try
             {
@@ -78,12 +78,12 @@ namespace Papeleria.Web.Controllers
                 {
                     pedido.Lineas = _pedidoTemporal.Lineas;
 
-                    if (tipo == "comun")
+                    if (tipoPedido == "comun")
                     {
                         PedidoComunDTO pedidoComunDTO = new PedidoComunDTO(pedido);
                         this._agregarPedidoCU.AgregarPedidoComun(pedidoComunDTO);
                     }
-                    if (tipo == "express")
+                    if (tipoPedido == "express")
                     {
                         PedidoExpressDTO pedidoExpressDTO = new PedidoExpressDTO(pedido);
                         this._agregarPedidoCU.AgregarPedidoExpress(pedidoExpressDTO);
@@ -140,7 +140,7 @@ namespace Papeleria.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AgregarLinea(int idArticulo, int cantidad, string tipo)
+        public ActionResult AgregarLinea(int idArticulo, int cantidad)
         {
             try
             {
