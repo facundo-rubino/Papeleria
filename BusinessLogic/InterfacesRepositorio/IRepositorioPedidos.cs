@@ -7,7 +7,15 @@ namespace BussinessLogic.InterfacesRepositorio
     {
         public IEnumerable<Pedido> GetPedidosPorMonto(double monto);
 
-        public IEnumerable<Pedido> GetPedidosPorFecha(DateTime date);
+        public IEnumerable<Pedido> GetPedidosConCliente();
+
+        public IEnumerable<Pedido> GetPedidosConCliente(DateTime date);
+
+        public IEnumerable<Pedido> GetPedidosAnuladosConCliente();
+
+        public void UpdateEstadoPedido(int id, bool estado);
+
+
     }
 }
 

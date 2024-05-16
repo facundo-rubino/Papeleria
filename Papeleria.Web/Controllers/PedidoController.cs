@@ -14,6 +14,7 @@ using AppLogic.InterfacesCU.Articulos;
 using Microsoft.CodeAnalysis.Scripting;
 using Papeleria.Web.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,23 +29,49 @@ namespace Papeleria.Web.Controllers
         private static PedidoDTO _pedidoTemporal;
         private IAgregarPedido _agregarPedidoCU;
         private IFindById _articuloPorId;
+        private IGetPedidosConCliente _getPedidosConCliente;
 
-        public PedidoController(IRepositorioPedidos repositorioPedidos, IRepositorioArticulos repositorioArticulos, IAgregarPedido agregarPedido, IFindById findById, IRepositorioClientes repositorioClientes)
+        public PedidoController(
+            IRepositorioPedidos repositorioPedidos,
+            IRepositorioArticulos repositorioArticulos,
+            IAgregarPedido agregarPedido,
+            IFindById findById,
+            IRepositorioClientes repositorioClientes,
+            IGetPedidosConCliente getPedidosConCliente
+
+            )
         {
             this._repositorioPedidos = repositorioPedidos;
             this._repositorioArticulos = repositorioArticulos;
             this._agregarPedidoCU = agregarPedido;
             this._articuloPorId = findById;
             this._repositorioClientes = repositorioClientes;
+            this._getPedidosConCliente = getPedidosConCliente;
         }
         // GET: PedidoController
-        public ActionResult Index()
+        public ActionResult Index(DateTime date)
         {
+            IEnumerable<PedidoDTO> aMostrar = new List<PedidoDTO>();
 
-            ViewBag.Pedidos = this._repositorioPedidos.FindAll();
+            if (date == DateTime.MinValue )
+            {
+                aMostrar = this._getPedidosConCliente.GetPedidosConCliente();
+            }
+            else
+            {
+                ViewBag.FechaElegida = date.ToShortDateString();
+                aMostrar = this._getPedidosConCliente.GetPedidosConCliente(date);
+            }
 
-            return View();
+            if(aMostrar.Count() == 0)
+            {
+                return RedirectToAction("Index", new { error = "No hay pedidos para la fecha elegida"});
+            }
+
+            return View(aMostrar);
         }
+
+         
 
         // GET: PedidoController/Details/5
         public ActionResult Details(int id)
@@ -112,16 +139,28 @@ namespace Papeleria.Web.Controllers
 
         }
 
-        // GET: PedidoController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPost]
+        public ActionResult FiltroPorFecha(DateTime date)
+        {
+            try
+            {
+                return RedirectToAction("Index", new { date = date });
+            }
+            catch(Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }   
+        }
+
+        public ActionResult Anular(int id)
         {
             return View();
         }
 
-        // POST: PedidoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Anular(int id, IFormCollection collection)
         {
             try
             {

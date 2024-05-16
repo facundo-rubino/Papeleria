@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class databaseNewInit2 : Migration
+    public partial class newDBInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -91,6 +91,7 @@ namespace DataAccess.Migrations
                     MontoTotal = table.Column<double>(type: "float", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     EsPedidoExpress = table.Column<bool>(type: "bit", nullable: false),
+                    PedidoAnulado = table.Column<bool>(type: "bit", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false)
                 },
                 constraints: table =>

@@ -53,6 +53,26 @@ namespace AppLogic.Mappers
             return retorno;
         }
 
+        public static PedidoDTO ToPedidoDTO(Pedido pedido)
+        {
+            PedidoDTO retorno = new PedidoDTO
+            {
+                MontoTotal = pedido.MontoTotal,
+                FechaPrometida = pedido.FechaPrometida,
+                Fecha = pedido.Fecha,
+                ClienteId = pedido.ClienteId,
+                Cliente = pedido.Cliente,
+                EsPedidoExpress = pedido.EsPedidoExpress,
+                PedidoAnulado = pedido.PedidoAnulado
+            };
+            if (pedido.Lineas != null)
+            {
+                retorno.Lineas = pedido.Lineas.Select(linea => LineaDTOMapper.ToDto(linea)).ToList();
+
+            }
+            return retorno;
+        }
+
 
 
 

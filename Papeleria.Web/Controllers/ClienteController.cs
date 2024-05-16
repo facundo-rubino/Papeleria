@@ -52,9 +52,14 @@ namespace Papeleria.Web.Controllers
 
             if (filtro == "PorMonto")
             {
-                if (TempData["monto"] is string montoString && double.TryParse(montoString, out double monto))
+                // Primero nos debemos asegurar que monto viene como string
+                if (TempData["monto"] is string montoString)
                 {
-                    aMostrar = this._filtrarPorMonto.FiltrarPorMonto(monto);
+                    // Luego se intenta parsear el string a double, para enviarlo al método de filtrado
+                    if (double.TryParse(montoString, out double monto))
+                    {
+                        aMostrar = this._filtrarPorMonto.FiltrarPorMonto(monto);
+                    }
                 }
             }
 

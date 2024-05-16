@@ -7,16 +7,16 @@
 
 @if (@ViewBag.Mensaje != null)
 {
-    <script>alertify.seuccess('@ViewBag.Mensaje')</script>
+    <script>alertify.success('@ViewBag.Mensaje')</script>
 }
-
-
 
 <h1>Usuarios</h1>
 
 <div class="form-group">
     <a asp-action="Create" class="btn btn-primary">CREAR NUEVO</a>
 </div>
+
+<hr />
 <table class="table">
     <thead>
         <tr>

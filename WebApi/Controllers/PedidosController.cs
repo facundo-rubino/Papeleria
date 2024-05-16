@@ -1,4 +1,5 @@
 ﻿using System;
+using AppLogic.CasosDeUso.Articulos;
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Articulos;
 using AppLogic.InterfacesCU.Pedidos;
@@ -10,19 +11,26 @@ namespace WebApi.Controllers
     [Route("[controller]")]
     public class PedidosController : ControllerBase
     {
-        private IObtenerAnuladosDescendente _obtenerAnuladosDescendenteCU;
+        private IGetPedidosConCliente _getPedidosConClienteCU;
 
         public PedidosController(
-            IObtenerAnuladosDescendente obtenerAnuladosDescendente
+            IGetPedidosConCliente getPedidosConCliente
             )
         {
-            this._obtenerAnuladosDescendenteCU = obtenerAnuladosDescendente;
+            this._getPedidosConClienteCU = getPedidosConCliente;
         }
 
         [HttpGet(Name = "GetAnuladosDescendente")]
         public ActionResult<IEnumerable<ArticuloDTO>> Get()
         {
-            return Ok(_obtenerAnuladosDescendenteCU.ObtenerAnuladosDescendente());
+            try
+            {
+                return Ok(_getPedidosConClienteCU.GetPedidosAnuladosCliente());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

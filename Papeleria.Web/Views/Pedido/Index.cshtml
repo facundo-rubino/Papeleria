@@ -1,64 +1,103 @@
-﻿@using BussinessLogic.Entidades
-@model IEnumerable<Pedido>
+﻿@using AppLogic.DTOs
+@model IEnumerable<PedidoDTO>
 
 @{
     ViewData["Title"] = "Index";
 }
 
+@if (@ViewBag.error != null)
+{
+    <script>alertify.error('@ViewBag.error')</script>
+}
+
+@if (@ViewBag.Mensaje != null)
+{
+    <script>alertify.success('@ViewBag.Mensaje')</script>
+}
+
+
+
+
 <h1>Pedidos</h1>
 
-<div class="form-group">
-    <a asp-action="Create" value="CREAR NUEVO" class="btn btn-primary">CREAR NUEVO</a>
-</div>
 
 
-
+<div style="display: flex">
+    <div class="form-group">
+        <a asp-action="Create" value="CREAR NUEVO" class="btn btn-primary">CREAR NUEVO</a>
+    </div>
+    <div style="margin-left: 30px">
+        <form style="display:flex; flex-direction:column; " method="post" action="../Pedido/FiltroPorFecha">
+            <label for="date">Búsqueda por fecha</label>
+            <input type="date" name="date" id="date" />
+            <input type="submit" value="Buscar"/>
+        </form>
+    </div>
+    </div>
+@if (ViewBag.FechaElegida != null)
+{
+    <p>Mostrando resultados para la fecha: <span>@ViewBag.FechaElegida</span></p>
+    
+}
+<hr />
 <table class="table">
     <thead>
         <tr>
             <th>
-                Tipo
+                Cliente
             </th>
             <th>
-                Fecha creación
+              Fecha creación
             </th>
             <th>
-                Fecha prometida
+              Fecha prometida
             </th>
             <th>
-                Monto total
+               Monto
             </th>
-            <th></th>
+            <th>
+             Pedido
+            </th>
+
         </tr>
     </thead>
     <tbody>
-
-        @foreach (var item in ViewBag.Pedidos)
+        @foreach (var item in Model)
         {
             <tr>
-                @if (item.EsPedidoExpress)
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.RazonSocial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaPrometida)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MontoTotal)
+                </td>
+                    @if (item.EsPedidoExpress)
+                    {
+                        <td>Pedido Express </td>
+                    }
+                    else
+                    {
+                        <td>Pedido Común</td>
+                    }
+               @if(!item.PedidoAnulado)
                 {
-                    <td>Express</td>
+                    <td> @Html.ActionLink("Anular", "Anular", new { Id = item.Id, })</td> 
                 }
-                @if (!item.EsPedidoExpress)
+                else
                 {
-                    <td>Común</td>
+                    <td style="color:red">ANULADO</td>
                 }
 
-                <td>
-                    @item.Fecha
-                </td>
-                <td>
-                    @item.FechaPrometida
-                </td>
-                <td>
-                    @item.MontoTotal
-                </td>
-                <td>
-                    @Html.ActionLink("Anular", "Anular", new { /* id=item.PrimaryKey */ })
-                </td>
             </tr>
-
         }
     </tbody>
 </table>
+
+
+

@@ -56,13 +56,13 @@ namespace BussinessLogic.Entidades
         private void _validarNombre()
         {
             if (this.NombreCompleto.Nombre == null) throw new UsuarioNoValidoException("El nombre no puede ser vacío");
-            if (!this._validarNombreApellido(this.NombreCompleto.Nombre)) throw new UsuarioNoValidoException("El nombre no puede contener caracteres especiales ni inicio ni al final");
+            if (this._validarNombreApellido(this.NombreCompleto.Nombre)) throw new UsuarioNoValidoException("El nombre no puede contener caracteres especiales ni inicio ni al final");
         }
 
         private void _validarApellido()
         {
             if (this.NombreCompleto.Apellido == null) throw new UsuarioNoValidoException("El apellido no puede ser vacío");
-            if (!this._validarNombreApellido(this.NombreCompleto.Apellido)) throw new UsuarioNoValidoException("El apellido no puede contener caracteres especiales ni inicio ni al final");
+            if (this._validarNombreApellido(this.NombreCompleto.Apellido)) throw new UsuarioNoValidoException("El apellido no puede contener caracteres especiales ni inicio ni al final");
         }
 
         private void _validarEmail()
@@ -90,7 +90,7 @@ namespace BussinessLogic.Entidades
             // ^[a-zA-Z] : Regex para que empiece con un caracter alfabético
             // [a-zA-Z'-]* : Regex para que contenga solo caracteres alfabéticos, apóstrofes y guiones
             // [a-zA-Z]$ : Regex para que termine con un caracter alfabético
-            Regex validNameRegex = new Regex("^[a-zA-Z][a-zA-Z'-]*[a-zA-Z]$");
+            Regex validNameRegex = new Regex("^[a-zA-Z][a-zA-Z]$");
             // comparamos y devolvemos el booleano
             return validNameRegex.IsMatch(input);
         }

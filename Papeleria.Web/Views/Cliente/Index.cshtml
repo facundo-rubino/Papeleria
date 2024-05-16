@@ -1,25 +1,26 @@
 ﻿@using BussinessLogic.Entidades
 @model IEnumerable<Cliente>
 
-<h4>Cliente</h4>
+<h1>Clientes</h1>
+<div style="display: flex">
+    <div>
+        <form method="post" action="../Cliente/FilterByName">
+            <label for="name">Búsqueda por nombre</label>
+            <input type="text" name="nombre" id="name" />
+            <input type="submit" value="Buscar" />
+        </form>
+    </div>
+
+    <div style="margin-left:15px">
+        <form method="post" action="../Cliente/FilterByMonto">
+            <label for="monto">Búsqueda por monto total</label>
+            <input type="number" name="monto" id="monto" />
+            <input type="submit" value="Buscar" />
+        </form>
+    </div>
+</div>
+
 <hr />
-
-<div>
-    <form method="post" action="../Cliente/FilterByName">
-        <label for="name">Búsqueda por nombre</label>
-        <input type="text" name="nombre" id="name" />
-        <input type="submit" value="Buscar" />
-    </form>
-</div>
-
-<div>
-    <form method="post" action="../Cliente/FilterByMonto">
-        <label for="monto">Búsqueda por monto total</label>
-        <input type="number" name="monto" id="monto" />
-        <input type="submit" value="Buscar" />
-    </form>
-</div>
-
 <table class="table">
     <thead>
         <tr>

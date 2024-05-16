@@ -5,6 +5,11 @@
     <script>alertify.error('@ViewBag.error')</script>
 }
 
+@if (@ViewBag.Mensaje != null)
+{
+    <script>alertify.success('@ViewBag.Mensaje')</script>
+}
+
 <section class="vh-100">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -52,7 +57,7 @@
 
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <button type="submit" value="Create" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Registrarse</button>
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Registrarse</button>
                                     </div>
                                     <div class="text-center"><a class="link-secondary" href="Login">Ya tenés usuario? Iniciá sesión</a></div>
                                 </form>

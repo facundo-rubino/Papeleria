@@ -26,7 +26,10 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public IEnumerable<Cliente> GetClientesPorPedido(IEnumerable<Pedido> pedidos)
         {
-            return pedidos.Select(pedido => pedido.Cliente).Distinct();
+            var clienteIdsInPedidos = pedidos.Select(p => p.ClienteId).Distinct();
+            var clientesFiltrados = _context.Clientes.Where(c => clienteIdsInPedidos.Contains(c.Id));
+
+            return clientesFiltrados;
         }
 
         public IEnumerable<Cliente> FindAll()

@@ -18,12 +18,5 @@ namespace AppLogic.CasosDeUso.Usuarios
             this._repositorioUsuarios = _repositorioUsuarios;
         }
 
-     //   public IEnumerable<UsuarioDTO> GetUsersByName(string name)
-     //   {
-     //       IEnumerable<UsuarioDTO> toreturn = _repositorioUsuarios
-     //. (name)
-     //        .Select(team => TeamDTOMapper.ToDTO(team));
-     //       return toreturn;
-     //   }
     }
 }

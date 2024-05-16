@@ -33,7 +33,7 @@ builder.Services.AddScoped<IAgregarArticulo, AgregarArticuloCU>();
 builder.Services.AddScoped<IAgregarPedido, AgregarPedidoCU>();
 builder.Services.AddScoped<IFindById, FindByIdCU>();
 builder.Services.AddScoped<IObtenerArticulosAscendente, ObtenerArticulosAscendenteCU>();
-builder.Services.AddScoped<IObtenerAnuladosDescendente, ObtenerAnuladosCU>();
+builder.Services.AddScoped<IGetPedidosConCliente, GetPedidosConClienteCU>();
 
 
 

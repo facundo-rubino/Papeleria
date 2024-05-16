@@ -19,8 +19,12 @@ namespace AppLogic.CasosDeUso.Usuarios
 
         public bool LoginIsValid(string email, string pass)
         {
-
             UsuarioDTO userDTO = this._userByEmail.GetUserByEmail(email);
+            if(userDTO.HashedPass == null)
+            {
+                throw new UsuarioNoValidoException("Usuario no registrado en la aplicación");
+            }
+
             if (userDTO.Id != 0)
                 return userDTO != null && PasswordHasher.VerifyPassword(userDTO.HashedPass, pass);
             else throw new UsuarioNoValidoException("Usuario y/o contraseña incorrectos");

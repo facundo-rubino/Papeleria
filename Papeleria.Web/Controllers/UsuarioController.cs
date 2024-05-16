@@ -9,6 +9,7 @@ using BussinessLogic.InterfacesRepositorio;
 using BussinessLogic.Excepciones;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using BussinessLogic.Entidades;
+using Papeleria.Web.Filters;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -102,13 +103,11 @@ namespace Papeleria.Web.Controllers
                 this._agregarUsuarioCU.AgregarUsuario(usuario);
                 if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
                 {
-                    ViewBag.Mensaje = "Usuario creado";
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Login", new { Mensaje = "Usuario creado correctamente" });
                 }
                 else
                 {
-                    ViewBag.Mensaje = "Usuario creado";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index), new { Mensaje = "Usuario creado correctamente" });
                 }
 
             }
@@ -124,6 +123,7 @@ namespace Papeleria.Web.Controllers
             }
         }
         // GET: usuarioController/Edit/5
+        [Logueado]
         public ActionResult Edit(string email)
         {
             try
@@ -137,6 +137,7 @@ namespace Papeleria.Web.Controllers
         }
 
         // POST: usuarioController/Edit/5
+        [Logueado]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int Id, UsuarioDTO usuario)
@@ -155,6 +156,7 @@ namespace Papeleria.Web.Controllers
         }
 
         // GET: usuarioController/Delete/5
+        [Logueado]
         public ActionResult Delete(string email)
         {
             try
@@ -168,6 +170,7 @@ namespace Papeleria.Web.Controllers
         }
 
         // POST: usuarioController/Delete/5
+        [Logueado]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id)
@@ -184,7 +187,7 @@ namespace Papeleria.Web.Controllers
         public IActionResult LogOut()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("login");
+            return RedirectToAction("Login");
         }
 
         public IActionResult Privacy()
