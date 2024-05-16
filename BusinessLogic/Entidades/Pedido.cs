@@ -1,5 +1,4 @@
 ﻿using BusinessLogic.InterfacesEntidades;
-using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.InterfacesRepositorio;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;

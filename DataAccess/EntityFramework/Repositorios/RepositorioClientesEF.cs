@@ -1,19 +1,16 @@
 ﻿using System;
-using BusinessLogic.InterfacesRepositorio;
-using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
+using BussinessLogic.Entidades;
 
 namespace DataAccess.EntityFramework.Repositorios
 {
     public class RepositorioClientesEF : IRepositorioClientes
     {
         private PapeleriaContext _context;
-        private IRepositorioPedidos _repositorioPedidos;
 
-        public RepositorioClientesEF(IRepositorioPedidos repositorioPedidos)
+        public RepositorioClientesEF()
         {
             this._context = new PapeleriaContext();
-            this._repositorioPedidos = repositorioPedidos;
         }
 
         public void Add(Cliente aAgregar)
@@ -27,9 +24,8 @@ namespace DataAccess.EntityFramework.Repositorios
                .Where(cliente => cliente.Contacto.Nombre.ToLower().Contains(word.ToLower()) || cliente.Contacto.Apellido.ToLower().Contains(word.ToLower()));
         }
 
-        public IEnumerable<Cliente> GetClientesPorMonto(double monto)
+        public IEnumerable<Cliente> GetClientesPorPedido(IEnumerable<Pedido> pedidos)
         {
-            IEnumerable<Pedido> pedidos = this._repositorioPedidos.GetPedidosPorMonto(monto);
             return pedidos.Select(pedido => pedido.Cliente).Distinct();
         }
 

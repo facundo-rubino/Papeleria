@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.InterfacesRepositorio
+namespace BussinessLogic.InterfacesRepositorio
 {
     public interface IRepositorioSettings : IRepositorio<Setting>
     {

@@ -1,7 +1,6 @@
 ﻿using System;
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Clientes;
-using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
 

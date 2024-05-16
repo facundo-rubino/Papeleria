@@ -1,5 +1,4 @@
-﻿using BusinessLogic.InterfacesRepositorio;
-using BussinessLogic.Entidades;
+﻿using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
 using Microsoft.EntityFrameworkCore;
 using System;

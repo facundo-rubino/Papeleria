@@ -2,8 +2,8 @@
 using AppLogic.CasosDeUso.Clientes;
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Clientes;
-using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Entidades;
+using BussinessLogic.InterfacesRepositorio;
 
 namespace AppLogic.Mappers
 {

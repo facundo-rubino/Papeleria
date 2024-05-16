@@ -1,5 +1,5 @@
 ﻿using System;
-using BusinessLogic.InterfacesRepositorio;
+using BussinessLogic.InterfacesRepositorio;
 
 namespace BusinessLogic.InterfacesEntidades
 {

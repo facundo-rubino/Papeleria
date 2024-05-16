@@ -4,7 +4,6 @@ using AppLogic.InterfacesCU.Usuarios;
 using AppLogic.InterfacesCU.Articulos;
 using AppLogic.CasosDeUso.Usuarios;
 using AppLogic.CasosDeUso.Articulos;
-using BusinessLogic.InterfacesRepositorio;
 using AppLogic.CasosDeUso.Pedidos;
 using AppLogic.InterfacesCU.Pedidos;
 using AppLogic.InterfacesCU.Clientes;
@@ -31,6 +30,8 @@ builder.Services.AddScoped<IFindById, FindByIdCU>();
 builder.Services.AddScoped<IGetAllUsers, GetAllUsersCU>();
 builder.Services.AddScoped<IBorrarUsuario, BorrarUsuarioCU>();
 builder.Services.AddScoped<IFiltroNombreCompleto, FiltroNombreCompletoCU>();
+builder.Services.AddScoped<IFiltrarPorMonto, FiltrarPorMontoCU>();
+
 
 
 

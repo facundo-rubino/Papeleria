@@ -11,7 +11,6 @@ using AppLogic.InterfacesCU.Pedidos;
 using BusinessLogic.Excepciones;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppLogic.InterfacesCU.Articulos;
-using BusinessLogic.InterfacesRepositorio;
 using Microsoft.CodeAnalysis.Scripting;
 using Papeleria.Web.Filters;
 

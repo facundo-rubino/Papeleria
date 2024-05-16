@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Clientes;
-using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Entidades;
+using BussinessLogic.InterfacesRepositorio;
 using Microsoft.AspNetCore.Mvc;
 using Papeleria.Web.Filters;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -19,11 +19,13 @@ namespace Papeleria.Web.Controllers
     {
         private IRepositorioClientes _repositorioClientes;
         private IFiltroNombreCompleto _filtroNombreCompleto;
+        private IFiltrarPorMonto _filtrarPorMonto;
 
-        public ClienteController(IRepositorioClientes repositorioClientes, IFiltroNombreCompleto filtroNombreCompleto)
+        public ClienteController(IRepositorioClientes repositorioClientes, IFiltroNombreCompleto filtroNombreCompleto, IFiltrarPorMonto filtrarPorMonto)
         {
             this._repositorioClientes = repositorioClientes;
             this._filtroNombreCompleto = filtroNombreCompleto;
+            this._filtrarPorMonto = filtrarPorMonto;
 
         }
 
@@ -48,6 +50,14 @@ namespace Papeleria.Web.Controllers
                 aMostrar = this._filtroNombreCompleto.FiltrarPorNombreCompleto(nombre);
             }
 
+            if (filtro == "PorMonto")
+            {
+                if (TempData["monto"] is string montoString && double.TryParse(montoString, out double monto))
+                {
+                    aMostrar = this._filtrarPorMonto.FiltrarPorMonto(monto);
+                }
+            }
+
             return View(aMostrar);
         }
 
@@ -61,6 +71,21 @@ namespace Papeleria.Web.Controllers
 
             TempData["nombre"] = nombre;
             return RedirectToAction("Index", new { filtro = "PorNombre" });
+
+        }
+
+
+
+        [HttpPost]
+        public ActionResult FilterByMonto(double monto)
+        {
+            if (monto == 0)
+            {
+                return RedirectToAction("Index", new { mensaje = "Escribe algo primero" });
+            }
+
+            TempData["monto"] = monto.ToString();
+            return RedirectToAction("Index", new { filtro = "PorMonto" });
 
         }
 

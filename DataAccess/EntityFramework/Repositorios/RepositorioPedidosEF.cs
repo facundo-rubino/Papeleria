@@ -1,6 +1,5 @@
 ﻿using System;
 using BusinessLogic.Excepciones;
-using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Entidades;
 using BussinessLogic.Excepciones;
 using BussinessLogic.InterfacesRepositorio;
