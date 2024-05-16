@@ -40,6 +40,7 @@ namespace Papeleria.Web.Controllers
         // GET: PedidoController
         public ActionResult Index()
         {
+            ViewBag.Pedidos = this._repositorioPedidos.FindAll();
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
             {
                 return RedirectToAction("Login", new { mensaje = "Por favor logueate" });
@@ -81,7 +82,9 @@ namespace Papeleria.Web.Controllers
         {
             try
             {
-                if (_pedidoTemporal != null && _pedidoTemporal.Lineas.Count > 0)
+                if (_pedidoTemporal.Lineas.Count <= 0) throw new PedidoNoValidoException("Para realizar un pedido primero debes ingresar líneas");
+
+                if (_pedidoTemporal != null)
                 {
                     pedido.Lineas = _pedidoTemporal.Lineas;
                     pedido.ClienteId = idCliente;
@@ -153,7 +156,9 @@ namespace Papeleria.Web.Controllers
             try
             {
                 Articulo articuloPorId = this._articuloPorId.FindById(idArticulo);
-                LineaDTO linea = new LineaDTO { Articulo = articuloPorId, Cantidad = cantidad };
+                if (articuloPorId.Stock < 0) throw new PedidoNoValidoException("No tenemos stock de " + articuloPorId.Nombre);
+
+                LineaDTO linea = new LineaDTO { ArticuloId = idArticulo, Cantidad = cantidad, Precio = articuloPorId.PrecioUnitario, Articulo = articuloPorId };
                 if (_pedidoTemporal == null)
                 {
                     _pedidoTemporal = new PedidoDTO { Lineas = new List<LineaDTO>() };
@@ -161,8 +166,9 @@ namespace Papeleria.Web.Controllers
                 _pedidoTemporal.Lineas.Add(linea);
                 return RedirectToAction(nameof(Create));
             }
-            catch
+            catch (Exception e)
             {
+                ViewBag.Error = e.Message;
                 return View();
             }
         }

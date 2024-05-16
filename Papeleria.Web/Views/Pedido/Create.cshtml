@@ -17,10 +17,11 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <div>
+        <div cl>
             @if (ViewBag.Articulos != null)
             {
                 <form asp-action="AgregarLinea">
+                    <p>Agregá líneas</p>
                     <div class="form-group">
                         <select name="idArticulo">
                             @foreach (Articulo articulo in ViewBag.Articulos)
@@ -39,11 +40,11 @@
         </div>
         <form asp-action="Create">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="comun">
+                <input class="form-check-input" type="radio" name="tipoPedido" id="inlineRadio1" value="comun">
                 <label class="form-check-label" for="inlineRadio1">Pedido común</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="express">
+                <input class="form-check-input" type="radio" name="tipoPedido" id="inlineRadio2" value="express">
                 <label class="form-check-label" for="inlineRadio2">Pedido express</label>
             </div>
             <div>
@@ -65,11 +66,6 @@
                 <label asp-for="FechaPrometida" class="control-label"></label>
                 <input asp-for="FechaPrometida" class="form-control" />
                 <span asp-validation-for="FechaPrometida" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
-                <span asp-validation-for="Fecha" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

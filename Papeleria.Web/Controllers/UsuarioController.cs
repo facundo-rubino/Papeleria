@@ -48,7 +48,7 @@ namespace Papeleria.Web.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
             {
-                return RedirectToAction("Login", new { mensaje = "Por favor logueate" });
+                return RedirectToAction("Login", new { error = "Por favor logueate" });
             }
             return View(this._getAllUsersCU.GetAllUsers());
             //return View("Index");
@@ -57,7 +57,7 @@ namespace Papeleria.Web.Controllers
         // GET: UsuarioController/Login
         public IActionResult Login(string mensaje)
         {
-            ViewBag.error = mensaje;
+            ViewBag.mensaje = mensaje;
             return View();
         }
 
@@ -70,8 +70,13 @@ namespace Papeleria.Web.Controllers
                 {
                     HttpContext.Session.SetString("email", email);
                     ViewBag.email = email;
+                    return View("Index", this._getAllUsersCU.GetAllUsers());
                 }
-                return View("Index", this._getAllUsersCU.GetAllUsers());
+                else
+                {
+                    throw new UsuarioNoValidoException("Email y/o contraseña incorrectos");
+                }
+
             }
             catch (UsuarioNoValidoException ex)
             {
@@ -84,7 +89,7 @@ namespace Papeleria.Web.Controllers
         // GET: UsuarioController/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new UsuarioDTO());
         }
 
         // POST: UsuarioController/Create
@@ -100,12 +105,12 @@ namespace Papeleria.Web.Controllers
             catch (UsuarioNoValidoException ex)
             {
                 ViewBag.error = ex.Message;
-                return View();
+                return View(usuario);
             }
             catch (Exception ex)
             {
                 ViewBag.error = ex.Message;
-                return View();
+                return View(usuario);
             }
         }
         // GET: usuarioController/Edit/5
@@ -129,6 +134,7 @@ namespace Papeleria.Web.Controllers
             try
             {
                 this._updateUser.UpdateUser(usuario);
+                ViewBag.Mensaje = "Usuario actualizado exitosamente";
                 return View("Index", this._getAllUsersCU.GetAllUsers());
             }
             catch (Exception ex)
@@ -157,6 +163,10 @@ namespace Papeleria.Web.Controllers
         public ActionResult Delete(int Id)
         {
             this._borrarUsuarioCU.BorrarUsuario(Id);
+            if (this._repositorioUsuarios.FindAll().Count() == 0)
+            {
+                HttpContext.Session.Clear();
+            }
             return RedirectToAction(nameof(Index));
         }
 

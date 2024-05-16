@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class databaseNewInit : Migration
+    public partial class databaseNewInit2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,9 +55,7 @@ namespace DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Valor = table.Column<double>(type: "float", nullable: false),
-                    PlazoComun = table.Column<int>(type: "int", nullable: false),
-                    PlazoExpress = table.Column<int>(type: "int", nullable: false)
+                    Valor = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,9 +87,10 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Recargo = table.Column<int>(type: "int", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaPrometida = table.Column<int>(type: "int", nullable: false),
+                    FechaPrometida = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MontoTotal = table.Column<double>(type: "float", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
+                    EsPedidoExpress = table.Column<bool>(type: "bit", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false)
                 },
                 constraints: table =>

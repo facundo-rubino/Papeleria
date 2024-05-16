@@ -16,6 +16,7 @@ namespace AppLogic.Mappers
         {
             return new LineaDTO
             {
+                ArticuloId = linea.ArticuloId,
                 Articulo = linea.Articulo,
                 Cantidad = linea.Cantidad,
                 Precio = linea.Precio
@@ -27,7 +28,7 @@ namespace AppLogic.Mappers
 
             return new Linea
             {
-                Articulo = dto.Articulo,
+                ArticuloId = dto.ArticuloId,
                 Cantidad = dto.Cantidad,
                 Precio = dto.Precio,
             };

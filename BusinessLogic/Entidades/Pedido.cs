@@ -18,12 +18,15 @@ namespace BussinessLogic.Entidades
         public Cliente Cliente { get; set; }
         public List<Linea> Lineas { get; set; }
         public bool EsPedidoExpress { get; set; } = false;
+        public bool PedidoAnulado { get; set; } = false;
 
         public Pedido()
         {
         }
 
         public abstract void EsValido(IRepositorioSettings settingsRepository);
+
+        public abstract void CalcularCostosExtra(IRepositorioSettings settingsRepository);
 
         public abstract void CalcularRecargo(IRepositorioSettings settingsRepository);
 
@@ -32,8 +35,6 @@ namespace BussinessLogic.Entidades
         public abstract void CalcularIVA(IRepositorioSettings settingsRepository);
 
         public abstract void ValidarFechaPrometida(IRepositorioSettings settingsRepository);
-
-
     }
 }
 

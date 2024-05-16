@@ -1,5 +1,6 @@
 ﻿using System;
 using BusinessLogic.Excepciones;
+using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Entidades;
 using BussinessLogic.Excepciones;
 using BussinessLogic.InterfacesRepositorio;
@@ -10,17 +11,25 @@ namespace DataAccess.EntityFramework.Repositorios
     public class RepositorioPedidosEF : IRepositorioPedidos
     {
         private PapeleriaContext _context;
-        public RepositorioPedidosEF()
+        private IRepositorioClientes _repositorioClientes;
+        public RepositorioPedidosEF(IRepositorioClientes repositorioClientes)
         {
             this._context = new PapeleriaContext();
+            this._repositorioClientes = repositorioClientes;
         }
 
         public void Add(Pedido aAgregar)
         {
             try
             {
-                //CON EL IDCLIENTE ME TRAIGO AL CLIENTE Y VALIDO LO DE LA DIRECCION
-                aAgregar.EsValido(new RepositorioSettingsEF());
+                IRepositorioSettings settings = new RepositorioSettingsEF();
+                if (!aAgregar.EsPedidoExpress)
+                {
+                    aAgregar.Cliente = this._repositorioClientes.FindByID(aAgregar.ClienteId);
+                }
+                aAgregar.EsValido(settings);
+                aAgregar.CalcularCostosExtra(settings);
+                aAgregar.Cliente = null;
                 _context.Pedidos.Add(aAgregar);
                 _context.SaveChanges();
             }
@@ -32,6 +41,11 @@ namespace DataAccess.EntityFramework.Repositorios
             {
                 throw ex;
             }
+        }
+
+        public IEnumerable<Pedido> GetPedidosPorMonto(double monto)
+        {
+            return _context.Pedidos.Where(pedido => pedido.MontoTotal >= monto);
         }
 
         public IEnumerable<Pedido> FindAll()

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AppLogic.DTOs;
+using AppLogic.InterfacesCU.Clientes;
 using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using Papeleria.Web.Filters;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,10 +18,13 @@ namespace Papeleria.Web.Controllers
     public class ClienteController : Controller
     {
         private IRepositorioClientes _repositorioClientes;
+        private IFiltroNombreCompleto _filtroNombreCompleto;
 
-        public ClienteController(IRepositorioClientes repositorioClientes)
+        public ClienteController(IRepositorioClientes repositorioClientes, IFiltroNombreCompleto filtroNombreCompleto)
         {
             this._repositorioClientes = repositorioClientes;
+            this._filtroNombreCompleto = filtroNombreCompleto;
+
         }
 
         // GET: /<controller>/
@@ -39,26 +44,27 @@ namespace Papeleria.Web.Controllers
 
             if (filtro == "PorNombre")
             {
-
+                string nombre = (string)TempData["nombre"];
+                aMostrar = this._filtroNombreCompleto.FiltrarPorNombreCompleto(nombre);
             }
 
-
-            return View(this._repositorioClientes.FindAll());
+            return View(aMostrar);
         }
 
-
-
-        public ActionResult FilterByName(string word)
+        [HttpPost]
+        public ActionResult FilterByName(string nombre)
         {
-            if (string.IsNullOrEmpty(word))
+            if (string.IsNullOrEmpty(nombre))
             {
                 return RedirectToAction("Index", new { mensaje = "Escribe algo primero" });
             }
 
-            TempData["word"] = word;
+            TempData["nombre"] = nombre;
             return RedirectToAction("Index", new { filtro = "PorNombre" });
 
         }
+
+
     }
 }
 

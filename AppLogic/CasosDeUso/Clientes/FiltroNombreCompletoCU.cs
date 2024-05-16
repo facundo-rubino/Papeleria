@@ -2,6 +2,7 @@
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Clientes;
 using BusinessLogic.InterfacesRepositorio;
+using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
 
 namespace AppLogic.CasosDeUso.Clientes
@@ -15,9 +16,9 @@ namespace AppLogic.CasosDeUso.Clientes
             this._repositorioClientes = repositorioClientes;
         }
 
-        public IEnumerable<ClienteDTO> FiltrarPorNombreCompleto(string txt)
+        public IEnumerable<Cliente> FiltrarPorNombreCompleto(string txt)
         {
-            throw new NotImplementedException();
+            return this._repositorioClientes.FiltroNombreCompleto(txt);
         }
     }
 }

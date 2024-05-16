@@ -5,28 +5,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Pedidos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="form-group">
+    <button type="submit" value="CREAR NUEVO" class="btn btn-primary" asp-action="Create">CREAR NUEVO</button>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Tipo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recargo)
+                Fecha creación
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaPrometida)
+                Fecha prometida
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente.RazonSocial)
+                Monto total
             </th>
             <th></th>
         </tr>
@@ -34,23 +31,26 @@
     <tbody>
         @if (Model != null)
         {
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.Pedidos)
             {
                 <tr>
+                    @if (item.EsPedidoExpress)
+                    {
+                        <td>Express</td>
+                    }
+                    @if (!item.EsPedidoExpress)
+                    {
+                        <td>Común</td>
+                    }
+
                     <td>
-                        @Html.DisplayFor(modelItem => item.Id)
+                        @item.Fecha
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Recargo)
+                        @item.FechaPrometida
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FechaPrometida)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cliente.RazonSocial)
+                        @item.MontoTotal
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

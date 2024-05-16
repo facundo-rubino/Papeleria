@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(PapeleriaContext))]
-    [Migration("20240515154349_connectionString")]
-    partial class connectionString
+    [Migration("20240516022322_newColumn")]
+    partial class newColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -133,6 +133,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
+                    b.Property<bool>("EsPedidoExpress")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
@@ -141,6 +144,9 @@ namespace DataAccess.Migrations
 
                     b.Property<double>("MontoTotal")
                         .HasColumnType("float");
+
+                    b.Property<bool>("PedidoAnulado")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Recargo")
                         .HasColumnType("int");

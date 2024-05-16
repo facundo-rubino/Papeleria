@@ -12,15 +12,22 @@ namespace BussinessLogic.Entidades
         public override void EsValido(IRepositorioSettings settingsRepository)
         {
             ValidarFechaPrometida(settingsRepository);
-
         }
+
+        public override void CalcularCostosExtra(IRepositorioSettings settingsRepository)
+        {
+            CalcularMontoTotal();
+            CalcularRecargo(settingsRepository);
+            CalcularIVA(settingsRepository);
+        }
+
 
         public override void CalcularMontoTotal()
         {
             double montoTotal = 0;
             foreach (var linea in base.Lineas)
             {
-                double montoLinea = linea.Articulo.PrecioUnitario * linea.Cantidad;
+                double montoLinea = linea.Precio * linea.Cantidad;
                 montoTotal += montoLinea;
             }
 
@@ -51,7 +58,7 @@ namespace BussinessLogic.Entidades
             TimeSpan dias = base.FechaPrometida - base.Fecha;
 
             if (dias.TotalDays > plazo)
-                throw new PedidoNoValidoException("La fecha prometida no puede ser mayor a " + plazo + ", que es el plazo estipulado");
+                throw new PedidoNoValidoException("El plazo para entregar el pedido no puede ser mayor a " + plazo);
         }
 
     }

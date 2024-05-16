@@ -7,6 +7,8 @@ using AppLogic.CasosDeUso.Articulos;
 using BusinessLogic.InterfacesRepositorio;
 using AppLogic.CasosDeUso.Pedidos;
 using AppLogic.InterfacesCU.Pedidos;
+using AppLogic.InterfacesCU.Clientes;
+using AppLogic.CasosDeUso.Clientes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,8 @@ builder.Services.AddScoped<IAgregarPedido, AgregarPedidoCU>();
 builder.Services.AddScoped<IFindById, FindByIdCU>();
 builder.Services.AddScoped<IGetAllUsers, GetAllUsersCU>();
 builder.Services.AddScoped<IBorrarUsuario, BorrarUsuarioCU>();
+builder.Services.AddScoped<IFiltroNombreCompleto, FiltroNombreCompletoCU>();
+
 
 
 
