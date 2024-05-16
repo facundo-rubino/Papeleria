@@ -5,10 +5,17 @@
     ViewData["Title"] = "Index";
 }
 
+@if (@ViewBag.Mensaje != null)
+{
+    <script>alertify.seuccess('@ViewBag.Mensaje')</script>
+}
+
+
+
 <h1>Usuarios</h1>
 
 <div class="form-group">
-    <button type="submit" value="CREAR NUEVO" class="btn btn-primary" asp-action="Create">CREAR NUEVO</button>
+    <a asp-action="Create" class="btn btn-primary">CREAR NUEVO</a>
 </div>
 <table class="table">
     <thead>

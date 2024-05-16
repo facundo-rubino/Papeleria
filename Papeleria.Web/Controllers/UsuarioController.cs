@@ -100,7 +100,17 @@ namespace Papeleria.Web.Controllers
             try
             {
                 this._agregarUsuarioCU.AgregarUsuario(usuario);
-                return RedirectToAction("Login", new { mensaje = "Usuario creado" });
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
+                {
+                    ViewBag.Mensaje = "Usuario creado";
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ViewBag.Mensaje = "Usuario creado";
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
             catch (UsuarioNoValidoException ex)
             {

@@ -4,7 +4,6 @@ using AppLogic.CasosDeUso.Usuarios;
 using AppLogic.InterfacesCU.Articulos;
 using AppLogic.InterfacesCU.Pedidos;
 using AppLogic.InterfacesCU.Usuarios;
-using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.InterfacesRepositorio;
 using DataAccess.EntityFramework.Repositorios;
 
@@ -33,6 +32,11 @@ builder.Services.AddScoped<ILogin, LoginCU>();
 builder.Services.AddScoped<IAgregarArticulo, AgregarArticuloCU>();
 builder.Services.AddScoped<IAgregarPedido, AgregarPedidoCU>();
 builder.Services.AddScoped<IFindById, FindByIdCU>();
+builder.Services.AddScoped<IObtenerArticulosAscendente, ObtenerArticulosAscendenteCU>();
+builder.Services.AddScoped<IObtenerAnuladosDescendente, ObtenerAnuladosCU>();
+
+
+
 
 var app = builder.Build();
 

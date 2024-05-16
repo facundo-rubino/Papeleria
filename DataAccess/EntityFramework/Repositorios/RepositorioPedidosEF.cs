@@ -52,6 +52,11 @@ namespace DataAccess.EntityFramework.Repositorios
             return _context.Pedidos;
         }
 
+        public IEnumerable<Pedido> GetPedidosPorFecha(DateTime date)
+        {
+            return _context.Pedidos.Where(pedido => pedido.Fecha.Date == date.Date);
+        }
+
         public Pedido FindByID(int id)
         {
             return this._context.Pedidos.Where(user => user.Id == id).FirstOrDefault();

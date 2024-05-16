@@ -20,7 +20,14 @@ namespace WebApi.Controllers
         [HttpGet(Name = "GetArticulosAscendente")]
         public ActionResult<IEnumerable<ArticuloDTO>> Get()
         {
-            return Ok(_obtenerArticulosAscendenteCU.ObtenerArticulosAscendente());
+            try
+            {
+                return Ok(_obtenerArticulosAscendenteCU.ObtenerArticulosAscendente());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

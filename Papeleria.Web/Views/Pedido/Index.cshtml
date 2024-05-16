@@ -8,8 +8,11 @@
 <h1>Pedidos</h1>
 
 <div class="form-group">
-    <button type="submit" value="CREAR NUEVO" class="btn btn-primary" asp-action="Create">CREAR NUEVO</button>
+    <a asp-action="Create" value="CREAR NUEVO" class="btn btn-primary">CREAR NUEVO</a>
 </div>
+
+
+
 <table class="table">
     <thead>
         <tr>
@@ -29,36 +32,33 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model != null)
-        {
-            @foreach (var item in ViewBag.Pedidos)
-            {
-                <tr>
-                    @if (item.EsPedidoExpress)
-                    {
-                        <td>Express</td>
-                    }
-                    @if (!item.EsPedidoExpress)
-                    {
-                        <td>Común</td>
-                    }
 
-                    <td>
-                        @item.Fecha
-                    </td>
-                    <td>
-                        @item.FechaPrometida
-                    </td>
-                    <td>
-                        @item.MontoTotal
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>
-                </tr>
-            }
+        @foreach (var item in ViewBag.Pedidos)
+        {
+            <tr>
+                @if (item.EsPedidoExpress)
+                {
+                    <td>Express</td>
+                }
+                @if (!item.EsPedidoExpress)
+                {
+                    <td>Común</td>
+                }
+
+                <td>
+                    @item.Fecha
+                </td>
+                <td>
+                    @item.FechaPrometida
+                </td>
+                <td>
+                    @item.MontoTotal
+                </td>
+                <td>
+                    @Html.ActionLink("Anular", "Anular", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+
         }
     </tbody>
 </table>

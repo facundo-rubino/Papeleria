@@ -13,6 +13,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppLogic.InterfacesCU.Articulos;
 using Microsoft.CodeAnalysis.Scripting;
 using Papeleria.Web.Filters;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,13 +40,10 @@ namespace Papeleria.Web.Controllers
         // GET: PedidoController
         public ActionResult Index()
         {
+
             ViewBag.Pedidos = this._repositorioPedidos.FindAll();
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
-            {
-                return RedirectToAction("Login", new { mensaje = "Por favor logueate" });
-            }
-            return View(this._repositorioPedidos.FindAll());
-            //return View();
+
+            return View();
         }
 
         // GET: PedidoController/Details/5
@@ -135,18 +133,6 @@ namespace Papeleria.Web.Controllers
             }
         }
 
-        // GET: PedidoController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            try
-            {
-                return View(this._repositorioPedidos.FindByID(id));
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -171,6 +157,22 @@ namespace Papeleria.Web.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FiltrarPorFecha(DateTime date)
+        {
+            try
+            {
+                return RedirectToAction("Index", date);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
+        }
+
 
         // POST: PedidoController/Delete/5
         [HttpPost]

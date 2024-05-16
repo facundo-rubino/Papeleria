@@ -16,52 +16,59 @@
 <h4>Pedido</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <div cl>
+    <div style="display: flex; flex-direction:column">
+        <div style="margin-bottom:30px">
             @if (ViewBag.Articulos != null)
             {
                 <form asp-action="AgregarLinea">
-                    <p>Agregá líneas</p>
-                    <div class="form-group">
-                        <select name="idArticulo">
-                            @foreach (Articulo articulo in ViewBag.Articulos)
-                            {
-                                <option value="@articulo.Id">@articulo.Nombre</option>
-                            }
-                        </select>
-                        <label for="Cantidad" class="control-label">Cantidad</label>
-                        <input id="Cantidad" type="number" name="cantidad" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Añadir línea" class="btn btn-primary" />
+                    <div style="display: flex; flex-direction: column; justify-content: space-around; align-items: end" class="form-group">
+                        <div>
+                            <label for="articulos">Agregá líneas</label>
+                            <select id="articulos" name="idArticulo">
+                                @foreach (Articulo articulo in ViewBag.Articulos)
+                                {
+                                    <option value="@articulo.Id">@articulo.Nombre</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <label for="cantidad">Cantidad</label>
+                            <input id="cantidad" type="number" name="cantidad" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Añadir línea" class="btn btn-primary" />
+                        </div>
                     </div>
                 </form>
             }
         </div>
         <form asp-action="Create">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="tipoPedido" id="inlineRadio1" value="comun">
-                <label class="form-check-label" for="inlineRadio1">Pedido común</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="tipoPedido" id="inlineRadio2" value="express">
-                <label class="form-check-label" for="inlineRadio2">Pedido express</label>
-            </div>
-            <div>
-                @if (ViewBag.Clientes != null)
-                {
-                    <div class="form-group">
-                        <select name="idCliente">
-                            @foreach (Cliente cliente in ViewBag.Clientes)
-                            {
-                                <option value="@cliente.Id">@cliente.RazonSocial</option>
-                            }
-                        </select>
+            <div style="display:flex; justify-content: space-around; margin-bottom:30px">
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipoPedido" id="inlineRadio1" value="comun">
+                        <label class="form-check-label" for="inlineRadio1">Pedido común</label>
                     </div>
-                }
-            </div>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipoPedido" id="inlineRadio2" value="express">
+                        <label class="form-check-label" for="inlineRadio2">Pedido express</label>
+                    </div>
+                </div>
 
+                <div>
+                    @if (ViewBag.Clientes != null)
+                    {
+                        <div class="form-group">
+                            <select name="idCliente">
+                                @foreach (Cliente cliente in ViewBag.Clientes)
+                                {
+                                    <option value="@cliente.Id">@cliente.RazonSocial</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="FechaPrometida" class="control-label"></label>
                 <input asp-for="FechaPrometida" class="form-control" />
