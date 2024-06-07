@@ -57,6 +57,7 @@ namespace AppLogic.Mappers
         {
             PedidoDTO retorno = new PedidoDTO
             {
+                Id = pedido.Id,
                 MontoTotal = pedido.MontoTotal,
                 FechaPrometida = pedido.FechaPrometida,
                 Fecha = pedido.Fecha,

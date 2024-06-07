@@ -30,6 +30,7 @@ namespace Papeleria.Web.Controllers
         private IAgregarPedido _agregarPedidoCU;
         private IFindById _articuloPorId;
         private IGetPedidosConCliente _getPedidosConCliente;
+        private IActualizarEstado _actualizarEstado;
 
         public PedidoController(
             IRepositorioPedidos repositorioPedidos,
@@ -37,7 +38,8 @@ namespace Papeleria.Web.Controllers
             IAgregarPedido agregarPedido,
             IFindById findById,
             IRepositorioClientes repositorioClientes,
-            IGetPedidosConCliente getPedidosConCliente
+            IGetPedidosConCliente getPedidosConCliente,
+            IActualizarEstado actualizarEstado
 
             )
         {
@@ -47,11 +49,13 @@ namespace Papeleria.Web.Controllers
             this._articuloPorId = findById;
             this._repositorioClientes = repositorioClientes;
             this._getPedidosConCliente = getPedidosConCliente;
+            this._actualizarEstado = actualizarEstado;
         }
         // GET: PedidoController
-        public ActionResult Index(DateTime date)
+        public ActionResult Index(DateTime date, string mensaje)
         {
             IEnumerable<PedidoDTO> aMostrar = new List<PedidoDTO>();
+            ViewBag.Mensaje = mensaje;
 
             if (date == DateTime.MinValue )
             {
@@ -65,6 +69,7 @@ namespace Papeleria.Web.Controllers
 
             if(aMostrar.Count() == 0)
             {
+                ViewBag.error = "No hay pedidos para la fecha elegida";
                 return RedirectToAction("Index", new { error = "No hay pedidos para la fecha elegida"});
             }
 
@@ -153,21 +158,25 @@ namespace Papeleria.Web.Controllers
             }   
         }
 
-        public ActionResult Anular(int id)
+
+        public ActionResult Anular()
         {
-            return View();
+                return View();
         }
 
+
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Anular(int id, IFormCollection collection)
+        public ActionResult Anular(int idPedido)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                this._actualizarEstado.UpdateEstadoPedido(idPedido, true);
+                return RedirectToAction("Index", new { mensaje = "Pedido anulado"});
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.error = ex.Message;
                 return View();
             }
         }
@@ -196,22 +205,6 @@ namespace Papeleria.Web.Controllers
                 return View();
             }
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult FiltrarPorFecha(DateTime date)
-        {
-            try
-            {
-                return RedirectToAction("Index", date);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.error = ex.Message;
-                return View();
-            }
-        }
-
 
         // POST: PedidoController/Delete/5
         [HttpPost]

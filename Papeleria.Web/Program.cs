@@ -32,6 +32,8 @@ builder.Services.AddScoped<IBorrarUsuario, BorrarUsuarioCU>();
 builder.Services.AddScoped<IFiltroNombreCompleto, FiltroNombreCompletoCU>();
 builder.Services.AddScoped<IFiltrarPorMonto, FiltrarPorMontoCU>();
 builder.Services.AddScoped<IGetPedidosConCliente, GetPedidosConClienteCU>();
+builder.Services.AddScoped<IActualizarEstado, UpdateEstadoPedidoCU>();
+
 
 
 

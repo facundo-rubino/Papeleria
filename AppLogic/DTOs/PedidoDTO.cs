@@ -5,7 +5,7 @@ namespace AppLogic.DTOs
 {
     public class PedidoDTO
     {
-        public int Id { get; private set; }
+        public int Id { get;  set; }
         public int Recargo { get; set; }
         public DateTime Fecha { get; set; }
         public DateTime FechaPrometida { get; set; }

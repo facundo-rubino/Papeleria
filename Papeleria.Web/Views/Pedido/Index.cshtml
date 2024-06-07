@@ -16,11 +16,7 @@
 }
 
 
-
-
 <h1>Pedidos</h1>
-
-
 
 <div style="display: flex">
     <div class="form-group">
@@ -32,6 +28,15 @@
             <input type="date" name="date" id="date" />
             <input type="submit" value="Buscar"/>
         </form>
+       
+    </div>
+    <div style="margin-left: 30px">
+        <form style="display:flex; flex-direction:column; " method="post" action="../Pedido/Anular">
+            <label for="idPedido">Anular pedido por Id</label>
+            <input type="number" name="idPedido" id="idPedido" />
+            <input type="submit" value="Anular" />
+        </form>
+
     </div>
     </div>
 @if (ViewBag.FechaElegida != null)
@@ -43,6 +48,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                Id
+            </th>
             <th>
                 Cliente
             </th>
@@ -66,6 +74,9 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Cliente.RazonSocial)
                 </td>
                 <td>
@@ -85,19 +96,21 @@
                     {
                         <td>Pedido Común</td>
                     }
-               @if(!item.PedidoAnulado)
-                {
-                    <td> @Html.ActionLink("Anular", "Anular", new { Id = item.Id, })</td> 
-                }
-                else
+               @if(item.PedidoAnulado)
                 {
                     <td style="color:red">ANULADO</td>
                 }
-
             </tr>
         }
     </tbody>
 </table>
+
+
+
+
+
+
+
 
 
 

@@ -97,6 +97,11 @@ namespace DataAccess.EntityFramework.Repositorios
                 this._context.Pedidos.Update(pedido);
                 this._context.SaveChanges();
             }
+            else
+            {
+                throw new PedidoNoValidoException("El id del pedido ingresado no existe");
+            }
+
         }
 
 
