@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using BussinessLogic.Entidades;
+using BusinessLogic.Entidades;
 
 namespace DataAccess.EntityFramework
 {
@@ -12,6 +13,7 @@ namespace DataAccess.EntityFramework
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Articulo> Articulos { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<TipoMovimiento> TiposMovimiento { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

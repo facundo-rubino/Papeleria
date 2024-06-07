@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AppLogic.DTOs;
+using AppLogic.InterfacesCU.TiposMovimiento;
+using BusinessLogic.Excepciones;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,12 +11,41 @@ namespace WebApi.Controllers
     [ApiController]
     public class TiposMovimientoController : ControllerBase
     {
-        // GET: api/<TiposMovimientoController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IObtenerTipos _obtenerTiposMovimientoCU;
+
+        public TiposMovimientoController(IObtenerTipos obtenerTiposMovimientoCU)
         {
-            return new string[] { "value1", "value2" };
+            this._obtenerTiposMovimientoCU = obtenerTiposMovimientoCU;
         }
+
+        [HttpGet(Name = "ObtenerTiposMovimiento")]
+        public  ActionResult<IEnumerable<TipoMovimientoDTO>> Get()
+        {
+            return  Ok(this._obtenerTiposMovimientoCU.ObtenerTiposMovimiento());
+        }
+
+
+        [HttpPost("")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<TipoMovimientoDTO> Create([FromBody] TipoMovimientoDTO tipoMovimientoDTO)
+        {
+            try
+            {
+                this._addTeam.AddTeam(tipoMovimientoDTO);
+                return Created("api/Teams", tipoMovimientoDTO);
+            }
+            catch (TipoMovimientoNoValidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error inesperado con la base de datos");
+            }
+
+        }
+
 
         // GET api/<TiposMovimientoController>/5
         [HttpGet("{id}")]
