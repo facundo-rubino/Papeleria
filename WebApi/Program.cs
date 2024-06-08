@@ -1,9 +1,12 @@
 using AppLogic.CasosDeUso.Articulos;
 using AppLogic.CasosDeUso.Pedidos;
+using AppLogic.CasosDeUso.TiposMovimiento;
 using AppLogic.CasosDeUso.Usuarios;
 using AppLogic.InterfacesCU.Articulos;
 using AppLogic.InterfacesCU.Pedidos;
+using AppLogic.InterfacesCU.TiposMovimiento;
 using AppLogic.InterfacesCU.Usuarios;
+using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.InterfacesRepositorio;
 using DataAccess.EntityFramework.Repositorios;
 
@@ -22,6 +25,7 @@ builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
 builder.Services.AddScoped<IRepositorioPedidos, RepositorioPedidosEF>();
 builder.Services.AddScoped<IRepositorioClientes, RepositorioClientesEF>();
 builder.Services.AddScoped<IRepositorioArticulos, RepositorioArticulosEF>();
+builder.Services.AddScoped<IRepositorioTiposMovimiento, RepositorioTiposMovimientoEF>();
 
 
 //Casos de uso
@@ -34,8 +38,9 @@ builder.Services.AddScoped<IAgregarPedido, AgregarPedidoCU>();
 builder.Services.AddScoped<IFindById, FindByIdCU>();
 builder.Services.AddScoped<IObtenerArticulosAscendente, ObtenerArticulosAscendenteCU>();
 builder.Services.AddScoped<IGetPedidosConCliente, GetPedidosConClienteCU>();
-
-
+builder.Services.AddScoped<IObtenerTipos, ObtenerTiposMovimientoCU>();
+builder.Services.AddScoped<IObtenerTipoPorId, ObtenerTipoPorIdCU>();
+builder.Services.AddScoped<IAgregarTipo, AgregarTipoMovimientoCU>();
 
 
 var app = builder.Build();

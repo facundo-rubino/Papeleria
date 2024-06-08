@@ -1,7 +1,5 @@
 ﻿using System;
-using AppLogic.CasosDeUso.Articulos;
 using AppLogic.DTOs;
-using AppLogic.InterfacesCU.Articulos;
 using AppLogic.InterfacesCU.Pedidos;
 using Microsoft.AspNetCore.Mvc;
 

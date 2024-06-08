@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Entidades;
 using BusinessLogic.InterfacesRepositorio;
+using BussinessLogic.Excepciones;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,19 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public void Add(TipoMovimiento aAgregar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.TiposMovimiento.Add(aAgregar);
+                _context.SaveChanges();
+            }
+            catch (UsuarioNoValidoException exception)
+            {
+                throw exception;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<TipoMovimiento> FindAll()

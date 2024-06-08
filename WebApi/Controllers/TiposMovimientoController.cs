@@ -12,18 +12,43 @@ namespace WebApi.Controllers
     public class TiposMovimientoController : ControllerBase
     {
         private IObtenerTipos _obtenerTiposMovimientoCU;
+        private IAgregarTipo _agregarTipoMovimientoCU;
+        private IObtenerTipoPorId _obtenerTipoPorId;
 
-        public TiposMovimientoController(IObtenerTipos obtenerTiposMovimientoCU)
+        public TiposMovimientoController(
+            IObtenerTipos obtenerTiposMovimientoCU,
+            IAgregarTipo agregarTipoMovimientoCU,
+            IObtenerTipoPorId obtenerTipoPorId
+            )
         {
             this._obtenerTiposMovimientoCU = obtenerTiposMovimientoCU;
+            this._agregarTipoMovimientoCU = agregarTipoMovimientoCU;
+            this._obtenerTipoPorId = obtenerTipoPorId;
         }
 
         [HttpGet(Name = "ObtenerTiposMovimiento")]
-        public  ActionResult<IEnumerable<TipoMovimientoDTO>> Get()
+        public ActionResult<IEnumerable<TipoMovimientoDTO>> Get()
         {
-            return  Ok(this._obtenerTiposMovimientoCU.ObtenerTiposMovimiento());
+            return Ok(this._obtenerTiposMovimientoCU.ObtenerTiposMovimiento());
         }
 
+        [HttpGet("{tipoId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<TipoMovimientoDTO> GetTipoPorId(int tipoId)
+        {
+            if (tipoId <= 0)
+            {
+                return BadRequest("El id no debe ser positivo");
+            }
+            TipoMovimientoDTO toReturn = this._obtenerTipoPorId.GetTipoPorId(tipoId);
+            if (toReturn != null)
+            {
+                return Ok(toReturn);
+            }
+            return NoContent();
+        }
 
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -32,8 +57,8 @@ namespace WebApi.Controllers
         {
             try
             {
-                this._addTeam.AddTeam(tipoMovimientoDTO);
-                return Created("api/Teams", tipoMovimientoDTO);
+                this._agregarTipoMovimientoCU.AgregarTipo(tipoMovimientoDTO);
+                return Created("TiposMovimiento", tipoMovimientoDTO);
             }
             catch (TipoMovimientoNoValidoException ex)
             {
@@ -47,29 +72,6 @@ namespace WebApi.Controllers
         }
 
 
-        // GET api/<TiposMovimientoController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/<TiposMovimientoController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<TiposMovimientoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<TiposMovimientoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
