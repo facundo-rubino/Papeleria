@@ -12,6 +12,7 @@ namespace AppLogic.DTOs
         public string Email { get; set; }
         public string Pass { get; set; }
         public string HashedPass { get; set; }
+        public string Rol { get; set; }
 
         public UsuarioDTO() { }
 
@@ -25,6 +26,7 @@ namespace AppLogic.DTOs
                 this.Pass = usuario.Pass;
                 this.Email = usuario.Email;
                 this.HashedPass = usuario.HashedPass;
+                this.Rol = usuario.Rol;
             }
         }
 

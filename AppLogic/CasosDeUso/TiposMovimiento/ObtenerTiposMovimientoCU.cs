@@ -22,7 +22,7 @@ namespace AppLogic.CasosDeUso.TiposMovimiento
 
         public IEnumerable<TipoMovimientoDTO> ObtenerTiposMovimiento()
         {
-            return this._repositorioTiposMovimiento.FindAll().Select(Usuario => TipoMovimientoDTOMapper.ToDto(Usuario));
+            return this._repositorioTiposMovimiento.FindAll().Select(TipoMovimiento => TipoMovimientoDTOMapper.ToDto(TipoMovimiento));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AppLogic.DTOs;
 using AppLogic.InterfacesCU.TiposMovimiento;
+using BusinessLogic.Entidades;
 using BusinessLogic.Excepciones;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,6 +71,8 @@ namespace WebApi.Controllers
             }
 
         }
+
+
 
 
 

@@ -12,7 +12,6 @@ namespace DataAccess.EntityFramework.Repositorios
 {
     public class RepositorioTiposMovimientoEF : IRepositorioTiposMovimiento
     {
-
         private PapeleriaContext _context;
 
         public RepositorioTiposMovimientoEF()
@@ -44,17 +43,20 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public TipoMovimiento FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.TiposMovimiento.Where(tipoMov => tipoMov.Id == id).FirstOrDefault();
         }
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            TipoMovimiento toRemove = new TipoMovimiento { Id = id };
+            this._context.TiposMovimiento.Remove(toRemove);
+            this._context.SaveChanges();
         }
 
-        public void Update(TipoMovimiento aModificar)
+        public void Update(TipoMovimiento aActualizar)
         {
-            throw new NotImplementedException();
+            this._context.TiposMovimiento.Update(aActualizar);
+            this._context.SaveChanges();
         }
     }
 }

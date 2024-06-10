@@ -14,6 +14,7 @@ namespace DataAccess.EntityFramework
         public DbSet<Articulo> Articulos { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<TipoMovimiento> TiposMovimiento { get; set; }
+        public DbSet<Movimiento> Movimientos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

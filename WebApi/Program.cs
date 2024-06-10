@@ -1,8 +1,10 @@
 using AppLogic.CasosDeUso.Articulos;
+using AppLogic.CasosDeUso.Movimientos;
 using AppLogic.CasosDeUso.Pedidos;
 using AppLogic.CasosDeUso.TiposMovimiento;
 using AppLogic.CasosDeUso.Usuarios;
 using AppLogic.InterfacesCU.Articulos;
+using AppLogic.InterfacesCU.Movimientos;
 using AppLogic.InterfacesCU.Pedidos;
 using AppLogic.InterfacesCU.TiposMovimiento;
 using AppLogic.InterfacesCU.Usuarios;
@@ -17,6 +19,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+var Clave = "12asdsadasdasdas";
+
+builder.Services.AddAuthentication(aut =>
+
+)
+
 builder.Services.AddSwaggerGen();
 
 
@@ -26,6 +35,7 @@ builder.Services.AddScoped<IRepositorioPedidos, RepositorioPedidosEF>();
 builder.Services.AddScoped<IRepositorioClientes, RepositorioClientesEF>();
 builder.Services.AddScoped<IRepositorioArticulos, RepositorioArticulosEF>();
 builder.Services.AddScoped<IRepositorioTiposMovimiento, RepositorioTiposMovimientoEF>();
+builder.Services.AddScoped<IRepositorioMovimientos, RepositorioMovimientosEF>();
 
 
 //Casos de uso
@@ -41,6 +51,7 @@ builder.Services.AddScoped<IGetPedidosConCliente, GetPedidosConClienteCU>();
 builder.Services.AddScoped<IObtenerTipos, ObtenerTiposMovimientoCU>();
 builder.Services.AddScoped<IObtenerTipoPorId, ObtenerTipoPorIdCU>();
 builder.Services.AddScoped<IAgregarTipo, AgregarTipoMovimientoCU>();
+builder.Services.AddScoped<IObtenerMovimientos, ObtenerMovimientosCU>();
 
 
 var app = builder.Build();

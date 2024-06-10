@@ -16,17 +16,18 @@ namespace BussinessLogic.Entidades
         public string Email { get; set; }
         public string Pass { get; set; }
         public string? HashedPass { get; set; }
-
+        public string Rol { get; set; }
 
         public Usuario()
         {
         }
 
-        public Usuario(string nombre, string apellido, string email, string pass)
+        public Usuario(string nombre, string apellido, string email, string pass, string rol)
         {
             this.NombreCompleto = new NombreCompleto(nombre, apellido);
             this.Email = email;
             this.Pass = pass;
+            this.Rol = rol;
         }
 
         override public string ToString()
@@ -46,6 +47,7 @@ namespace BussinessLogic.Entidades
                 this._validarPassword();
                 this._validarNombre();
                 this._validarApellido();
+                this._validarRol();
             }
             catch (Exception ex)
             {
@@ -83,6 +85,11 @@ namespace BussinessLogic.Entidades
             if (!this.Pass.Any(char.IsDigit)) throw new UsuarioNoValidoException("La contraseña debe contener al menos 1 número");
 
             if (!_contieneCaracteresAlfabeticos(this.Pass)) throw new UsuarioNoValidoException("La contraseña debe contener al menos 1 caracter especial");
+        }
+
+        private void _validarRol()
+        {
+            if (string.IsNullOrEmpty(this.Rol)) throw new UsuarioNoValidoException("Por favor ingrese un rol");
         }
 
         private bool _validarNombreApellido(string input)
