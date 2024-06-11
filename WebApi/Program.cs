@@ -1,3 +1,4 @@
+using System.Text;
 using AppLogic.CasosDeUso.Articulos;
 using AppLogic.CasosDeUso.Movimientos;
 using AppLogic.CasosDeUso.Pedidos;
@@ -11,23 +12,10 @@ using AppLogic.InterfacesCU.Usuarios;
 using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.InterfacesRepositorio;
 using DataAccess.EntityFramework.Repositorios;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-
-var Clave = "12asdsadasdasdas";
-
-builder.Services.AddAuthentication(aut =>
-
-)
-
-builder.Services.AddSwaggerGen();
-
 
 //Repositorios
 builder.Services.AddScoped<IRepositorioUsuarios, RepositorioUsuariosEF>();
@@ -52,6 +40,35 @@ builder.Services.AddScoped<IObtenerTipos, ObtenerTiposMovimientoCU>();
 builder.Services.AddScoped<IObtenerTipoPorId, ObtenerTipoPorIdCU>();
 builder.Services.AddScoped<IAgregarTipo, AgregarTipoMovimientoCU>();
 builder.Services.AddScoped<IObtenerMovimientos, ObtenerMovimientosCU>();
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+
+var Clave = "ZWRpw6fDo28gZW0gY29tcHV0YWRvcmE=";
+
+builder.Services.AddAuthentication(aut =>
+{
+    aut.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+
+    aut.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(aut =>
+    {
+        aut.RequireHttpsMetadata = false;
+        aut.SaveToken = true;
+        aut.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Clave)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
+builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();

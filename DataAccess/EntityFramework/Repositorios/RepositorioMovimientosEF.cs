@@ -2,6 +2,7 @@
 using BusinessLogic.Entidades;
 using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.InterfacesRepositorio;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace DataAccess.EntityFramework.Repositorios
 {
@@ -21,7 +22,7 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public IEnumerable<Movimiento> FindAll()
         {
-            return _context.Movimientos;
+            return this._context.Movimientos;
         }
 
         public Movimiento FindByID(int id)
@@ -38,6 +39,25 @@ namespace DataAccess.EntityFramework.Repositorios
         {
             throw new NotImplementedException();
         }
+
+        //public IEnumerable ObtenerMovimientosPorAnio()
+        //{
+
+        //    IEnumerable<Movimiento> movimientos = this.FindAll();
+
+        //    return movimientos.GroupBy(movimientos => movimientos.FechaHora.Year)
+        //        .Select(movimientoGroup => new
+        //        {
+        //            Cantidad = movimientoGroup.Count(),
+        //            Tipo = movimientoGroup.SelectMany(mov => mov.Tipo)
+        //                .GroupBy(scores => scores.TeamId)
+        //                .Select(teamScore => new
+        //                {
+        //                    TeamId = teamScore.Key,
+        //                    TotalAnio = teamScore.Sum(result => result.Score)
+        //                })
+        //        });
+        //}
     }
 }
 
