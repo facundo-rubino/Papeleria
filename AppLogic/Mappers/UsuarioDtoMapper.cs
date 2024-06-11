@@ -17,7 +17,7 @@ namespace AppLogic.Mappers
         {
             if (dto == null) throw new UsuarioNoValidoException("El usuario no puede ser nulo");
 
-            Usuario usuario = new Usuario(dto.Nombre, dto.Apellido, dto.Email, dto.Pass, dto.Rol);
+            Usuario usuario = new Usuario(dto.Nombre, dto.Apellido, dto.Email, dto.Pass, RolDTOMapper.FromDto(dto.Rol));
             usuario.Id = dto.Id;
             usuario.HashedPass = PasswordHasher.HashPassword(dto.Pass);
             return usuario;

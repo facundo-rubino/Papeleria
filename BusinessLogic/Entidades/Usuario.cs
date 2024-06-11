@@ -5,6 +5,8 @@ using BussinessLogic.Excepciones;
 using BussinessLogic.ValueObjects;
 using BussinessLogic.InterfacesEntidades;
 using System.Xml.Linq;
+using BusinessLogic.Entidades;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BussinessLogic.Entidades
 {
@@ -16,13 +18,14 @@ namespace BussinessLogic.Entidades
         public string Email { get; set; }
         public string Pass { get; set; }
         public string? HashedPass { get; set; }
-        public string Rol { get; set; }
+        [ForeignKey(nameof(Rol))] public int RolId { get; set; }
+        public Rol Rol { get; set; }
 
         public Usuario()
         {
         }
 
-        public Usuario(string nombre, string apellido, string email, string pass, string rol)
+        public Usuario(string nombre, string apellido, string email, string pass, Rol rol)
         {
             this.NombreCompleto = new NombreCompleto(nombre, apellido);
             this.Email = email;
@@ -89,7 +92,7 @@ namespace BussinessLogic.Entidades
 
         private void _validarRol()
         {
-            if (string.IsNullOrEmpty(this.Rol)) throw new UsuarioNoValidoException("Por favor ingrese un rol");
+            if (string.IsNullOrEmpty(this.Rol.Nombre)) throw new UsuarioNoValidoException("Por favor ingrese un rol");
         }
 
         private bool _validarNombreApellido(string input)

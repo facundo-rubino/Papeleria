@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using AppLogic.DTOs;
 using ApplicationLogic.UseCases;
-using AppLogic.DTOs;
+using AppLogic.InterfacesCU.Usuarios;
+using BussinessLogic.InterfacesRepositorio;
 
 
 namespace WebApi.Controllers
@@ -12,37 +13,47 @@ namespace WebApi.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private IFindByEmail _findByEmailCU;
+
+        public LoginController(IFindByEmail findByEmailCU)
+        {
+            this._findByEmailCU = findByEmailCU;
+        }
 
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public ActionResult<UsuarioDTO> Login([FromBody] UsuarioDTO usuario)
+        public ActionResult<UsuarioDTO> Login([FromBody] UsuarioDTO usuarioDto)
         {
+
             try
             {
-                //A los efectos de la presente guía se obtiene directamente el usuario desde el
-                //ManejadorJwt. En la aplicación se lo pediríamos al caso de uso que corresponda
-                //que a su vez se lo pediría al repositorio, que lo obtendría desde la base de
-                //datos a través de EF
-                ManejadorJwt.CargarDatos();
-                var usr = ManejadorJwt.ObtenerUsuario(usuario.Email);
-                if (usr == null || usr.Password != usuario.Password)
-                    return Unauthorized("Credenciales inválidas. Reintente");
+                var usuario = this._findByEmailCU.GetUserByEmail(usuarioDto.Email);
+                if (usuario == null || usuario.Pass != usuarioDto.Pass)
+                    return Unauthorized("Credenciales inválidas.");
                 //Le pedimos al manejador de tokens que nos genere un token jwt con
                 //la información del usuario para usar como claims (el email y el nombre de rol)
                 //En caso de que se autentique, retorna el token y el usuario
-                var token = ManejadorJwt.GenerarToken(usr);
+                var token = ManejadorJwt.GenerarToken(usuario);
+
+                
+                
+                //GUARDAR EN SESSION ACÁ?
+
+
+
+
                 return Ok(new
                 {
                     Token = token,
-                    Usuario = usr
+                    Usuario = usuario
                 });
             }
             catch (Exception ex)
             {
                 return Unauthorized(new
                 {
-                    Message = "Se produjo un error.Intente n"
+                    Message = "Se produjo un error. Intente nuevamente"
                 });
             }
         }

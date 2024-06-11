@@ -1,4 +1,5 @@
 ﻿using System;
+using AppLogic.Mappers;
 using BussinessLogic.Entidades;
 using Microsoft.EntityFrameworkCore;
 namespace AppLogic.DTOs
@@ -12,7 +13,7 @@ namespace AppLogic.DTOs
         public string Email { get; set; }
         public string Pass { get; set; }
         public string HashedPass { get; set; }
-        public string Rol { get; set; }
+        public RolDTO Rol { get; set; }
 
         public UsuarioDTO() { }
 
@@ -26,7 +27,7 @@ namespace AppLogic.DTOs
                 this.Pass = usuario.Pass;
                 this.Email = usuario.Email;
                 this.HashedPass = usuario.HashedPass;
-                this.Rol = usuario.Rol;
+                this.Rol = RolDTOMapper.ToDto(usuario.Rol);
             }
         }
 

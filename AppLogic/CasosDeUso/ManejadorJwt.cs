@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text;
 using System.Security.Claims;
+using AppLogic.DTOs;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace ApplicationLogic.UseCases
 {
@@ -16,12 +18,7 @@ namespace ApplicationLogic.UseCases
         {
         }
 
-        //obtener roles para testear
-        //Cargar datos para testear el funcionamiento del jwt
-        private static List<DTOs.UsuarioDto> _usuariosTest;
-        private static List<DTOs.RolDto> _rolesTest;
-
-        public static string GenerarToken(DTOs.UsuarioDto usuarioDto)
+        public static string GenerarToken(UsuarioDTO usuarioDto)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -49,19 +46,6 @@ namespace ApplicationLogic.UseCases
 
             return tokenHandler.WriteToken(token);
         }
-
-        public static DTOs.UsuarioDto ObtenerUsuario(string email)
-        {
-            {
-                var usuario = _usuariosTest
-                    .SingleOrDefault(
-                        usr => usr.Email
-                        .ToUpper()
-                        .Trim() == email.ToUpper().Trim()
-                    );
-                return usuario;
-
-            }
-        }
+  
     }
 }
