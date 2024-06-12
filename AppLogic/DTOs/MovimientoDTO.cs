@@ -10,10 +10,9 @@ namespace AppLogic.DTOs
         public int Id { get; private set; }
         public DateTime FechaHora { get; set; }
         public int ArticuloId { get; set; }
-        public int UsuarioId { get; set; }
+        public string EmailUsuario { get; set; }
         public int TipoId { get; set; }
         public int Cant { get; set; }
-
 
 
         public MovimientoDTO()
@@ -25,7 +24,7 @@ namespace AppLogic.DTOs
             this.Id = movimiento.Id;
             this.FechaHora = movimiento.FechaHora;
             this.ArticuloId = movimiento.ArticuloId;
-            this.UsuarioId = movimiento.UsuarioId;
+            this.EmailUsuario = movimiento.emailUsuario;
             this.TipoId = movimiento.TipoId;
             this.Cant = movimiento.Cant;
         }

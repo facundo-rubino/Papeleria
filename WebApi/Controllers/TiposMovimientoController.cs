@@ -41,7 +41,7 @@ namespace WebApi.Controllers
         {
             if (tipoId <= 0)
             {
-                return BadRequest("El id no debe ser positivo");
+                return BadRequest("El id debe ser positivo");
             }
             TipoMovimientoDTO toReturn = this._obtenerTipoPorId.GetTipoPorId(tipoId);
             if (toReturn != null)
@@ -71,10 +71,5 @@ namespace WebApi.Controllers
             }
 
         }
-
-
-
-
-
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using BusinessLogic.Excepciones;
 using BussinessLogic.Entidades;
+using BussinessLogic.InterfacesRepositorio;
 
 namespace BusinessLogic.Entidades
 {
@@ -10,8 +12,7 @@ namespace BusinessLogic.Entidades
         public DateTime FechaHora { get; set; }
         [ForeignKey(nameof(Articulo))] public int ArticuloId { get; set; }
         public Articulo Articulo { get; set; }
-        [ForeignKey(nameof(Usuario))] public int UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
+        public string emailUsuario { get; set; }
         [ForeignKey(nameof(Tipo))] public int TipoId { get; set; }
         public TipoMovimiento Tipo { get; set; }
         public int Cant { get; set; }
@@ -21,13 +22,33 @@ namespace BusinessLogic.Entidades
         }
 
 
-        public Movimiento(DateTime fechaHora, int articuloId, int usuarioId, int tipoId, int cant)
+        public Movimiento(DateTime fechaHora, int articuloId, string email, int tipoId, int cant)
         {
             this.FechaHora = fechaHora;
             this.ArticuloId = articuloId;
-            this.UsuarioId = usuarioId;
+            this.emailUsuario = email;
             this.TipoId = tipoId;
             this.Cant = cant;
+        }
+
+        public void EsValido(IRepositorioSettings settingsRepository)
+        {
+            try
+            {
+                this._validarCantidad(settingsRepository);
+            }
+            catch (Exception ex)
+            {
+                throw new MovimientoNoValidoException(ex.Message);
+            }
+        }
+
+        private void _validarCantidad(IRepositorioSettings settingsRepository)
+        {
+            if (this.Cant <= 0)
+                throw new MovimientoNoValidoException("La cantidad debe ser mayor a 0");
+            if (this.Cant > settingsRepository.GetValueByName("Tope"))
+                throw new MovimientoNoValidoException("La cantidad no puede ser mayor a " + settingsRepository.GetValueByName("Tope"));
         }
     }
 }

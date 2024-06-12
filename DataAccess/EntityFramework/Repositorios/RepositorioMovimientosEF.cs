@@ -1,5 +1,6 @@
 ﻿using System;
 using BusinessLogic.Entidades;
+using BusinessLogic.Excepciones;
 using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.InterfacesRepositorio;
 using static System.Formats.Asn1.AsnWriter;
@@ -9,15 +10,30 @@ namespace DataAccess.EntityFramework.Repositorios
     public class RepositorioMovimientosEF : IRepositorioMovimientos
     {
         private PapeleriaContext _context;
+        private IRepositorioSettings _settings;
 
-        public RepositorioMovimientosEF()
+        public RepositorioMovimientosEF(IRepositorioSettings settings)
         {
             this._context = new PapeleriaContext();
+            this._settings = settings;
         }
 
         public void Add(Movimiento aAgregar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aAgregar.EsValido(_settings);
+                _context.Movimientos.Add(aAgregar);
+                _context.SaveChanges();
+            }
+            catch (MovimientoNoValidoException exception)
+            {
+                throw exception;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<Movimiento> FindAll()

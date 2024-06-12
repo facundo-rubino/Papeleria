@@ -24,6 +24,7 @@ builder.Services.AddScoped<IRepositorioClientes, RepositorioClientesEF>();
 builder.Services.AddScoped<IRepositorioArticulos, RepositorioArticulosEF>();
 builder.Services.AddScoped<IRepositorioTiposMovimiento, RepositorioTiposMovimientoEF>();
 builder.Services.AddScoped<IRepositorioMovimientos, RepositorioMovimientosEF>();
+builder.Services.AddScoped<IRepositorioSettings, RepositorioSettingsEF>();
 
 
 //Casos de uso
@@ -42,7 +43,6 @@ builder.Services.AddScoped<IAgregarTipo, AgregarTipoMovimientoCU>();
 builder.Services.AddScoped<IObtenerMovimientos, ObtenerMovimientosCU>();
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -52,7 +52,6 @@ var Clave = "ZWRpw6fDo28gZW0gY29tcHV0YWRvcmE=";
 builder.Services.AddAuthentication(aut =>
 {
     aut.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-
     aut.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
     .AddJwtBearer(aut =>

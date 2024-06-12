@@ -21,7 +21,7 @@ namespace AppLogic.Mappers
         public static TipoMovimiento FromDto(TipoMovimientoDTO dto)
         {
             if (dto == null) throw new TipoMovimientoNoValidoException("El Tipo de movimiento no puede ser nulo");
-            TipoMovimiento tipoMovimiento = new TipoMovimiento(dto.Nombre);
+            TipoMovimiento tipoMovimiento = new TipoMovimiento(dto.Nombre, dto.Signo);
             tipoMovimiento.Id = dto.Id;
             return tipoMovimiento;
         }

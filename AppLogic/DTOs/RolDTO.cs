@@ -13,6 +13,8 @@ namespace AppLogic.DTOs
         public int Id { get; set; }
         public string Nombre { get; set; }
 
+        public RolDTO() { }
+
         public RolDTO(Rol rol)
         {
             if (rol != null)

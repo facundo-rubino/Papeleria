@@ -2,27 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using AppLogic.DTOs;
-using ApplicationLogic.UseCases;
 using AppLogic.InterfacesCU.Usuarios;
 using BussinessLogic.InterfacesRepositorio;
 
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
         private IFindByEmail _findByEmailCU;
 
-        public LoginController(IFindByEmail findByEmailCU)
+        public LoginController(IFindByEmail findByEmail)
         {
-            this._findByEmailCU = findByEmailCU;
+            this._findByEmailCU = findByEmail;
         }
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("login")]
         public ActionResult<UsuarioDTO> Login([FromBody] UsuarioDTO usuarioDto)
         {
 
@@ -35,13 +33,6 @@ namespace WebApi.Controllers
                 //la información del usuario para usar como claims (el email y el nombre de rol)
                 //En caso de que se autentique, retorna el token y el usuario
                 var token = ManejadorJwt.GenerarToken(usuario);
-
-                
-                
-                //GUARDAR EN SESSION ACÁ?
-
-
-
 
                 return Ok(new
                 {

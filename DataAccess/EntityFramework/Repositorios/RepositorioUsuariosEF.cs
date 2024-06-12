@@ -45,7 +45,7 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public Usuario FindByEmail(string email)
         {
-            return _context.Usuarios.Where(usuario => usuario.Email == email).FirstOrDefault();
+            return _context.Usuarios.Where(usuario => usuario.Email == email).Include(u => u.Rol).FirstOrDefault();
         }
 
         public void Remove(int id)

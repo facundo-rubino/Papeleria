@@ -17,8 +17,7 @@ namespace AppLogic.Mappers
         public static Movimiento FromDto(MovimientoDTO dto)
         {
             if (dto == null) throw new MovimientoNoValidoException("El Movimiento no puede ser nulo");
-            Movimiento mov = new Movimiento(dto.FechaHora, dto.ArticuloId, dto.UsuarioId, dto.TipoId, dto.Cant);
-            return mov;
+            return new Movimiento(dto.FechaHora, dto.ArticuloId, dto.EmailUsuario, dto.TipoId, dto.Cant);
         }
     }
 }

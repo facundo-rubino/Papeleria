@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text;
 using System.Security.Claims;
 using AppLogic.DTOs;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 
 
-namespace ApplicationLogic.UseCases
+namespace WebApi
 {
     public class ManejadorJwt
     {
@@ -24,16 +23,14 @@ namespace ApplicationLogic.UseCases
 
             //clave secreta, generalmente se incluye en el archivo de configuración
             //Debe ser un vector de bytes 
-
             var clave = Encoding.ASCII.GetBytes("ZWRpw6fDo28gZW0gY29tcHV0YWRvcmE=");
-
             //Se incluye un claim para el rol
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, usuarioDto.Nombre),
+                    new Claim(ClaimTypes.Email, usuarioDto.Email),
                     new Claim(ClaimTypes.Role, usuarioDto.Rol.Nombre)
                 }),
                 Expires = DateTime.UtcNow.AddMonths(1),
@@ -46,6 +43,6 @@ namespace ApplicationLogic.UseCases
 
             return tokenHandler.WriteToken(token);
         }
-  
+
     }
 }

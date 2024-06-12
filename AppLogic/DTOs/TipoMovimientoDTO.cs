@@ -11,6 +11,7 @@ namespace AppLogic.DTOs
     {
         public int Id { get; private set; }
         public string Nombre { get; set; }
+        public int Signo { get; set; }
 
         public TipoMovimientoDTO()
         {
@@ -19,6 +20,7 @@ namespace AppLogic.DTOs
         {
             this.Id = tipoMovimiento.Id;
             this.Nombre = tipoMovimiento.Nombre;
+            this.Signo = tipoMovimiento.Signo;
         }
     }
 }
