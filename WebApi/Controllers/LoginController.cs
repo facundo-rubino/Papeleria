@@ -8,7 +8,7 @@ using BussinessLogic.InterfacesRepositorio;
 
 namespace WebApi.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -23,7 +23,6 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         public ActionResult<UsuarioDTO> Login([FromBody] UsuarioDTO usuarioDto)
         {
-
             try
             {
                 var usuario = this._findByEmailCU.GetUserByEmail(usuarioDto.Email);

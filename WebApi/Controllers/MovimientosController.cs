@@ -4,12 +4,14 @@ using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Movimientos;
 using AppLogic.InterfacesCU.Pedidos;
 using BusinessLogic.Excepciones;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class MovimientosController : ControllerBase
     {
         private IObtenerMovimientos _obtenerMovimientosCU;

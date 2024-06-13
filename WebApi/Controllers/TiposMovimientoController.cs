@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/TiposMovimiento")]
     [ApiController]
     public class TiposMovimientoController : ControllerBase
     {
