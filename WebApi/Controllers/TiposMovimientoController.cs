@@ -14,17 +14,23 @@ namespace WebApi.Controllers
     {
         private IObtenerTipos _obtenerTiposMovimientoCU;
         private IAgregarTipo _agregarTipoMovimientoCU;
-        private IObtenerTipoPorId _obtenerTipoPorId;
+        private IObtenerTipoPorId _obtenerTipoPorIdCU;
+        private IEliminarTipo _eliminarTipoCU;
+        private IActualizarTipo _actualizarTipoCU;
 
         public TiposMovimientoController(
             IObtenerTipos obtenerTiposMovimientoCU,
             IAgregarTipo agregarTipoMovimientoCU,
-            IObtenerTipoPorId obtenerTipoPorId
+            IObtenerTipoPorId obtenerTipoPorId,
+            IActualizarTipo actualizarTipo,
+            IEliminarTipo eliminarTipo
             )
         {
             this._obtenerTiposMovimientoCU = obtenerTiposMovimientoCU;
             this._agregarTipoMovimientoCU = agregarTipoMovimientoCU;
-            this._obtenerTipoPorId = obtenerTipoPorId;
+            this._obtenerTipoPorIdCU = obtenerTipoPorId;
+            this._actualizarTipoCU = actualizarTipo;
+            this._eliminarTipoCU = eliminarTipo;
         }
 
         [HttpGet(Name = "ObtenerTiposMovimiento")]
@@ -43,7 +49,7 @@ namespace WebApi.Controllers
             {
                 return BadRequest("El id debe ser positivo");
             }
-            TipoMovimientoDTO toReturn = this._obtenerTipoPorId.GetTipoPorId(tipoId);
+            TipoMovimientoDTO toReturn = this._obtenerTipoPorIdCU.GetTipoPorId(tipoId);
             if (toReturn != null)
             {
                 return Ok(toReturn);
@@ -70,6 +76,38 @@ namespace WebApi.Controllers
                 return BadRequest("Error inesperado con la base de datos");
             }
 
+        }
+
+        [HttpDelete("{tipoId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<TipoMovimientoDTO> DeleteTipo(int tipoMovimientoId)
+        {
+            try
+            {
+                this._eliminarTipoCU.DeleteTipo(tipoMovimientoId);
+                return Ok("El tipo de movimiento con id " + tipoMovimientoId + " fue borrado correctamente");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{tipoId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<TipoMovimientoDTO> UpdateTipo([FromBody] TipoMovimientoDTO tipoMovimientoDTO)
+        {
+            try
+            {
+                this._actualizarTipoCU.ActualizarTipo(tipoMovimientoDTO);
+                return Ok("El tipo de movimiento " + tipoMovimientoDTO.Nombre + " fue actualizado correctamente");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

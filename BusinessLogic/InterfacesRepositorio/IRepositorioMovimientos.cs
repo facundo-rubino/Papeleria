@@ -6,6 +6,7 @@ namespace BusinessLogic.InterfacesRepositorio
 {
     public interface IRepositorioMovimientos : IRepositorio<Movimiento>
     {
+        public bool TipoMovimientoEnUso(int tipoMovimientoId);
     }
 }
 

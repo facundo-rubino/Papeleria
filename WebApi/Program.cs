@@ -41,6 +41,10 @@ builder.Services.AddScoped<IObtenerTipos, ObtenerTiposMovimientoCU>();
 builder.Services.AddScoped<IObtenerTipoPorId, ObtenerTipoPorIdCU>();
 builder.Services.AddScoped<IAgregarTipo, AgregarTipoMovimientoCU>();
 builder.Services.AddScoped<IObtenerMovimientos, ObtenerMovimientosCU>();
+builder.Services.AddScoped<IActualizarTipo, ActualizarTipoCU>();
+builder.Services.AddScoped<IEliminarTipo, EliminarTipoCU>();
+
+
 
 // Add services to the container.
 builder.Services.AddControllers();

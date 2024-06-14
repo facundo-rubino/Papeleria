@@ -56,6 +56,11 @@ namespace DataAccess.EntityFramework.Repositorios
             throw new NotImplementedException();
         }
 
+        public bool TipoMovimientoEnUso(int tipoMovimientoId)
+        {
+            return _context.Movimientos.Any(m => m.TipoId == tipoMovimientoId);
+        }
+
         //public IEnumerable ObtenerMovimientosPorAnio()
         //{
 
