@@ -11,19 +11,22 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class MovimientosController : ControllerBase
     {
         private IObtenerMovimientos _obtenerMovimientosCU;
         private IAgregarMovimiento _agregarMovimientoCU;
+        private IObtenerAgrupados _obtenerAgrupadosCU;
 
         public MovimientosController(
             IObtenerMovimientos obtenerMovimientos,
-            IAgregarMovimiento agregarMovimiento
+            IAgregarMovimiento agregarMovimiento,
+            IObtenerAgrupados obtenerAgrupados
             )
         {
             this._obtenerMovimientosCU = obtenerMovimientos;
             this._agregarMovimientoCU = agregarMovimiento;
+            this._obtenerAgrupadosCU = obtenerAgrupados;
         }
 
         [HttpGet(Name = "GetMovimientos")]
@@ -32,6 +35,19 @@ namespace WebApi.Controllers
             try
             {
                 return Ok(_obtenerMovimientosCU.ObtenerMovimientos());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet(Name = "GetMovimientosAgrupados")]
+        public ActionResult<IEnumerable<ResumenMovimientoDTO>> GetMovimientosAgrupados()
+        {
+            try
+            {
+                return Ok(this._obtenerAgrupadosCU.GetResumenMovimientos());
             }
             catch (Exception ex)
             {

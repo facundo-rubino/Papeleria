@@ -50,10 +50,7 @@ namespace WebApi.Controllers
                 return BadRequest("El id debe ser positivo");
             }
             TipoMovimientoDTO toReturn = this._obtenerTipoPorIdCU.GetTipoPorId(tipoId);
-            if (toReturn != null)
-            {
-                return Ok(toReturn);
-            }
+            if (toReturn != null) return Ok(toReturn);
             return NoContent();
         }
 

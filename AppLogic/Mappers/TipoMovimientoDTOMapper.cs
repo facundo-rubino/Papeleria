@@ -15,6 +15,7 @@ namespace AppLogic.Mappers
     {
         public static TipoMovimientoDTO ToDto(TipoMovimiento TipoMovimiento)
         {
+            if (TipoMovimiento == null) return null;
             return new TipoMovimientoDTO(TipoMovimiento);
         }
 

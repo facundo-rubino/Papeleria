@@ -1,11 +1,13 @@
 using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Articulos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class ArticulosController : ControllerBase
     {
         private IObtenerArticulosAscendente _obtenerArticulosAscendenteCU;
@@ -17,6 +19,9 @@ namespace WebApi.Controllers
             this._obtenerArticulosAscendenteCU = obtenerArticulosAscendente;
         }
 
+        /*
+       * Obtener todos los articulos ordenados de manera ascendente.
+       */
         [HttpGet(Name = "GetArticulosAscendente")]
         public ActionResult<IEnumerable<ArticuloDTO>> Get()
         {

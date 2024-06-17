@@ -24,6 +24,7 @@ namespace AppLogic.DTOs
         {
             if (articulo != null)
             {
+                this.Id = articulo.Id;
                 this.Nombre = articulo.Nombre;
                 this.Descripcion = articulo.Descripcion;
                 this.Codigo = articulo.Codigo;

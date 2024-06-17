@@ -19,8 +19,14 @@ namespace WebApi.Controllers
             this._findByEmailCU = findByEmail;
         }
 
+        /// <summary>
+        /// Metodo para permitir inicio de sesion y obtener un jwt para uso de la api
+        /// </summary>
+        /// <param name="email">email de usuario y contraseña</param>
+        /// <returns>Token y datos del usuario</returns>
         [HttpPost]
         [AllowAnonymous]
+        [Route("login")]
         public ActionResult<UsuarioDTO> Login([FromBody] UsuarioDTO usuarioDto)
         {
             try

@@ -31,7 +31,7 @@ namespace WebApi
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Email, usuarioDto.Email),
-                    new Claim(ClaimTypes.Role, usuarioDto.Rol.Nombre)
+                    new Claim(ClaimTypes.Role, usuarioDto.Rol)
                 }),
                 Expires = DateTime.UtcNow.AddMonths(1),
 

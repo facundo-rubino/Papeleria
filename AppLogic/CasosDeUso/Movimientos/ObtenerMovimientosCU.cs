@@ -17,8 +17,13 @@ namespace AppLogic.CasosDeUso.Movimientos
 
         public IEnumerable<MovimientoDTO> ObtenerMovimientos()
         {
-            return this._repositorioMovimientos.FindAll().Select(Movimiento => MovimientoDTOMapper.ToDto(Movimiento));
+            return this._repositorioMovimientos.FindAll()
+             .OrderByDescending(mov => mov.FechaHora)
+             .Select(mov => MovimientoDTOMapper.ToDto(mov));
         }
     }
 }
+
+
+
 

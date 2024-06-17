@@ -60,25 +60,6 @@ namespace DataAccess.EntityFramework.Repositorios
         {
             return _context.Movimientos.Any(m => m.TipoId == tipoMovimientoId);
         }
-
-        //public IEnumerable ObtenerMovimientosPorAnio()
-        //{
-
-        //    IEnumerable<Movimiento> movimientos = this.FindAll();
-
-        //    return movimientos.GroupBy(movimientos => movimientos.FechaHora.Year)
-        //        .Select(movimientoGroup => new
-        //        {
-        //            Cantidad = movimientoGroup.Count(),
-        //            Tipo = movimientoGroup.SelectMany(mov => mov.Tipo)
-        //                .GroupBy(scores => scores.TeamId)
-        //                .Select(teamScore => new
-        //                {
-        //                    TeamId = teamScore.Key,
-        //                    TotalAnio = teamScore.Sum(result => result.Score)
-        //                })
-        //        });
-        //}
     }
 }
 

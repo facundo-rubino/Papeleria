@@ -12,8 +12,8 @@ namespace BusinessLogic.Entidades
         public DateTime FechaHora { get; set; }
         [ForeignKey(nameof(Articulo))] public int ArticuloId { get; set; }
         public Articulo Articulo { get; set; }
-        public string emailUsuario { get; set; }
-        [ForeignKey(nameof(Tipo))] public int TipoId { get; set; }
+        public string EmailUsuario { get; set; }
+        [ForeignKey(nameof(TipoMovimiento))] public int TipoId { get; set; }
         public TipoMovimiento Tipo { get; set; }
         public int Cant { get; set; }
 
@@ -26,7 +26,7 @@ namespace BusinessLogic.Entidades
         {
             this.FechaHora = fechaHora;
             this.ArticuloId = articuloId;
-            this.emailUsuario = email;
+            this.EmailUsuario = email;
             this.TipoId = tipoId;
             this.Cant = cant;
         }

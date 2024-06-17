@@ -14,6 +14,8 @@ using BussinessLogic.InterfacesRepositorio;
 using DataAccess.EntityFramework.Repositorios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +45,8 @@ builder.Services.AddScoped<IAgregarTipo, AgregarTipoMovimientoCU>();
 builder.Services.AddScoped<IObtenerMovimientos, ObtenerMovimientosCU>();
 builder.Services.AddScoped<IActualizarTipo, ActualizarTipoCU>();
 builder.Services.AddScoped<IEliminarTipo, EliminarTipoCU>();
-
+builder.Services.AddScoped<IAgregarMovimiento, AgregarMovimientoCU>();
+builder.Services.AddScoped<IObtenerAgrupados, ObtenerAgrupadosCU>();
 
 
 // Add services to the container.
@@ -71,7 +74,31 @@ builder.Services.AddAuthentication(aut =>
         };
     });
 
-builder.Services.AddSwaggerGen();
+var ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WebApi.xml");
+builder.Services.AddSwaggerGen(
+        opciones =>
+        {
+            opciones.AddSecurityDefinition("oauth2", new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
+            {
+                Description = "Autorizaci�n est�ndar mediante esquema Bearer",
+                In = ParameterLocation.Header,
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey
+            });
+            opciones.OperationFilter<SecurityRequirementsOperationFilter>();
+            opciones.IncludeXmlComments(ruta);
+            opciones.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+            {
+                Title = "Papeleria manager",
+                Description = "Administrador para el encargado del depósito de la papeleria",
+                Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                {
+                    Email = "facundorubino21@gmail.com"
+                },
+                Version = "v1"
+            });
+        }
+    );
 
 
 var app = builder.Build();

@@ -24,7 +24,7 @@ namespace AppLogic.DTOs
             this.Id = movimiento.Id;
             this.FechaHora = movimiento.FechaHora;
             this.ArticuloId = movimiento.ArticuloId;
-            this.EmailUsuario = movimiento.emailUsuario;
+            this.EmailUsuario = movimiento.EmailUsuario;
             this.TipoId = movimiento.TipoId;
             this.Cant = movimiento.Cant;
         }

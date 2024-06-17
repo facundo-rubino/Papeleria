@@ -8,12 +8,12 @@ namespace AppLogic.DTOs
     public class UsuarioDTO
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        public string? Nombre { get; set; }
+        public string? Apellido { get; set; }
         public string Email { get; set; }
         public string Pass { get; set; }
-        public string HashedPass { get; set; }
-        public RolDTO Rol { get; set; }
+        public string? HashedPass { get; set; }
+        public string? Rol { get; set; }
 
         public UsuarioDTO() { }
 
@@ -27,7 +27,7 @@ namespace AppLogic.DTOs
                 this.Pass = usuario.Pass;
                 this.Email = usuario.Email;
                 this.HashedPass = usuario.HashedPass;
-                this.Rol = RolDTOMapper.ToDto(usuario.Rol);
+                this.Rol = usuario.Rol.Nombre;
             }
         }
 
