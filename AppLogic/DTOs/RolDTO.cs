@@ -15,11 +15,12 @@ namespace AppLogic.DTOs
 
         public RolDTO() { }
 
-        public RolDTO(string nombre)
+        public RolDTO(Rol rol)
         {
-            if (nombre != null)
+            if (rol != null)
             {
-                this.Nombre = nombre;
+                this.Id = rol.Id;
+                this.Nombre = rol.Nombre;
             }
         }
     }

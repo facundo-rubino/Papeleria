@@ -5,7 +5,7 @@ namespace AppLogic.DTOs
     {
         public int Anio { get; set; }
         public DetalleMovimientoDTO[] Detalles { get; set; }
-        public int TotalAño { get; set; }
+        public int TotalAnio { get; set; }
 
         public ResumenMovimientoDTO()
         {

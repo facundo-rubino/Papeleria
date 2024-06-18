@@ -2,6 +2,7 @@
 using BusinessLogic.Entidades;
 using BussinessLogic.Entidades;
 using System.ComponentModel.DataAnnotations.Schema;
+using AppLogic.Mappers;
 
 namespace AppLogic.DTOs
 {
@@ -11,6 +12,7 @@ namespace AppLogic.DTOs
         public DateTime FechaHora { get; set; }
         public int ArticuloId { get; set; }
         public string EmailUsuario { get; set; }
+        public TipoMovimientoDTO Tipo { get; set; }
         public int TipoId { get; set; }
         public int Cant { get; set; }
 

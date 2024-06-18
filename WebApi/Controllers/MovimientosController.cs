@@ -42,7 +42,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet(Name = "GetMovimientosAgrupados")]
+        [HttpGet("MovimientosAgrupados")]
         public ActionResult<IEnumerable<ResumenMovimientoDTO>> GetMovimientosAgrupados()
         {
             try

@@ -28,11 +28,11 @@ builder.Services.AddScoped<IRepositorioTiposMovimiento, RepositorioTiposMovimien
 builder.Services.AddScoped<IRepositorioMovimientos, RepositorioMovimientosEF>();
 builder.Services.AddScoped<IRepositorioSettings, RepositorioSettingsEF>();
 
-
 //Casos de uso
 builder.Services.AddScoped<IAgregarUsuario, AgregarUsuarioCU>();
 builder.Services.AddScoped<IFindByEmail, FindByEmailCU>();
 builder.Services.AddScoped<IUpdateUser, UpdateUserCU>();
+builder.Services.AddScoped<IUpdateHashPass, UpdateHashPassCU>();
 builder.Services.AddScoped<ILogin, LoginCU>();
 builder.Services.AddScoped<IAgregarArticulo, AgregarArticuloCU>();
 builder.Services.AddScoped<IAgregarPedido, AgregarPedidoCU>();
@@ -47,6 +47,8 @@ builder.Services.AddScoped<IActualizarTipo, ActualizarTipoCU>();
 builder.Services.AddScoped<IEliminarTipo, EliminarTipoCU>();
 builder.Services.AddScoped<IAgregarMovimiento, AgregarMovimientoCU>();
 builder.Services.AddScoped<IObtenerAgrupados, ObtenerAgrupadosCU>();
+
+
 
 
 // Add services to the container.

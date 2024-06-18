@@ -14,7 +14,7 @@ namespace AppLogic.Mappers
     {
         public static RolDTO ToDto(Rol Rol)
         {
-            return new RolDTO(Rol.Nombre);
+            return new RolDTO(Rol);
         }
 
         public static Rol FromDto(RolDTO dto)

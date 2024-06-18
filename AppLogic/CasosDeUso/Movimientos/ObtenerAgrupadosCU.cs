@@ -11,32 +11,31 @@ namespace AppLogic.CasosDeUso.Movimientos
 {
     public class ObtenerAgrupadosCU : IObtenerAgrupados
     {
-        private IRepositorioMovimientos _repositorioMovimientos;
+        private IObtenerMovimientos _obtenerMovimientosCU;
 
-        public ObtenerAgrupadosCU(IRepositorioMovimientos repositorioMovimientos)
+        public ObtenerAgrupadosCU(IObtenerMovimientos obtenerMovimientosCU)
         {
-            this._repositorioMovimientos = repositorioMovimientos;
+            this._obtenerMovimientosCU = obtenerMovimientosCU;
         }
 
         public IEnumerable<ResumenMovimientoDTO> GetResumenMovimientos()
         {
-            var movimientos = _repositorioMovimientos.FindAll();
+            IEnumerable<MovimientoDTO> movimientos = this._obtenerMovimientosCU.ObtenerMovimientos();
 
-            return movimientos.GroupBy(m => new { m.FechaHora.Year, m.Tipo.Nombre })
-           .Select(g => new
-           {
-               Año = g.Key.Year,
-               Tipo = g.Key.Nombre,
-               Cantidad = g.Sum(m => m.Cant)
-           })
-           .GroupBy(r => r.Año)
-           .Select(g => new ResumenMovimientoDTO
-           {
-               Anio = g.Key,
-               Detalles = g.Select(x => new DetalleMovimientoDTO { Tipo = x.Tipo, Cantidad = x.Cantidad }).ToArray(),
-               TotalAño = g.Sum(x => x.Cantidad)
-           })
-           .ToList();
+            return movimientos
+                .GroupBy(movimiento => movimiento.FechaHora.Year)
+                .Select(resumenGroup => new ResumenMovimientoDTO
+                {
+                    Anio = resumenGroup.Key,
+                    Detalles = resumenGroup.GroupBy(resumen => resumen.Tipo.Nombre)
+                                .Select(tipoGroup => new DetalleMovimientoDTO
+                                {
+                                    Tipo = tipoGroup.Key,
+                                    Cantidad = tipoGroup.Sum(m => m.Cant)
+                                }).ToArray(),
+                    TotalAnio = resumenGroup.Sum(m => m.Cant)
+                })
+                .ToList();
         }
 
 

@@ -13,10 +13,12 @@ namespace WebApi.Controllers
     public class LoginController : ControllerBase
     {
         private IFindByEmail _findByEmailCU;
+        private ILogin _loginUC;
 
-        public LoginController(IFindByEmail findByEmail)
+        public LoginController(IFindByEmail findByEmail, ILogin loginUC)
         {
             this._findByEmailCU = findByEmail;
+            this._loginUC = loginUC;
         }
 
         /// <summary>
@@ -27,12 +29,12 @@ namespace WebApi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public ActionResult<UsuarioDTO> Login([FromBody] UsuarioDTO usuarioDto)
+        public ActionResult<UsuarioDTO> Login(string email, string pass)
         {
             try
             {
-                var usuario = this._findByEmailCU.GetUserByEmail(usuarioDto.Email);
-                if (usuario == null || usuario.Pass != usuarioDto.Pass)
+                var usuario = this._findByEmailCU.GetUserByEmail(email);
+                if (!_loginUC.LoginIsValid(email, pass))
                     return Unauthorized("Credenciales inválidas.");
                 //Le pedimos al manejador de tokens que nos genere un token jwt con
                 //la información del usuario para usar como claims (el email y el nombre de rol)

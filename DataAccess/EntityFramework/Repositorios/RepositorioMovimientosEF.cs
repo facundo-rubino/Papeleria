@@ -3,6 +3,7 @@ using BusinessLogic.Entidades;
 using BusinessLogic.Excepciones;
 using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.InterfacesRepositorio;
+using Microsoft.EntityFrameworkCore;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace DataAccess.EntityFramework.Repositorios
@@ -38,7 +39,7 @@ namespace DataAccess.EntityFramework.Repositorios
 
         public IEnumerable<Movimiento> FindAll()
         {
-            return this._context.Movimientos;
+            return this._context.Movimientos.Include(m => m.Tipo);
         }
 
         public Movimiento FindByID(int id)
