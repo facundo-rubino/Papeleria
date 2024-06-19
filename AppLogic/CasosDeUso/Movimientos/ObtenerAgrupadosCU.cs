@@ -24,16 +24,16 @@ namespace AppLogic.CasosDeUso.Movimientos
 
             return movimientos
                 .GroupBy(movimiento => movimiento.FechaHora.Year)
-                .Select(resumenGroup => new ResumenMovimientoDTO
+                .Select(movimientoGroup => new ResumenMovimientoDTO
                 {
-                    Anio = resumenGroup.Key,
-                    Detalles = resumenGroup.GroupBy(resumen => resumen.Tipo.Nombre)
+                    Anio = movimientoGroup.Key,
+                    Detalles = movimientoGroup.GroupBy(movG => movG.Tipo.Nombre)
                                 .Select(tipoGroup => new DetalleMovimientoDTO
                                 {
                                     Tipo = tipoGroup.Key,
-                                    Cantidad = tipoGroup.Sum(m => m.Cant)
+                                    Cantidad = tipoGroup.Sum(tipo => tipo.Cant)
                                 }).ToArray(),
-                    TotalAnio = resumenGroup.Sum(m => m.Cant)
+                    TotalAnio = movimientoGroup.Sum(m => m.Cant)
                 })
                 .ToList();
         }

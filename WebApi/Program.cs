@@ -47,7 +47,8 @@ builder.Services.AddScoped<IActualizarTipo, ActualizarTipoCU>();
 builder.Services.AddScoped<IEliminarTipo, EliminarTipoCU>();
 builder.Services.AddScoped<IAgregarMovimiento, AgregarMovimientoCU>();
 builder.Services.AddScoped<IObtenerAgrupados, ObtenerAgrupadosCU>();
-
+builder.Services.AddScoped<IArticulosPorFecha, ObtenerArticulosPorFechaCU>();
+builder.Services.AddScoped<IMovimientoPorArticuloTipo, MovimientoPorArticuloTipoCU>();
 
 
 

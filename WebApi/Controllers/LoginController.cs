@@ -29,22 +29,24 @@ namespace WebApi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public ActionResult<UsuarioDTO> Login(string email, string pass)
+        public ActionResult<UsuarioDTO> Login(UsuarioDTO usuario)
         {
             try
             {
-                var usuario = this._findByEmailCU.GetUserByEmail(email);
-                if (!_loginUC.LoginIsValid(email, pass))
+
+                if (!_loginUC.LoginIsValid(usuario.Email, usuario.Pass))
                     return Unauthorized("Credenciales inválidas.");
                 //Le pedimos al manejador de tokens que nos genere un token jwt con
                 //la información del usuario para usar como claims (el email y el nombre de rol)
                 //En caso de que se autentique, retorna el token y el usuario
                 var token = ManejadorJwt.GenerarToken(usuario);
 
+                usuario.Rol = this._findByEmailCU.GetUserByEmail(usuario.Email).Rol;
+
                 return Ok(new
                 {
                     Token = token,
-                    Usuario = usuario
+                    Usuario = usuario,
                 });
             }
             catch (Exception ex)

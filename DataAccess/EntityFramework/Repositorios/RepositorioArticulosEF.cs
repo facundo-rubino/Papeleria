@@ -39,6 +39,16 @@ namespace DataAccess.EntityFramework.Repositorios
             return _context.Articulos;
         }
 
+        public IEnumerable<Articulo> GetArticulosPorMovimientoFecha(DateTime fechaIni, DateTime fechaFin)
+        {
+
+            return _context.Movimientos
+                .Where(m => m.FechaHora >= fechaIni && m.FechaHora <= fechaFin)
+                .Select(m => m.Articulo)
+                .Distinct()
+                .ToList();
+        }
+
         public Articulo FindByID(int id)
         {
             return this._context.Articulos.Where(user => user.Id == id).FirstOrDefault();

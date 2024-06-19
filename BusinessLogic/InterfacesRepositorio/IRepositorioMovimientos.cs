@@ -7,6 +7,7 @@ namespace BusinessLogic.InterfacesRepositorio
     public interface IRepositorioMovimientos : IRepositorio<Movimiento>
     {
         public bool TipoMovimientoEnUso(int tipoMovimientoId);
+        public IEnumerable<Movimiento> GetMovimientosPorArticuloTipo(int articuloId, int tipoId);
     }
 }
 

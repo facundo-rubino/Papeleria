@@ -12,7 +12,7 @@ namespace AppLogic.DTOs
         public DateTime FechaHora { get; set; }
         public int ArticuloId { get; set; }
         public string EmailUsuario { get; set; }
-        public TipoMovimientoDTO Tipo { get; set; }
+        public TipoMovimientoDTO? Tipo { get; set; }
         public int TipoId { get; set; }
         public int Cant { get; set; }
 
@@ -27,7 +27,7 @@ namespace AppLogic.DTOs
             this.FechaHora = movimiento.FechaHora;
             this.ArticuloId = movimiento.ArticuloId;
             this.EmailUsuario = movimiento.EmailUsuario;
-            this.TipoId = movimiento.TipoId;
+            this.Tipo = TipoMovimientoDTOMapper.ToDto(movimiento.Tipo);
             this.Cant = movimiento.Cant;
         }
 

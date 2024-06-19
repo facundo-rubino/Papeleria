@@ -4,6 +4,7 @@ using AppLogic.DTOs;
 using AppLogic.InterfacesCU.Movimientos;
 using AppLogic.InterfacesCU.Pedidos;
 using BusinessLogic.Excepciones;
+using BussinessLogic.Entidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,16 +18,19 @@ namespace WebApi.Controllers
         private IObtenerMovimientos _obtenerMovimientosCU;
         private IAgregarMovimiento _agregarMovimientoCU;
         private IObtenerAgrupados _obtenerAgrupadosCU;
+        private IMovimientoPorArticuloTipo _movimientoPorArticuloTipoCU;
 
         public MovimientosController(
             IObtenerMovimientos obtenerMovimientos,
             IAgregarMovimiento agregarMovimiento,
-            IObtenerAgrupados obtenerAgrupados
+            IObtenerAgrupados obtenerAgrupados,
+            IMovimientoPorArticuloTipo movimientoPorArticuloTipo
             )
         {
             this._obtenerMovimientosCU = obtenerMovimientos;
             this._agregarMovimientoCU = agregarMovimiento;
             this._obtenerAgrupadosCU = obtenerAgrupados;
+            this._movimientoPorArticuloTipoCU = movimientoPorArticuloTipo;
         }
 
         [HttpGet(Name = "GetMovimientos")]
@@ -48,6 +52,19 @@ namespace WebApi.Controllers
             try
             {
                 return Ok(this._obtenerAgrupadosCU.GetResumenMovimientos());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("MovimientosPorArticuloTipo")]
+        public ActionResult<IEnumerable<MovimientoDTO>> GetMovimientosPorArticuloTipo(int articuloId, int tipoId)
+        {
+            try
+            {
+                return Ok(this._movimientoPorArticuloTipoCU.GetMovimientosPorArticuloTipo(articuloId, tipoId));
             }
             catch (Exception ex)
             {

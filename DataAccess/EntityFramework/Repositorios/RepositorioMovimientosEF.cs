@@ -61,6 +61,16 @@ namespace DataAccess.EntityFramework.Repositorios
         {
             return _context.Movimientos.Any(m => m.TipoId == tipoMovimientoId);
         }
+
+        public IEnumerable<Movimiento> GetMovimientosPorArticuloTipo(int articuloId, int tipoId)
+        {
+            return _context.Movimientos
+                .Include(m => m.Tipo)
+                .Where(m => m.ArticuloId == articuloId && m.TipoId == tipoId)
+                .OrderByDescending(m => m.FechaHora)
+                .ThenBy(m => m.Cant)
+                .ToList();
+        }
     }
 }
 

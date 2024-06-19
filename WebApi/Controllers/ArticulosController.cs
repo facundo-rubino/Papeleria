@@ -11,12 +11,15 @@ namespace WebApi.Controllers
     public class ArticulosController : ControllerBase
     {
         private IObtenerArticulosAscendente _obtenerArticulosAscendenteCU;
+        private IArticulosPorFecha _articulosPorFecha;
 
         public ArticulosController(
-            IObtenerArticulosAscendente obtenerArticulosAscendente
+            IObtenerArticulosAscendente obtenerArticulosAscendente,
+            IArticulosPorFecha articulosPorFecha
             )
         {
             this._obtenerArticulosAscendenteCU = obtenerArticulosAscendente;
+            this._articulosPorFecha = articulosPorFecha;
         }
 
         /*
@@ -28,6 +31,22 @@ namespace WebApi.Controllers
             try
             {
                 return Ok(_obtenerArticulosAscendenteCU.ObtenerArticulosAscendente());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /*
+     * Obtener todos los articulos dado un rango de fechas que hayan tenido movimientos entre dos fechas.
+     */
+        [HttpGet("GetArticulosPorFechaMovimiento")]
+        public ActionResult<IEnumerable<ArticuloDTO>> GetArticulosFechaMovimiento(DateTime fechaIni, DateTime fechaFin)
+        {
+            try
+            {
+                return Ok(_articulosPorFecha.ArticulosPorFecha(fechaIni, fechaFin));
             }
             catch (Exception ex)
             {
