@@ -2,6 +2,7 @@
 using BusinessLogic.Entidades;
 using BusinessLogic.Excepciones;
 using BusinessLogic.InterfacesRepositorio;
+using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
 using Microsoft.EntityFrameworkCore;
 using static System.Formats.Asn1.AsnWriter;
@@ -42,6 +43,16 @@ namespace DataAccess.EntityFramework.Repositorios
             return this._context.Movimientos.Include(m => m.Tipo);
         }
 
+        public IEnumerable<Movimiento> FindAllPaginado(int pag, int size)
+        {
+            return _context.Movimientos
+                .Include(m => m.Articulo)
+                .Include(m => m.Tipo)
+                .OrderBy(mov => mov.FechaHora)
+                .Skip((pag - 1) * size)
+                .Take(size).ToList();
+        }
+
         public Movimiento FindByID(int id)
         {
             throw new NotImplementedException();
@@ -71,6 +82,9 @@ namespace DataAccess.EntityFramework.Repositorios
                 .ThenBy(m => m.Cant)
                 .ToList();
         }
+
+
+
     }
 }
 

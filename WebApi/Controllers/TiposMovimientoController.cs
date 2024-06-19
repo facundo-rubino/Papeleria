@@ -32,31 +32,61 @@ namespace WebApi.Controllers
             this._actualizarTipoCU = actualizarTipo;
             this._eliminarTipoCU = eliminarTipo;
         }
-
+        /// <summary>
+        /// Metodo que trae todos tipos de movimiento
+        /// </summary>
+        /// <returns>Devuelve una lista con los tipos de movimiento en la base de datos</returns>
+        /// <response code="200">Retorna los tipos de movimiento</response>
+        /// <response code="204">No hay contenido para mostrar</response>
+        /// <response code="500">Error inesperado</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet(Name = "ObtenerTiposMovimiento")]
         public ActionResult<IEnumerable<TipoMovimientoDTO>> Get()
         {
             return Ok(this._obtenerTiposMovimientoCU.ObtenerTiposMovimiento());
         }
 
-        [HttpGet("{tipoId}")]
+        /// <summary>
+        /// Metodo que trae el tipo de movimiento por un Id
+        /// </summary>
+        /// <param name="tipoId">Id del tipo a buscar</param>
+        /// <returns>Tipo de movimiento</returns>
+        /// <response code="200">Retorna el tipo de movimiento correspondiente al id dado</response>
+        /// <response code="204">No hay contenido para mostrar</response>
+        /// <response code="400">El id no es válido</response>
+        /// <response code="500">Error inesperado</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("{tipoId}")]
         public ActionResult<TipoMovimientoDTO> GetTipoPorId(int tipoId)
         {
             if (tipoId <= 0)
-            {
                 return BadRequest("El id debe ser positivo");
-            }
+
             TipoMovimientoDTO toReturn = this._obtenerTipoPorIdCU.GetTipoPorId(tipoId);
+
             if (toReturn != null) return Ok(toReturn);
             return NoContent();
         }
 
-        [HttpPost("")]
+
+
+        /// <summary>
+        /// Metodo para crear un tipo de movimiento
+        /// </summary>
+        /// <param name="tipoMovimientoDTO">Tipo de movimiento a crear</param>
+        /// <returns>Tipo de movimiento</returns>
+        /// <response code="201">Se crea el tipo correctamente</response>
+        /// <response code="400">El objeto enviado no es válido</response>
+        /// <response code="500">Error inesperado</response>
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("")]
         public ActionResult<TipoMovimientoDTO> Create([FromBody] TipoMovimientoDTO tipoMovimientoDTO)
         {
             try
@@ -74,10 +104,17 @@ namespace WebApi.Controllers
             }
 
         }
-
-        [HttpDelete("{tipoId}")]
+        /// <summary>
+        /// Metodo para borrar tipo de movimiento por un Id
+        /// </summary>
+        /// <param name="tipoId">Id del tipo a borrar</param>
+        /// <response code="200">Tipo de movimiento eliminado correctamente</response>
+        /// <response code="400">El id no es válido</response>
+        /// <response code="500">Error inesperado</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpDelete("{tipoId}")]
         public ActionResult<TipoMovimientoDTO> DeleteTipo(int tipoMovimientoId)
         {
             try
@@ -91,9 +128,17 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPut("{tipoId}")]
+        /// <summary>
+        /// Metodo para actualizar tipo de movimiento 
+        /// </summary>
+        /// <param name="tipoMovimientoDTO">Tipo de movimiento a borrar</param>
+        /// <response code="200">Tipo de movimiento actualizado correctamente</response>
+        /// <response code="400">El objeto enviado no es válido</response>
+        /// <response code="500">Error inesperado</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPut("{tipoId}")]
         public ActionResult<TipoMovimientoDTO> UpdateTipo([FromBody] TipoMovimientoDTO tipoMovimientoDTO)
         {
             try

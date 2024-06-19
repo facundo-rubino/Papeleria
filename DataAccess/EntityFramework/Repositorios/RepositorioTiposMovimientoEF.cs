@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Entidades;
+using BusinessLogic.Excepciones;
 using BusinessLogic.InterfacesRepositorio;
 using BussinessLogic.Excepciones;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,7 @@ namespace DataAccess.EntityFramework.Repositorios
                 _context.TiposMovimiento.Add(aAgregar);
                 _context.SaveChanges();
             }
-            catch (UsuarioNoValidoException exception)
+            catch (TipoMovimientoNoValidoException exception)
             {
                 throw exception;
             }

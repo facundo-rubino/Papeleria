@@ -18,18 +18,18 @@ namespace WebApi.Controllers
             this._getPedidosConClienteCU = getPedidosConCliente;
         }
 
-        [HttpGet(Name = "GetAnuladosDescendente")]
-        public ActionResult<IEnumerable<ArticuloDTO>> Get()
-        {
-            try
-            {
-                return Ok(_getPedidosConClienteCU.GetPedidosAnuladosCliente());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[HttpGet(Name = "GetAnuladosDescendente")]
+        //public ActionResult<IEnumerable<ArticuloDTO>> Get()
+        //{
+        //    try
+        //    {
+        //        return Ok(_getPedidosConClienteCU.GetPedidosAnuladosCliente());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
     }
 }
 

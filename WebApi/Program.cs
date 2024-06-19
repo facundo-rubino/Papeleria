@@ -49,7 +49,8 @@ builder.Services.AddScoped<IAgregarMovimiento, AgregarMovimientoCU>();
 builder.Services.AddScoped<IObtenerAgrupados, ObtenerAgrupadosCU>();
 builder.Services.AddScoped<IArticulosPorFecha, ObtenerArticulosPorFechaCU>();
 builder.Services.AddScoped<IMovimientoPorArticuloTipo, MovimientoPorArticuloTipoCU>();
-
+builder.Services.AddScoped<IFindAllArticulosPaginado, FindAllArticulosPaginadoCU>();
+builder.Services.AddScoped<IFindAllMovimientosPaginado, FindAllMovimientosPaginadoCU>();
 
 
 // Add services to the container.

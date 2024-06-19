@@ -8,6 +8,7 @@ namespace BusinessLogic.InterfacesRepositorio
     {
         public bool TipoMovimientoEnUso(int tipoMovimientoId);
         public IEnumerable<Movimiento> GetMovimientosPorArticuloTipo(int articuloId, int tipoId);
+        public IEnumerable<Movimiento> FindAllPaginado(int pag, int size);
     }
 }
 

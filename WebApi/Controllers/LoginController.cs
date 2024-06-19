@@ -25,7 +25,14 @@ namespace WebApi.Controllers
         /// Metodo para permitir inicio de sesion y obtener un jwt para uso de la api
         /// </summary>
         /// <param name="email">email de usuario y contraseña</param>
+        /// <param name="pass">contraseña de usuario </param>
         /// <returns>Token y datos del usuario</returns>
+        /// <response code="200">Login correcto</response>
+        /// <response code="400">Credenciales inválidas</response>
+        /// <response code="500">Error inesperado</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]

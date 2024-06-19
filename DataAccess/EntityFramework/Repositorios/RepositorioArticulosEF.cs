@@ -39,6 +39,11 @@ namespace DataAccess.EntityFramework.Repositorios
             return _context.Articulos;
         }
 
+        public IEnumerable<Articulo> FindAllPaginado(int pag, int size)
+        {
+            return _context.Articulos.OrderBy(articulo => articulo.Nombre).Skip((pag - 1) * size).Take(size).ToList();
+        }
+
         public IEnumerable<Articulo> GetArticulosPorMovimientoFecha(DateTime fechaIni, DateTime fechaFin)
         {
 
