@@ -5,23 +5,32 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
+using AppLogic.DTOs;
+using AppLogic.InterfacesCU.Articulos;
+using Papeleria.Web.Filters;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Papeleria.Web.Controllers
 {
+    [Logueado]
     public class ArticuloController : Controller
     {
+        private IAgregarArticulo _agregarArticuloCU;
         public IRepositorioArticulos _repositorioArticulos;
-        public ArticuloController(IRepositorioArticulos repositorioArticulos)
+        public ArticuloController(IRepositorioArticulos repositorioArticulos, IAgregarArticulo agregarArticuloCU)
         {
             this._repositorioArticulos = repositorioArticulos;
+            this._agregarArticuloCU = agregarArticuloCU;
         }
         // GET: ArticuloController
         public ActionResult Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("email")))
+            {
+                return RedirectToAction("Login", new { mensaje = "Por favor logueate" });
+            }
             return View(this._repositorioArticulos.FindAll());
-            //return View();
         }
 
         // GET: ArticuloController/Details/5
@@ -40,22 +49,23 @@ namespace Papeleria.Web.Controllers
         // GET: ArticuloController/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new ArticuloDTO());
         }
 
         // POST: ArticuloController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Articulo Articulo)
+        public ActionResult Create(ArticuloDTO Articulo)
         {
             try
             {
-                _repositorioArticulos.Add(Articulo);
+                this._agregarArticuloCU.AgregarArticulo(Articulo);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.error = e.Message;
+                return View(Articulo);
             }
         }
 

@@ -1,9 +1,9 @@
 ﻿using System;
 namespace BussinessLogic.InterfacesEntidades
 {
-    public interface IValidable<T> where T : class
+    public interface IValidable
     {
-        void EsValido();
+        public void EsValido();
     }
 }
 

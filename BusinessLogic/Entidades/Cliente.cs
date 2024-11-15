@@ -7,15 +7,13 @@ using BussinessLogic.ValueObjects;
 namespace BussinessLogic.Entidades
 {
     [Index(nameof(RazonSocial), IsUnique = true)]
-    public class Cliente : IValidable<Cliente>
+    public class Cliente : IValidable
     {
         public int Id { get; private set; }
         public NombreCompleto Contacto { get; private set; }
         public string RazonSocial { get; private set; }
         public string Rut { get; private set; }
         public Direccion Direccion { get; private set; }
-
-
 
         public Cliente()
         {

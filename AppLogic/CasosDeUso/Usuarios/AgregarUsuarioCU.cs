@@ -4,8 +4,9 @@ using AppLogic.InterfacesCU;
 using BussinessLogic.Entidades;
 using BussinessLogic.InterfacesRepositorio;
 using AppLogic.Mappers;
+using AppLogic.InterfacesCU.Usuarios;
 
-namespace AppLogic.CasosDeUso
+namespace AppLogic.CasosDeUso.Usuarios
 {
     public class AgregarUsuarioCU : IAgregarUsuario
     {
@@ -17,8 +18,7 @@ namespace AppLogic.CasosDeUso
 
         public void AgregarUsuario(UsuarioDTO aAgregar)
         {
-            Usuario usuario = UsuarioDtoMapper.FromDto(aAgregar);
-
+            Usuario usuario = UsuarioDTOMapper.FromDto(aAgregar);
             this._repositorioUsuarios.Add(usuario);
 
         }

@@ -11,7 +11,6 @@ namespace AppLogic.CasosDeUso.Usuarios
     {
         private IRepositorioUsuarios _repositorioUsuarios;
 
-
         public FindByEmailCU(IRepositorioUsuarios _repositorioUsuarios)
         {
             this._repositorioUsuarios = _repositorioUsuarios;
@@ -19,7 +18,7 @@ namespace AppLogic.CasosDeUso.Usuarios
 
         public UsuarioDTO GetUserByEmail(string email)
         {
-            return UsuarioDtoMapper.ToDto(this._repositorioUsuarios.FindByEmail(email));
+            return UsuarioDTOMapper.ToDto(this._repositorioUsuarios.FindByEmail(email));
         }
     }
 }

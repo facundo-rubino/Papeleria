@@ -1,21 +1,39 @@
-﻿using System;
+﻿using BusinessLogic.InterfacesEntidades;
+using BussinessLogic.InterfacesRepositorio;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BussinessLogic.Entidades
 {
-    public class Pedido
+    public abstract class Pedido : IValidableConSettings
     {
 
         public int Id { get; private set; }
-        public int Recargo { get; private set; }
-        public DateTime FechaPrometida { get; private set; }
-        public int Fecha { get; private set; }
-        public Cliente Cliente { get; private set; }
-        public List<Linea> Lineas { get; private set; }
-
+        public int Recargo { get; set; }
+        public DateTime Fecha { get; set; }
+        public DateTime FechaPrometida { get; set; }
+        public double MontoTotal { get; set; }
+        [ForeignKey(nameof(Cliente))] public int ClienteId { get; set; }
+        public Cliente Cliente { get; set; }
+        public List<Linea> Lineas { get; set; }
+        public bool EsPedidoExpress { get; set; } = false;
+        public bool PedidoAnulado { get; set; } = false;
 
         public Pedido()
         {
         }
+
+        public abstract void EsValido(IRepositorioSettings settingsRepository);
+
+        public abstract void CalcularCostosExtra(IRepositorioSettings settingsRepository);
+
+        public abstract void CalcularRecargo(IRepositorioSettings settingsRepository);
+
+        public abstract void CalcularMontoTotal();
+
+        public abstract void CalcularIVA(IRepositorioSettings settingsRepository);
+
+        public abstract void ValidarFechaPrometida(IRepositorioSettings settingsRepository);
     }
 }
 

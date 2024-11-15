@@ -10,4 +10,21 @@
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="InterfacesCU\Pedidos\" />
+    <None Remove="CasosDeUso\Pedidos\" />
+    <None Remove="CasosDeUso\Clientes\" />
+    <None Remove="InterfacesCU\Clientes\" />
+    <None Remove="CasosDeUso\Movimientos\" />
+    <None Remove="InterfacesCU\Movimientos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CasosDeUso\Clientes\" />
+    <Folder Include="InterfacesCU\Clientes\" />
+    <Folder Include="CasosDeUso\Movimientos\" />
+    <Folder Include="InterfacesCU\Movimientos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+  </ItemGroup>
 </Project>

@@ -1,38 +1,75 @@
 ﻿using System;
 using BussinessLogic.Entidades;
+using BussinessLogic.Excepciones;
 using BussinessLogic.InterfacesRepositorio;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace DataAccess.EntityFramework.Repositorios
 {
     public class RepositorioArticulosEF : IRepositorioArticulos
     {
-        private PapeleriaContext context;
+        private PapeleriaContext _context;
         public RepositorioArticulosEF()
         {
-            context = new PapeleriaContext();
+            this._context = new PapeleriaContext();
         }
 
-        public bool Add(Articulo aAgregar)
+        public void Add(Articulo aAgregar)
         {
-            throw new NotImplementedException();
+            try
+            {
+                aAgregar.EsValido();
+                _context.Articulos.Add(aAgregar);
+                _context.SaveChanges();
+            }
+            catch (ArticuloNoValidoException exception)
+            {
+                throw exception;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
 
         public IEnumerable<Articulo> FindAll()
         {
-            return context.Articulos;
+            return _context.Articulos;
+        }
+
+        public IEnumerable<Articulo> FindAllPaginado(int pag, int size)
+        {
+            return _context.Articulos.OrderBy(articulo => articulo.Nombre).Skip((pag - 1) * size).Take(size).ToList();
+        }
+
+        public IEnumerable<Articulo> GetArticulosPorMovimientoFecha(DateTime fechaIni, DateTime fechaFin)
+        {
+
+            return _context.Movimientos
+                .Where(m => m.FechaHora >= fechaIni && m.FechaHora <= fechaFin)
+                .Select(m => m.Articulo)
+                .Distinct()
+                .ToList();
         }
 
         public Articulo FindByID(int id)
         {
-            throw new NotImplementedException();
+            return this._context.Articulos.Where(user => user.Id == id).FirstOrDefault();
         }
 
-        public bool Remove(int id)
+        public void Remove(int id)
         {
-            throw new NotImplementedException();
+            Articulo aBorrar = this.FindByID(id);
+            if (aBorrar != null)
+            {
+                this._context.Articulos.Remove(aBorrar);
+
+            }
         }
 
-        public bool Update(Articulo aModificar)
+        public void Update(Articulo aModificar)
         {
             throw new NotImplementedException();
         }

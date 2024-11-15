@@ -3,10 +3,11 @@ using AppLogic.HashPass;
 using AppLogic.DTOs;
 using BussinessLogic.Entidades;
 using BussinessLogic.Excepciones;
+using BusinessLogic.Entidades;
 
 namespace AppLogic.Mappers
 {
-    public class UsuarioDtoMapper
+    public class UsuarioDTOMapper
     {
         public static UsuarioDTO ToDto(Usuario usuario)
         {
@@ -17,8 +18,11 @@ namespace AppLogic.Mappers
         {
             if (dto == null) throw new UsuarioNoValidoException("El usuario no puede ser nulo");
 
-            var hashedPass = PasswordHasher.HashPassword(dto.Pass);
-            return new Usuario(dto.Nombre, dto.Apellido, dto.Email, dto.Pass, hashedPass);
+            Rol rol = RolDTOMapper.FromDto(dto.Rol);
+            Usuario usuario = new Usuario(dto.Nombre, dto.Apellido, dto.Email, dto.Pass, rol);
+            usuario.Id = dto.Id;
+            usuario.HashedPass = PasswordHasher.HashPassword(dto.Pass);
+            return usuario;
         }
     }
 }

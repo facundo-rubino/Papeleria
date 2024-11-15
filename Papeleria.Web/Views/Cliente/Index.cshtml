@@ -1,0 +1,68 @@
+﻿@using BussinessLogic.Entidades
+@model IEnumerable<Cliente>
+
+<h1>Clientes</h1>
+<div style="display: flex">
+    <div>
+        <form method="post" action="../Cliente/FilterByName">
+            <label for="name">Búsqueda por nombre</label>
+            <input type="text" name="nombre" id="name" />
+            <input type="submit" value="Buscar" />
+        </form>
+    </div>
+
+    <div style="margin-left:15px">
+        <form method="post" action="../Cliente/FilterByMonto">
+            <label for="monto">Búsqueda por monto total</label>
+            <input type="number" name="monto" id="monto" />
+            <input type="submit" value="Buscar" />
+        </form>
+    </div>
+</div>
+
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Contacto.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contacto.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RazonSocial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contacto.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contacto.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RazonSocial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
