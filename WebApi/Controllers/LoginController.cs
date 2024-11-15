@@ -38,6 +38,7 @@ namespace WebApi.Controllers
         [Route("login")]
         public ActionResult<UsuarioDTO> Login(UsuarioDTO usuario)
         {
+
             try
             {
 

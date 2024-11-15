@@ -86,7 +86,7 @@ namespace DataAccess.EntityFramework.Repositorios
             try
             {
                 // Recuperar la entidad existente del contexto usando AsNoTracking para evitar el seguimiento
-                var existingUsuario = _context.Usuarios.AsNoTracking().SingleOrDefault(u => u.Id == usuario.Id);
+                var existingUsuario = _context.Usuarios.AsNoTracking().Include(u => u.Rol).SingleOrDefault(u => u.Id == usuario.Id);
 
                 if (existingUsuario == null)
                 {
@@ -105,7 +105,7 @@ namespace DataAccess.EntityFramework.Repositorios
                 var updatedUsuario = new Usuario
                 {
                     Id = usuario.Id,
-                    HashedPass = newHashedPass
+                    HashedPass = newHashedPass,
                 };
 
                 // Adjuntar la entidad actualizada y marcar solo la propiedad HashedPass como modificada

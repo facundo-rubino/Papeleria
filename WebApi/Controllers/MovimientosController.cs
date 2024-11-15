@@ -150,8 +150,6 @@ namespace WebApi.Controllers
         }
 
 
-
-
         /// <summary>
         /// Metodo para crear un movimiento
         /// </summary>

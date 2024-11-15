@@ -12,18 +12,91 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(PapeleriaContext))]
-    [Migration("20240516133756_newDBInit")]
-    partial class newDBInit
+    [Migration("20240620043545_droppedDB")]
+    partial class droppedDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BusinessLogic.Entidades.Movimiento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cant")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmailUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TipoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloId");
+
+                    b.HasIndex("TipoId");
+
+                    b.ToTable("Movimientos");
+                });
+
+            modelBuilder.Entity("BusinessLogic.Entidades.Rol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rol");
+                });
+
+            modelBuilder.Entity("BusinessLogic.Entidades.TipoMovimiento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Signo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
+
+                    b.ToTable("TiposMovimiento");
+                });
 
             modelBuilder.Entity("BussinessLogic.Entidades.Articulo", b =>
                 {
@@ -204,10 +277,15 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RolId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("RolId");
 
                     b.ToTable("Usuarios");
                 });
@@ -224,6 +302,25 @@ namespace DataAccess.Migrations
                     b.HasBaseType("BussinessLogic.Entidades.Pedido");
 
                     b.HasDiscriminator().HasValue("PedidoExpress");
+                });
+
+            modelBuilder.Entity("BusinessLogic.Entidades.Movimiento", b =>
+                {
+                    b.HasOne("BussinessLogic.Entidades.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BusinessLogic.Entidades.TipoMovimiento", "Tipo")
+                        .WithMany()
+                        .HasForeignKey("TipoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Tipo");
                 });
 
             modelBuilder.Entity("BussinessLogic.Entidades.Cliente", b =>
@@ -312,6 +409,12 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("BussinessLogic.Entidades.Usuario", b =>
                 {
+                    b.HasOne("BusinessLogic.Entidades.Rol", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("BussinessLogic.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
                         {
                             b1.Property<int>("UsuarioId")
@@ -335,6 +438,8 @@ namespace DataAccess.Migrations
 
                     b.Navigation("NombreCompleto")
                         .IsRequired();
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("BussinessLogic.Entidades.Pedido", b =>

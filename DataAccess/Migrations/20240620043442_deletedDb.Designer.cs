@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(PapeleriaContext))]
-    [Migration("20240610131800_addedMovimientos")]
-    partial class addedMovimientos
+    [Migration("20240620043442_deletedDb")]
+    partial class deletedDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,13 +39,14 @@ namespace DataAccess.Migrations
                     b.Property<int>("Cant")
                         .HasColumnType("int");
 
+                    b.Property<string>("EmailUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("TipoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -54,9 +55,24 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("TipoId");
 
-                    b.HasIndex("UsuarioId");
-
                     b.ToTable("Movimientos");
+                });
+
+            modelBuilder.Entity("BusinessLogic.Entidades.Rol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rol");
                 });
 
             modelBuilder.Entity("BusinessLogic.Entidades.TipoMovimiento", b =>
@@ -70,6 +86,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Signo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -258,14 +277,15 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Rol")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RolId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("RolId");
 
                     b.ToTable("Usuarios");
                 });
@@ -298,17 +318,9 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BussinessLogic.Entidades.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Articulo");
 
                     b.Navigation("Tipo");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("BussinessLogic.Entidades.Cliente", b =>
@@ -397,6 +409,12 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("BussinessLogic.Entidades.Usuario", b =>
                 {
+                    b.HasOne("BusinessLogic.Entidades.Rol", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("BussinessLogic.ValueObjects.NombreCompleto", "NombreCompleto", b1 =>
                         {
                             b1.Property<int>("UsuarioId")
@@ -420,6 +438,8 @@ namespace DataAccess.Migrations
 
                     b.Navigation("NombreCompleto")
                         .IsRequired();
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("BussinessLogic.Entidades.Pedido", b =>

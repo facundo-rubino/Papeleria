@@ -100,7 +100,7 @@ namespace WebApi.Controllers
             try
             {
 
-                if (fechaIni == DateTime.MinValue && fechaFin == DateTime.MinValue) { return BadRequest("Verifique fechas"); }
+                if (fechaIni == DateTime.MinValue && fechaFin == DateTime.MinValue) { return BadRequest("Verifique fechasOb"); }
                 IEnumerable<ArticuloDTO> articulosList = _articulosPorFecha.ArticulosPorFecha(fechaIni, fechaFin);
                 if (articulosList.Count() == 0) { return NoContent(); }
                 return Ok(articulosList);

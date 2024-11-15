@@ -107,14 +107,14 @@ namespace WebApi.Controllers
         /// <summary>
         /// Metodo para borrar tipo de movimiento por un Id
         /// </summary>
-        /// <param name="tipoId">Id del tipo a borrar</param>
+        /// <param name="tipoMovimientoId">Id del tipo a borrar</param>
         /// <response code="200">Tipo de movimiento eliminado correctamente</response>
         /// <response code="400">El id no es válido</response>
         /// <response code="500">Error inesperado</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpDelete("{tipoId}")]
+        [HttpDelete("{tipoMovimientoId}")]
         public ActionResult<TipoMovimientoDTO> DeleteTipo(int tipoMovimientoId)
         {
             try

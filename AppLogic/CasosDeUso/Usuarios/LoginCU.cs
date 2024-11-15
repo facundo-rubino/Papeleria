@@ -34,7 +34,6 @@ namespace AppLogic.CasosDeUso.Usuarios
                 {
                     return PasswordHasher.VerifyPassword(userDTO.HashedPass, pass);
                 }
-
             }
             else
             {

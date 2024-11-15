@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(PapeleriaContext))]
-    [Migration("20240611215805_initialMigration")]
-    partial class initialMigration
+    [Migration("20240620043225_finalChanges")]
+    partial class finalChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,13 +39,14 @@ namespace DataAccess.Migrations
                     b.Property<int>("Cant")
                         .HasColumnType("int");
 
+                    b.Property<string>("EmailUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("TipoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -53,8 +54,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("ArticuloId");
 
                     b.HasIndex("TipoId");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Movimientos");
                 });
@@ -87,6 +86,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Signo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -316,17 +318,9 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BussinessLogic.Entidades.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Articulo");
 
                     b.Navigation("Tipo");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("BussinessLogic.Entidades.Cliente", b =>
